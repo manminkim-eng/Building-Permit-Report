@@ -1,0 +1,21 @@
+/* MANMIN WAP 공통 폰트 — MANMIN 웹앱 공통 서체 체계
+   본문 Noto Sans KR · 수치 JetBrains Mono · 브랜드 Orbitron (Google Fonts, 앱과 동일 링크)
+   로컬 폴백: 'Noto Sans KR Local' (작업지시서 11절 — 이름 분리, 스택 2순위) */
+@font-face{
+  font-family:'Noto Sans KR Local';
+  src:url('./NotoSansKR-var.woff2') format('woff2-variations'),url('./NotoSansKR-var.woff2') format('woff2');
+  font-weight:100 900;font-style:normal;font-display:swap;
+}
+:root{
+  --font-sans:'Noto Sans KR','Noto Sans KR Local','Malgun Gothic','Apple SD Gothic Neo',sans-serif;
+  --font-display:'Noto Sans KR','Noto Sans KR Local','Malgun Gothic','Apple SD Gothic Neo',sans-serif;
+  --font-serif:'KoPubWorld Batang','Noto Serif KR','Batang',serif;
+  --font-mono:'JetBrains Mono','Noto Sans KR','Noto Sans KR Local','Consolas',monospace;
+  --font-brand:'Orbitron','Noto Sans KR','Noto Sans KR Local',sans-serif;
+}
+/* v-mh1 (2026-10-26) 외부 폰트 로컬화 — 매뉴얼은 Google Fonts 링크 없이 이 파일만 읽는다 (JetBrains Mono · Orbitron: OFL 1.1, @fontsource 라틴 서브셋) */
+@font-face{font-family:'JetBrains Mono';src:local('JetBrains Mono'),url('./JetBrainsMono-latin-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:local('JetBrains Mono'),url('./JetBrainsMono-latin-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:local('JetBrains Mono'),url('./JetBrainsMono-latin-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Orbitron';src:local('Orbitron'),url('./Orbitron-latin-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Orbitron';src:local('Orbitron'),url('./Orbitron-latin-900.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}

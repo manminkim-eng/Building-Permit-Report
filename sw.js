@@ -6,6 +6,7 @@
    v6.1.0 (2026-11-11) — 첫 배포판. 편의시설 v6.1.0 sw 구조(문서 Network-first · 자기 접두어 캐시만 조회 ·
    allSettled 프리캐시 · R25 opaque 가드)를 그대로 쓰고 접두어만 'permit-' 로 바꿨다.
    설계개요 PDF 불러오기용 pdf.js 3.11.174(본체 · worker)도 미리 받아 둔다(글꼴 cMap 은 처음 쓸 때 받아 캐시).
+   v6.1.1 (2026-11-11) — 사용자 매뉴얼 연결(탭 막대 「📘 매뉴얼」 · 매뉴얼은 프리캐시 안 함) · 안내 문구를 자동 선판정과 맞춤.
    ⛔ navigate 분기를 제거하지 말 것. 제거하면 배포가 화면에 반영되지 않는다.
 ═══════════════════════════════════════════════════ */
 const PREFIX = 'permit-';
@@ -22,7 +23,7 @@ const mmMatch = (req, opt) => caches.keys()
   .then((ks) => ks.reduce((p, k) => p.then((r) => r || caches.open(k).then((c) => c.match(req, opt))), Promise.resolve(undefined)))
   .then((r) => (r && r.type === 'opaque' && req && req.mode === 'cors') ? undefined : r);
 
-const CACHE  = 'permit-v6.1.0';   /* 2026-11-11 첫 배포판 */
+const CACHE  = 'permit-v6.1.1';   /* 2026-11-11 사용자 매뉴얼 연결 */
 const ORPHAN = [];
 const ASSETS = [
   './',

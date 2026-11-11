@@ -906,7 +906,7 @@ footer.mm-foot{position:relative;z-index:1;border-top:1px solid #e4e9f0;backgrou
           <div style="font-size:11px;color:rgba(255,255,255,.7);line-height:1.65;">조서 표지(별지 제23호서식)와 첨부 「한국건축규정 체크리스트」를 세움터와 같은 줄 · 같은 선택지로 작성해 A4로 출력합니다.</div>
         </div>
         <div class="sif-step" style="border-left-color:#785a28;"><div class="sif-num">1</div><div><div class="sif-st">📝 개요 입력</div><div class="sif-sd">건축주 · 대지위치 · 지번 · 조사/검사자 · 일자와 건물개요를 넣습니다. 「📄 설계개요 PDF 불러오기」로 도면 PDF 의 개요 쪽에서 값을 읽어 올 수 있습니다(글자가 살아 있는 PDF 만 · 읽은 값은 미리보기에서 확인 후 채움). 「🏢 건물개요」 단추로 다른 도구에 저장한 값을 불러올 수 있습니다.</div></div></div>
-        <div class="sif-step" style="border-left-color:#f97316;"><div class="sif-num" style="background:linear-gradient(135deg,#f97316,#ea580c);">2</div><div><div class="sif-st" style="color:#c2410c;">☑ 체크리스트</div><div class="sif-sd">법령마다 체크항목의 선택지를 고릅니다. 세부 호(1항 1호 등)가 있는 선택지는 고르면 아래에 호 선택 칸이 나옵니다. 해당 없는 줄은 「미답 항목을 대상법규아님으로」 단추로 한 번에 채울 수 있습니다.</div></div></div>
+        <div class="sif-step" style="border-left-color:#f97316;"><div class="sif-num" style="background:linear-gradient(135deg,#f97316,#ea580c);">2</div><div><div class="sif-st" style="color:#c2410c;">☑ 체크리스트</div><div class="sif-sd">「⚡ 개요로 자동 선판정」을 누르면 개요 값(건폐율 · 용적률 · 규모 문턱 · 지역지구 글자)으로 답을 근거와 함께 제안합니다 — 체크한 것만 채우고, 이미 고른 답은 덮어쓰지 않습니다. 나머지는 법령마다 체크항목의 선택지를 고릅니다. 세부 호(1항 1호 등)가 있는 선택지는 고르면 아래에 호 선택 칸이 나옵니다. 해당 없는 줄은 「미답 항목을 대상법규아님으로」 단추로 한 번에 채울 수 있습니다.</div></div></div>
         <div class="sif-step" style="border-left-color:#7c3aed;"><div class="sif-num" style="background:linear-gradient(135deg,#7c3aed,#6d28d9);">3</div><div><div class="sif-st" style="color:#6d28d9;">📄 조서 · 체크리스트 출력</div><div class="sif-sd">「조서 · 체크리스트」 탭에서 인쇄 / PDF 저장을 누릅니다. 조서 표지 1쪽 뒤에 체크리스트가 이어집니다.</div></div></div>
         <div class="sif-step" style="border-left-color:#2563eb;margin-bottom:16px;"><div class="sif-num" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);">4</div><div><div class="sif-st" style="color:#1d4ed8;">💾 파일로 저장 · 불러오기</div><div class="sif-sd">작성 중인 내용은 「파일로 저장」으로 내 기기에 파일(.json)로 보관하고, 「파일 불러오기」로 이어서 작성합니다. 서버로 보내지 않습니다.</div></div></div>
       </div>
@@ -922,7 +922,7 @@ footer.mm-foot{position:relative;z-index:1;border-top:1px solid #e4e9f0;backgrou
         <div class="fml-card" style="border-left:3px solid #dc2626;"><div class="fml-card-ttl" style="color:#b91c1c;">⚠️ 꼭 확인</div><div class="fml-note" style="line-height:1.9;">
           · 이 도구는 조서 작성을 돕는 <strong>초안 작성 도구</strong>입니다. 최종 확인과 서명은 조사 · 검사자가 합니다.<br>
           · 세움터에 실제로 표시되는 줄 · 선택지는 용도 · 연면적 · 지역/지구/구역 · 층수에 따라 달라집니다. 제출 전 세움터 화면과 대조하십시오.<br>
-          · 이 판에는 <strong>자동 판정이 없습니다</strong>. 모든 답은 직접 고릅니다.<br>
+          · 「⚡ 자동 선판정」은 개요 값으로 답을 <strong>제안</strong>만 합니다. 체크한 것만 채우며, 최종 답은 조사 · 검사자가 확인합니다.<br>
           · 설계개요 PDF 에서 읽은 값은 <strong>미리보기에서 확인</strong>한 뒤 채우십시오. 도면 글자가 선으로 바뀐 PDF 는 읽지 못합니다.<br>
           · 건축주 이름 · 지번이 들어가므로 저장 파일은 기기에서만 보관하십시오.
         </div></div>
@@ -960,6 +960,7 @@ footer.mm-foot{position:relative;z-index:1;border-top:1px solid #e4e9f0;backgrou
     <button class="tb tab-btn" data-tab="check" onclick="switchTab('check')">☑ 체크리스트</button>
     <button class="tb tab-btn" data-tab="result" onclick="switchTab('result')">📄 조서 · 체크리스트</button>
     <button class="tb tab-btn" data-tab="reference" onclick="switchTab('reference')">⚖️ 근거</button>
+    <a class="tb tb-manual" href="https://manminkim-eng.github.io/Building-Permit-Report/manual/" target="_blank" rel="noopener" title="사용자 매뉴얼 (새 창)" onclick="if(navigator.onLine===false){event.preventDefault();mmToast('매뉴얼은 인터넷 연결 시 열립니다');}">📘 매뉴얼</a>
   </div>
 </nav>
 </div><!-- /.hdr-shell -->
@@ -1189,7 +1190,7 @@ footer.mm-foot{position:relative;z-index:1;border-top:1px solid #e4e9f0;backgrou
         <div class="ref-block-header"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>이 판의 데이터 · 한계</div>
         <div class="ref-block-body">
           <div style="margin-bottom:10px;"><div class="sif-rt">체크리스트 데이터</div><div class="sif-rd">세움터 「한국건축규정 체크리스트」 출력물 1건(서식기준 [시행 2024. 4. 19.] 국토교통부고시 제2024-206호)을 옮긴 법령 98개 · 체크항목 151개입니다. 「대상법규아님」은 세움터가 덧붙인 선택지로, 고시 원문에는 없습니다.</div></div>
-          <div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">아직 없는 것</div><div class="sif-rd">① 세움터가 용도 · 규모에 따라 걸러 낸 나머지 법령 ② 의제처리 법령(별표 2 Ⅱ) ③ 자동 판정 ④ 글자가 선으로 바뀐 PDF(도형형) 읽기 ⑤ 세움터 엑셀 올리기 연계.</div></div><div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">설계개요 PDF 불러오기</div><div class="sif-rd">글자가 살아 있는 도면 PDF 에서 개요 쪽을 찾아 사업명 · 건축주 · 대지위치 · 지번 · 지역/지구 · 면적 · 층수 · 높이 · 구조 · 주차 대수를 읽습니다. 사무소마다 서식이 달라 못 읽거나 잘못 읽을 수 있으므로 미리보기에서 꼭 확인하십시오. PDF 는 이 기기 안에서만 읽습니다.</div></div>
+          <div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">아직 없는 것</div><div class="sif-rd">① 세움터가 용도 · 규모에 따라 걸러 낸 나머지 법령 ② 의제처리 법령(별표 2 Ⅱ) ③ 글자가 선으로 바뀐 PDF(도형형) 읽기 ④ 세움터 엑셀 올리기 연계.</div></div><div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">설계개요 PDF 불러오기</div><div class="sif-rd">글자가 살아 있는 도면 PDF 에서 개요 쪽을 찾아 사업명 · 건축주 · 대지위치 · 지번 · 지역/지구 · 면적 · 층수 · 높이 · 구조 · 주차 대수를 읽습니다. 사무소마다 서식이 달라 못 읽거나 잘못 읽을 수 있으므로 미리보기에서 꼭 확인하십시오. PDF 는 이 기기 안에서만 읽습니다.</div></div>
           <div class="warn-box"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="warn-box-text">세부 호(1항 1호 등)가 어느 선택지에 딸리는지는 출력물의 칸 배치에서 옮긴 것이라, 일부 줄은 세움터 화면과 다를 수 있습니다. 제출 전 세움터 화면과 대조하십시오.</div></div>
         </div>
       </div>
