@@ -7,6 +7,7 @@
    allSettled 프리캐시 · R25 opaque 가드)를 그대로 쓰고 접두어만 'permit-' 로 바꿨다.
    설계개요 PDF 불러오기용 pdf.js 3.11.174(본체 · worker)도 미리 받아 둔다(글꼴 cMap 은 처음 쓸 때 받아 캐시).
    v6.1.1 (2026-11-11) — 사용자 매뉴얼 연결(탭 막대 「📘 매뉴얼」 · 매뉴얼은 프리캐시 안 함) · 안내 문구를 자동 선판정과 맞춤.
+   v6.1.2 (2026-11-12) — 한국건축규정 현행 국토교통부고시 제2026-360호(2026. 7. 8. 발령) 병기(안내 3곳 · A4 꼬리말 · 근거 표) · 체크리스트 데이터 변경 없음
    ⛔ navigate 분기를 제거하지 말 것. 제거하면 배포가 화면에 반영되지 않는다.
 ═══════════════════════════════════════════════════ */
 const PREFIX = 'permit-';
@@ -23,7 +24,7 @@ const mmMatch = (req, opt) => caches.keys()
   .then((ks) => ks.reduce((p, k) => p.then((r) => r || caches.open(k).then((c) => c.match(req, opt))), Promise.resolve(undefined)))
   .then((r) => (r && r.type === 'opaque' && req && req.mode === 'cors') ? undefined : r);
 
-const CACHE  = 'permit-v6.1.1';   /* 2026-11-11 사용자 매뉴얼 연결 */
+const CACHE  = 'permit-v6.1.2';   /* 2026-11-12 한국건축규정 현행 고시 제2026-360호 병기 (종전 permit-v6.1.1 — 2026-11-11 사용자 매뉴얼 연결) */
 const ORPHAN = [];
 const ASSETS = [
   './',
