@@ -1,4 +1,5 @@
 /* ═══════════════════════════════════════════════════
+   v6.1.3 (2026-11-12) — Pretendard CSS SRI(integrity · crossorigin)(정밀검토 C2) — 화면 · 계산 · 인쇄 불변 · 작업지시서 §25-6-82 · 캐시명 v6.1.3 (종전 v6.1.2)
    건축허가조사 및 검사조서  MANMIN Ver-6.1
    Service Worker — 오프라인 캐시 + 버전 업데이트
    ARCHITECT KIM MANMIN
@@ -24,7 +25,7 @@ const mmMatch = (req, opt) => caches.keys()
   .then((ks) => ks.reduce((p, k) => p.then((r) => r || caches.open(k).then((c) => c.match(req, opt))), Promise.resolve(undefined)))
   .then((r) => (r && r.type === 'opaque' && req && req.mode === 'cors') ? undefined : r);
 
-const CACHE  = 'permit-v6.1.2';   /* 2026-11-12 한국건축규정 현행 고시 제2026-360호 병기 (종전 permit-v6.1.1 — 2026-11-11 사용자 매뉴얼 연결) */
+const CACHE  = 'permit-v6.1.3';   /* 2026-11-12 한국건축규정 현행 고시 제2026-360호 병기 (종전 permit-v6.1.1 — 2026-11-11 사용자 매뉴얼 연결) */
 const ORPHAN = [];
 const ASSETS = [
   './',

@@ -1,5 +1,10 @@
 # 건축허가조사 및 검사조서 [MANMIN-Ver6.1]
 
+## v6.1.3 (2026-11-12) — CDN 판 통일 · SRI(정밀검토 C2)
+
+- Pretendard CSS SRI(integrity · crossorigin)(정밀검토 C2) — 화면 · 계산 · 인쇄 불변 · 작업지시서 §25-6-82.
+- sw 캐시명 v6.1.3 · MM-PRINT · MM-PROJECT 구간 · 사용자 매뉴얼 변경 없음.
+
 > 건축법 시행규칙 별지 제23호서식 「건축허가조사 및 검사조서」와 한국건축규정(국토교통부 고시) 별표 2 체크리스트를
 > 세움터와 같은 줄 · 같은 선택지로 작성해 A4로 출력하는 PWA
 > https://manminkim-eng.github.io/Building-Permit-Report/
