@@ -9,6 +9,7 @@
    설계개요 PDF 불러오기용 pdf.js 3.11.174(본체 · worker)도 미리 받아 둔다(글꼴 cMap 은 처음 쓸 때 받아 캐시).
    v6.1.1 (2026-11-11) — 사용자 매뉴얼 연결(탭 막대 「📘 매뉴얼」 · 매뉴얼은 프리캐시 안 함) · 안내 문구를 자동 선판정과 맞춤.
    v6.1.2 (2026-11-12) — 한국건축규정 현행 국토교통부고시 제2026-360호(2026. 7. 8. 발령) 병기(안내 3곳 · A4 꼬리말 · 근거 표) · 체크리스트 데이터 변경 없음
+   v6.1.4 (2026-11-12) — 법령 이름 국가법령정보센터 링크 · 국토계획법 제63조/제76조 세부 호 바로잡음 · 자동 선판정 v0.5(③ 묶음 기본 체크 끔 등)
    ⛔ navigate 분기를 제거하지 말 것. 제거하면 배포가 화면에 반영되지 않는다.
 ═══════════════════════════════════════════════════ */
 const PREFIX = 'permit-';
@@ -25,7 +26,7 @@ const mmMatch = (req, opt) => caches.keys()
   .then((ks) => ks.reduce((p, k) => p.then((r) => r || caches.open(k).then((c) => c.match(req, opt))), Promise.resolve(undefined)))
   .then((r) => (r && r.type === 'opaque' && req && req.mode === 'cors') ? undefined : r);
 
-const CACHE  = 'permit-v6.1.3';   /* 2026-11-12 한국건축규정 현행 고시 제2026-360호 병기 (종전 permit-v6.1.1 — 2026-11-11 사용자 매뉴얼 연결) */
+const CACHE  = 'permit-v6.1.4';   /* 2026-11-12 법령 링크 · 세부 호 바로잡음 · 자동 선판정 v0.5 (종전 permit-v6.1.3 — 2026-11-12 Pretendard CSS SRI) */
 const ORPHAN = [];
 const ASSETS = [
   './',
