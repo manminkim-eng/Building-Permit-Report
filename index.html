@@ -774,6 +774,15 @@ a.pic-law-a{text-decoration:none;cursor:pointer;}
 a.pic-law-a:hover,a.pic-law-a:focus-visible{text-decoration:underline;}
 .pic-law-go{font-size:11px;font-weight:800;color:#b45309;white-space:nowrap;}
 a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1;text-underline-offset:2px;}
+/* v6.1.5 대지위치 · 용도지역 → 시 · 군 도시계획 조례 건폐율 · 용적률 안내 칸 */
+.pic-ord{margin-top:8px;padding:9px 11px;border:1px solid #f1dfb5;background:#fbf6ea;border-radius:10px;font-size:12px;line-height:1.7;color:#3d2f14;word-break:keep-all;}
+.pic-ord a{color:#3d2f14;font-weight:800;text-decoration:underline;text-decoration-color:#d9b86c;text-underline-offset:2px;}
+.pic-ord-v{font-weight:800;}
+.pic-ord-note{display:block;color:#92400e;font-size:11.5px;}
+.pic-ord-sub{display:block;color:#64748b;font-size:11px;margin-top:2px;}
+.pic-ord-diff{display:block;color:#b91c1c;font-weight:700;}
+.pic-ord-btn{margin:4px 0 2px;padding:5px 11px;border:1px solid #b45309;border-radius:8px;background:#fff;color:#92400e;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;}
+.pic-ord-btn:hover{background:#fef3c7;}
 .pic-item{display:grid;grid-template-columns:170px 1fr;gap:10px;padding:9px 12px;border-top:1px solid #f1f4f8;border-left:3px solid #e2e8f0;}
 .pic-item:first-of-type{border-top:0;}
 .pic-item.is-done{border-left-color:#785a28;}
@@ -1076,6 +1085,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
             <div><label class="field-label" for="farLegal">법정 용적률 (%)</label><input class="fire-input" type="number" min="0" step="0.01" id="farLegal" placeholder="조례 값" oninput="recalc()"/></div>
           </div>
           <div class="pic-calc" id="pic-calc">건폐율 · 용적률은 면적을 넣으면 계산해 보여 줍니다.</div>
+          <div class="pic-ord" id="pic-ord" hidden></div>
         </div>
 
         <div class="card">
@@ -1196,6 +1206,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
         <div class="ref-block-body">
           <div style="margin-bottom:10px;"><div class="sif-rt">체크리스트 데이터</div><div class="sif-rd">세움터 「한국건축규정 체크리스트」 출력물 1건(서식기준 [시행 2024. 4. 19.] 국토교통부고시 제2024-206호)을 옮긴 법령 98개 · 체크항목 151개입니다. 「대상법규아님」은 세움터가 덧붙인 선택지로, 고시 원문에는 없습니다. 현행 한국건축규정은 국토교통부고시 제2026-360호(2026. 7. 8. 발령)이며, 체크리스트의 줄 · 선택지는 세움터 견본을 그대로 따릅니다.</div></div>
           <div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">법령 링크 · 대조 기준일</div><div class="sif-rd">체크리스트와 자동 선판정 창의 법령 이름(↗)을 누르면 국가법령정보센터의 <strong>현행 조문</strong>이 새 창으로 열립니다(인터넷 필요). 근거 표기(법령명 · 조 · 조문 제목 · 세부 항 · 호)는 <strong>2026. 11. 12. 시행본</strong> 원문과 대조했습니다. 이때 국토의 계획 및 이용에 관한 법률 제63조(심의 없이 연장: 제1항제3호~제5호) · 제76조(제5항은 제5호까지 — 「6항」 으로 바로잡음)의 세부 호와 조문 제목 5곳을 현행에 맞췄습니다. 법령이 그 뒤 개정되면 링크는 새 조문을 보여 주지만 이 도구의 줄 · 선택지는 다음 판에서 맞춥니다.</div></div>
+          <div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">조례 값 — 전북특별자치도 14개 시 · 군 (기준일 2026. 11. 12.)</div><div class="sif-rd">대지위치에 시 · 군 이름이 있고 「지역 / 지구 / 구역」 칸에 용도지역이 하나 있으면, 그 시 · 군 도시계획(군계획) 조례의 <strong>용도지역별 건폐율 · 용적률</strong>(「용도지역 안에서의 건폐율 · 용적률」 조문 제1항 각 호의 값)을 개요 탭 계산 줄 아래에 보여 주고 「조례 값 채우기」 로 법정 칸에 넣습니다. 들어 있는 조례(시행일 · 건폐율 조 · 용적률 조): 전주시(2026. 4. 13. · 제45조 · 제47조) · 군산시(2026. 11. 9. · 제55조 · 제60조) · 익산시(2025. 12. 31. · 제55조 · 제60조) · 정읍시(2026. 11. 6. · 제53조 · 제58조) · 남원시(2026. 9. 18. · 제57조 · 제62조) · 김제시(2025. 12. 16. · 제57조 · 제62조) · 완주군(2025. 12. 18. · 제47조 · 제52조) · 진안군(2026. 3. 30. · 제53조 · 제55조) · 무주군(2025. 12. 10. · 제42조 · 제47조) · 장수군(2026. 10. 1. · 제57조 · 제62조) · 임실군(2026. 2. 25. · 제44조 · 제45조) · 순창군(2026. 8. 18. · 제55조 · 제59조) · 고창군(2025. 12. 31. · 제57조 · 제62조) · 부안군(2025. 7. 18. · 제57조 · 제62조). <strong>들어 있지 않은 것</strong>: 전북 밖 지역, 지구단위계획 · 성장관리계획 · 용도지구 · 완화/강화 특례 조문, 건축 조례(조경 · 공개공지 · 대지 안의 공지) · 주차장 조례 기준. 조례가 개정되면 값이 달라질 수 있으니 ↗ 로 원문을 확인하십시오.</div></div>
           <div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">아직 없는 것</div><div class="sif-rd">① 세움터가 용도 · 규모에 따라 걸러 낸 나머지 법령 ② 의제처리 법령(별표 2 Ⅱ) ③ 글자가 선으로 바뀐 PDF(도형형) 읽기 ④ 세움터 엑셀 올리기 연계.</div></div><div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">설계개요 PDF 불러오기</div><div class="sif-rd">글자가 살아 있는 도면 PDF 에서 개요 쪽을 찾아 사업명 · 건축주 · 대지위치 · 지번 · 지역/지구 · 면적 · 층수 · 높이 · 구조 · 주차 대수를 읽습니다. 사무소마다 서식이 달라 못 읽거나 잘못 읽을 수 있으므로 미리보기에서 꼭 확인하십시오. PDF 는 이 기기 안에서만 읽습니다.</div></div>
           <div class="warn-box"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="warn-box-text">세부 호(1항 1호 등)가 어느 선택지에 딸리는지는 출력물의 칸 배치에서 옮긴 것이라, 일부 줄은 세움터 화면과 다를 수 있습니다. 제출 전 세움터 화면과 대조하십시오.</div></div>
         </div>
@@ -1211,6 +1222,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
    · 한국건축규정(국토교통부 고시) 별표 2 체크리스트
    v6.1.4 (2026-11-12) — 법령 이름에 국가법령정보센터 링크 · 대조 기준일 안내 · 국토계획법 제63조/제76조 세부 호 바로잡음 · 조문 제목 5곳 현행화 ·
      자동 선판정 v0.5(③ 묶음 기본 체크 끔 · 지하층 있으면 용적률 보류 · 구조안전 제9호 · 소방 동의 용도별 문턱 · 띄어 쓴 용도지역 읽기)
+   v6.1.5 (2026-11-12) — 조례 값 적용(전북특별자치도 14개 시 · 군 도시계획 조례의 용도지역별 건폐율 · 용적률 · 기준일 2026-11-12) · 자동 선판정 v0.6(조례 값 대조)
    체크리스트 데이터 CL: 세움터 「한국건축규정 체크리스트」 출력물 1건(서식기준 국토교통부고시 제2024-206호)에서 옮김
      — 구역 2 · 법령 98 · 체크항목 151. 「대상법규아님」은 세움터가 덧붙인 선택지.
    아직 없음: 세움터 견본에서 걸러진 법령 42개 · 의제처리 법령(다른 건의 세움터 출력물로 보강 예정).
@@ -1320,11 +1332,51 @@ function ratios(){
   const s=numOf('siteArea'),b=numOf('bldArea'),t=numOf('totalArea'),f=numOf('farArea');
   return {bcr:(s&&b!=null)?b/s*100:null, far:(s&&(f!=null||t!=null))?(f!=null?f:t)/s*100:null, farBy:f!=null?'용적률 산정용 연면적':'연면적'};
 }
+/* ── v6.1.5 조례 값 — 전북특별자치도 14개 시 · 군 도시계획(군계획) 조례의 「용도지역 안에서의 건폐율 · 용적률」 조문(제1항 각 호 본문 값).
+   기준일 2026-11-12 (korean-law 자치법규 원문 수집 · 14개 조례 링크 현행본 대조). b · f 는 ORD_ZONES 순서, null 은 그 조례에 그 지역 호가 없음.
+   단서(nb · nf)는 글자만 보여 준다. 지구단위계획 · 성장관리계획 · 완화 특례 조문은 넣지 않았다 ── */
+const ORD_ZONES=["제1종전용주거지역","제2종전용주거지역","제1종일반주거지역","제2종일반주거지역","제3종일반주거지역","준주거지역","중심상업지역","일반상업지역","근린상업지역","유통상업지역","전용공업지역","일반공업지역","준공업지역","보전녹지지역","생산녹지지역","자연녹지지역","보전관리지역","생산관리지역","계획관리지역","농림지역","자연환경보전지역"];
+const ORD={"date":"2026-11-12","area":"전북특별자치도 14개 시 · 군","L":{"전주시":{"n":"전주시 도시계획 조례","e":"2026. 4. 13.","bj":"제45조","fj":"제47조","b":[40,40,60,60,50,60,80,70,60,60,60,60,60,20,20,20,20,20,40,20,null],"f":[100,100,200,250,300,500,1100,900,700,700,300,350,400,50,100,100,50,80,100,80,null],"nb":{},"nf":{"6":"(다만, 주거복합건축물 또는 오피스텔의 경우는 700퍼센트로 한다)","7":"(다만, 주거복합건축물 또는 오피스텔의 경우는 600퍼센트로 한다)","8":"(다만, 주거복합건축물 또는 오피스텔의 경우는 500퍼센트로 한다)","9":"(다만, 오피스텔의 경우는 400퍼센트로 한다)","12":"(다만, 공동주택은 200퍼센트)","18":"(다만, 성장관리구역 내 계획관리지역에서는 125퍼센트 이하의 범위에서 성장관리계획으로 정하는 바에 따라 용적률을 완화하여 적용할 수 있다)"}},"군산시":{"n":"군산시 도시계획 조례","e":"2026. 11. 9.","bj":"제55조","fj":"제60조","b":[50,50,60,60,50,70,90,80,70,80,70,70,60,20,20,20,20,20,40,20,20],"f":[100,150,200,250,300,400,1200,1000,700,800,250,350,300,80,100,100,80,80,100,80,80],"nb":{"15":"다만, 영 제84조제9항에 따라 자연녹지지역에 설치되는 도시계획시설 중 유원지의 건폐율은 30퍼센트 이하로 한다.","18":"다만, 영 제84조제6항제4호에 따라 계획관리지역의 기존 공장ㆍ창고시설 또는 연구소(2003.1.1 전에 이미 준공된 것으로서 기존 부지에서 증축하는 경우에 한한다)로서 시 도시계획위원회의 심의를 통하여 도로ㆍ상수도ㆍ하수도 등 기반시설이 충분히 확보되었다고 인정되거나, 조례 제20조에 따른 기반시설이 충분히 확보되었다고 인정되는 경우 건축물의 건폐율은 50퍼센트 이하로 한다."},"nf":{"10":"(단, 산업단지 내 지역의 경우 300퍼센트 이하)","12":"(단, 산업단지 내 지역의 경우 400퍼센트 이하)","18":"(다만, 성장관리계획구역내에서는 125퍼센트 이하로 한다)"}},"익산시":{"n":"익산시 도시계획 조례","e":"2025. 12. 31.","bj":"제55조","fj":"제60조","b":[50,50,60,60,50,70,80,80,70,70,70,70,70,20,20,20,20,20,40,20,20],"f":[80,150,200,250,300,350,1000,800,600,700,300,350,400,80,100,100,80,80,100,80,50],"nb":{},"nf":{"18":"(다만, 성장관리계획을 수립한 지역의 경우에는 125퍼센트 이하로 한다)"}},"정읍시":{"n":"정읍시 도시계획 조례","e":"2026. 11. 6.","bj":"제53조","fj":"제58조","b":[50,50,60,60,50,70,90,80,70,80,70,70,70,20,20,20,20,20,40,20,20],"f":[100,150,200,250,300,500,1500,1300,900,1100,300,350,400,80,100,100,80,80,100,80,80],"nb":{},"nf":{}},"남원시":{"n":"남원시 도시계획 조례","e":"2026. 9. 18.","bj":"제57조","fj":"제62조","b":[50,50,60,60,50,70,90,80,70,80,70,70,70,20,20,20,20,20,40,20,20],"f":[100,150,200,250,300,500,1300,1000,700,800,300,350,400,80,100,100,80,80,100,80,80],"nb":{},"nf":{}},"김제시":{"n":"김제시 도시계획 조례","e":"2025. 12. 16.","bj":"제57조","fj":"제62조","b":[50,50,60,60,50,70,90,80,70,80,70,70,70,20,20,20,20,20,40,20,20],"f":[100,150,200,250,300,500,1500,1300,900,1100,300,350,400,80,100,100,80,80,100,80,80],"nb":{"15":"다만, 영 제84조제9항에 따라 자연녹지지역에 설치되는 도시 계획시설 중 유원지의 건폐율은 30퍼센트 이하로 하고, 공원의 건폐율은 20퍼센트 이하로 한다.","18":"다만, 영 제84조제6항제4호에 따라 계획관리지역의 기존 공장·창고시설 또는 연구소(2003년 1월 1일 전에 준공되고 기존부지에서 증축하는 경우에 한정한다)로서 시 도시계획위원회의 심의를 거쳐 도로·상수도·하수도 등 기반시설이 충분히 확보되었다고 인정되는 경우나 폭8미터이상의 도로를 확보한 경우 건축물의 건폐율은 50퍼센트 이하로 한다."},"nf":{}},"완주군":{"n":"완주군 계획 조례","e":"2025. 12. 18.","bj":"제47조","fj":"제52조","b":[50,50,60,60,50,70,90,80,70,80,70,70,70,20,20,20,20,20,40,20,20],"f":[100,150,200,250,300,500,1500,1300,900,1100,300,350,400,80,100,100,80,80,100,80,80],"nb":{},"nf":{}},"진안군":{"n":"진안군 계획 조례","e":"2026. 3. 30.","bj":"제53조","fj":"제55조","b":[50,50,60,60,50,70,90,80,70,80,70,70,70,20,20,20,20,20,40,20,20],"f":[100,150,200,250,300,500,1500,1300,900,1100,300,350,400,80,100,100,80,80,100,80,80],"nb":{},"nf":{}},"무주군":{"n":"무주군 군계획 조례","e":"2025. 12. 10.","bj":"제42조","fj":"제47조","b":[50,50,60,60,50,70,80,80,70,80,70,70,70,20,20,20,20,20,40,20,20],"f":[100,150,200,250,300,400,1000,800,700,700,300,350,400,80,100,100,80,80,100,80,80],"nb":{"15":"단서가 있습니다 — 조례 원문에서 확인하십시오.","18":"단서가 있습니다 — 조례 원문에서 확인하십시오."},"nf":{}},"장수군":{"n":"장수군 군계획 조례","e":"2026. 10. 1.","bj":"제57조","fj":"제62조","b":[50,50,60,60,50,70,90,80,70,80,70,70,70,20,20,20,20,20,40,20,20],"f":[100,150,200,250,300,500,1500,1300,900,1100,300,350,400,80,100,100,80,80,100,80,80],"nb":{},"nf":{"18":"다만, 성장관리계획을 수립한 지역의 경우 125퍼센트 이하"}},"임실군":{"n":"임실군 계획 조례","e":"2026. 2. 25.","bj":"제44조","fj":"제45조","b":[null,null,60,60,null,70,null,80,null,null,null,70,70,20,20,20,20,20,40,20,20],"f":[null,null,200,250,null,400,null,800,null,null,null,300,300,80,80,80,80,80,100,80,80],"nb":{},"nf":{"11":"(관계 법령에 따라 지정된 산업단지 및 농공단지 등의 경우 350퍼센트 이하)"}},"순창군":{"n":"순창군 계획 조례","e":"2026. 8. 18.","bj":"제55조","fj":"제59조","b":[50,50,60,60,50,70,90,80,70,80,70,70,70,20,20,20,20,20,40,20,20],"f":[100,150,200,250,300,500,1500,1300,900,1100,300,350,400,80,100,100,80,80,100,80,80],"nb":{},"nf":{"18":"(다만 법제75조의3제3항에 따라 성장관리계획구역 내 계획관리지역에서는 125퍼센트 이하)"}},"고창군":{"n":"고창군 계획 조례","e":"2025. 12. 31.","bj":"제57조","fj":"제62조","b":[50,50,60,60,50,70,90,80,70,80,70,70,70,20,20,20,20,20,40,20,20],"f":[100,150,200,250,300,500,1500,1300,900,1100,300,350,400,80,100,100,80,80,100,80,80],"nb":{"14":"다만, 성장관리계획구역으로 지정된 지역은 30퍼센트 이하로 한다.","15":"다만, 성장관리계획구역으로 지정된 지역은 30퍼센트 이하로 한다.","17":"다만, 성장관리계획구역으로 지정된 지역은 30퍼센트 이하로 한다.","18":"다만, 성장관리계획구역으로 지정된 지역은 50퍼센트 이하로 한다.","19":"다만, 성장관리계획구역으로 지정된 지역은 30퍼센트 이하로 한다."},"nf":{"18":"다만, 성장관리계획구역으로 지정된 지역은 125퍼센트 이하"}},"부안군":{"n":"부안군 군계획 조례","e":"2025. 7. 18.","bj":"제57조","fj":"제62조","b":[50,50,60,60,50,70,90,80,70,80,70,70,70,20,20,20,20,20,40,20,20],"f":[100,150,200,250,300,500,1500,1300,900,1100,300,350,400,80,100,100,80,80,100,80,80],"nb":{"18":"다만, 성장관리방안을 수립한 지역의 경우 125퍼센트 이내에서 완화하여 적용할 수 있다."},"nf":{}}}};
+function ordFind(){
+  const loc=valOf('siteLoc').replace(/\s+/g,''), zn=valOf('zoning').replace(/\s+/g,'');
+  const key=Object.keys(ORD.L).find(k=>loc.indexOf(k)>=0)||'';
+  const zs=ORD_ZONES.filter(z=>zn.indexOf(z)>=0);
+  const o=key?ORD.L[key]:null, zi=(o&&zs.length===1)?ORD_ZONES.indexOf(zs[0]):-1;
+  return {loc:loc,key:key,o:o,zs:zs,zi:zi,b:zi>=0?o.b[zi]:null,f:zi>=0?o.f[zi]:null};
+}
+function ordUrl(o){return 'https://www.law.go.kr/'+encodeURIComponent('자치법규')+'/'+encodeURIComponent(o.n);}
+function ordRender(){
+  const e=document.getElementById('pic-ord'); if(!e) return; const d=ordFind();
+  if(!d.loc){e.hidden=true;e.innerHTML='';return;}
+  e.hidden=false;
+  if(!d.o){e.innerHTML='📍 이 대지위치의 조례 값은 들어 있지 않습니다 — 지금은 '+esc(ORD.area)+'만 들어 있습니다(기준일 '+ORD.date+'). 법정 건폐율 · 용적률은 해당 시 · 군 도시계획 조례를 보고 직접 넣으십시오.';return;}
+  const head='📍 <a href="'+ordUrl(d.o)+'" target="_blank" rel="noopener" title="국가법령정보센터에서 조례 원문 열기 (새 창)">'+esc(d.o.n)+' ↗</a> (시행 '+esc(d.o.e)+')';
+  if(d.zs.length!==1){e.innerHTML=head+' — '+(d.zs.length?'용도지역이 둘 이상('+esc(d.zs.join(', '))+')이라 조례 값을 자동으로 찾지 않습니다. 걸치는 대지는 국토계획법 제84조에 따라 직접 넣으십시오.':'「지역 / 지구 / 구역」 칸에 용도지역(예: 제2종일반주거지역)을 적으면 조례 건폐율 · 용적률을 찾아 줍니다.');return;}
+  const z=d.zs[0], bl=numOf('bcrLegal'), fl=numOf('farLegal'); let h=head+' · <b>'+esc(z)+'</b><br>';
+  h+='건폐율 '+(d.b==null?'— (이 조례 '+esc(d.o.bj)+'에 이 용도지역 호가 없음)':'<span class="pic-ord-v">'+f2(d.b)+' % 이하</span> ('+esc(d.o.bj)+')')+' · 용적률 '+(d.f==null?'— (이 조례 '+esc(d.o.fj)+'에 이 용도지역 호가 없음)':'<span class="pic-ord-v">'+d.f.toLocaleString('ko-KR')+' % 이하</span> ('+esc(d.o.fj)+')');
+  if(d.o.nb[d.zi])h+='<span class="pic-ord-note">건폐율 단서: '+esc(d.o.nb[d.zi])+'</span>';
+  if(d.o.nf[d.zi])h+='<span class="pic-ord-note">용적률 단서: '+esc(d.o.nf[d.zi])+'</span>';
+  const df=[]; if(d.b!=null&&bl!=null&&Math.abs(bl-d.b)>1e-9)df.push('법정 건폐율 '+f2(bl)+' % ↔ 조례 '+f2(d.b)+' %'); if(d.f!=null&&fl!=null&&Math.abs(fl-d.f)>1e-9)df.push('법정 용적률 '+f2(fl)+' % ↔ 조례 '+d.f.toLocaleString('ko-KR')+' %');
+  if(df.length)h+='<span class="pic-ord-diff">넣은 값이 조례 값과 다릅니다: '+esc(df.join(' · '))+' — 지구단위계획 · 완화 특례 때문이 아니면 확인하십시오.</span>';
+  const same=(d.b==null||(bl!=null&&Math.abs(bl-d.b)<=1e-9))&&(d.f==null||(fl!=null&&Math.abs(fl-d.f)<=1e-9));
+  if((d.b!=null||d.f!=null)&&!same)h+='<br><button type="button" class="pic-ord-btn" onclick="ordFill()">조례 값 채우기</button>';
+  else if(d.b!=null||d.f!=null)h+='<span class="pic-ord-sub">법정 건폐율 · 용적률 칸이 조례 값과 같습니다.</span>';
+  h+='<span class="pic-ord-sub">'+ORD.date+' 기준 조례 제1항 각 호의 값입니다. 지구단위계획 · 성장관리계획 · 용도지구 · 완화/강화 특례는 반영하지 않으므로 조례 원문과 토지이용계획확인원을 확인하십시오.</span>';
+  e.innerHTML=h;
+}
+function ordFill(){
+  const d=ordFind(); if(!d.o||d.zi<0) return; const bl=numOf('bcrLegal'), fl=numOf('farLegal');
+  const ch=(d.b!=null&&bl!=null&&Math.abs(bl-d.b)>1e-9)||(d.f!=null&&fl!=null&&Math.abs(fl-d.f)>1e-9);
+  if(ch&&!confirm('이미 넣은 법정 건폐율 · 용적률을 '+d.key+' 조례 값으로 바꿉니다. 계속할까요?')) return;
+  if(d.b!=null)document.getElementById('bcrLegal').value=d.b; if(d.f!=null)document.getElementById('farLegal').value=d.f;
+  recalc(); mmToast(d.key+' 조례 값을 채웠습니다 — 단서 · 특례는 원문 확인');
+}
 function lim(r){const b=numOf('bcrLegal'),f=numOf('farLegal'),t=[];if(b&&r.bcr!=null)t.push('건폐율 '+(r.bcr<=b+1e-9?'적합':'초과')+'(법정 '+f2(b)+' %)');if(f&&r.far!=null)t.push('용적률 '+(r.far<=f+1e-9?'적합':'초과')+'(법정 '+f2(f)+' %)');return t.length?' → '+t.join(' · '):' — 법정 건폐율 · 용적률을 넣으면 대조합니다';}
 function recalc(){
   const r=ratios(), e=document.getElementById('pic-calc');
   if(e) e.textContent=(r.bcr==null&&r.far==null)?'건폐율 · 용적률은 면적을 넣으면 계산해 보여 줍니다.'
     :'건폐율 '+(r.bcr==null?'—':f2x(r.bcr,numOf('bcrLegal'))+' %')+' · 용적률 '+(r.far==null?'—':f2x(r.far,numOf('farLegal'))+' % ('+r.farBy+' 기준)')+lim(r);
+  ordRender();
 }
 
 /* ── A4 ── */
@@ -1726,7 +1778,7 @@ setTimeout(scaleA4,100);
   document.addEventListener('keydown',function(e){if(e.key==='Escape'){var ov=document.getElementById('pp-ov');if(ov&&!ov.hidden)window.ppClose();}});
 })();
 /* ══════════════════════════════════════════════════════════════
-   개요로 자동 선판정 v0.5 (2026-11-12 · 처음 v0.4 2026-11-11) — 개요 값으로 체크리스트 답을 미리 골라 미리보기에서 확인 후 채운다
+   개요로 자동 선판정 v0.6 (2026-11-12 조례 값 대조 · v0.5 같은 날 · 처음 v0.4 2026-11-11) — 개요 값으로 체크리스트 답을 미리 골라 미리보기에서 확인 후 채운다
    · 이미 답한 항목은 절대 덮어쓰지 않는다.
    · 문턱에 못 미치면 세움터 견본 관례대로 「대상법규아님」(MIN 결정 2026-11-11).
    · 묶음: ① 계산(건폐율 · 용적률 대 법정값) ② 규모 문턱 ③ 지역지구 글자(개요에 그 지역 · 지구 · 구역 글자가 없으면)
@@ -1787,15 +1839,21 @@ setTimeout(scaleA4,100);
   }
   function rules(u){
     var R=[],need={},warn=[];
+    /* v0.6 조례 값(전북 14개 시 · 군) — 넣은 법정값이 조례 값과 같으면 근거에 조례 조문을 붙이고, 더 크면 경고, 비어 있으면 값을 알려 준다 */
+    var od=ordFind(), sb='', sf='';
+    if(od.o&&od.zi>=0){
+      if(od.b!=null){ if(u.bL&&Math.abs(u.bL-od.b)<=1e-9)sb=' · 법정값 = '+od.o.n+' '+od.o.bj; else if(u.bL&&u.bL>od.b)warn.push('입력한 법정 건폐율 '+f2(u.bL)+' % 가 '+od.o.n+' '+od.o.bj+'의 '+od.zs[0]+' 값 '+f2(od.b)+' % 보다 큽니다. 완화 특례가 아니면 다시 확인하십시오.'); else if(!u.bL)miss(od.key+' 조례 건폐율 '+f2(od.b)+' %(개요 탭 「조례 값 채우기」)'); }
+      if(od.f!=null){ if(u.fL&&Math.abs(u.fL-od.f)<=1e-9)sf=' · 법정값 = '+od.o.n+' '+od.o.fj; else if(u.fL&&u.fL>od.f)warn.push('입력한 법정 용적률 '+f2(u.fL)+' % 가 '+od.o.n+' '+od.o.fj+'의 '+od.zs[0]+' 값 '+od.f.toLocaleString('ko-KR')+' % 보다 큽니다. 완화 특례가 아니면 다시 확인하십시오.'); else if(!u.fL)miss(od.key+' 조례 용적률 '+od.f.toLocaleString('ko-KR')+' %(개요 탭 「조례 값 채우기」)'); }
+    }
     function add(k,t,tier,why){R.push({k:k,t:t,tier:tier,why:why});}
     function miss(n){need[n]=1;}
     /* ① 계산 */
     var bcr=(u.site&&u.bld!=null)?u.bld/u.site*100:null, fa=u.far!=null?u.far:u.tot, far=(u.site&&fa!=null)?fa/u.site*100:null;
     /* v6.1.4 지하층 면적은 용적률 산정에서 빠진다(건축법 시행령 제119조제1항제4호). 지하층이 있는데 산정용 칸이 비면 연면적으로 잘못 「부적합」 이 나오므로 보류 */
     var farHold=(u.far==null&&u.fb!=null&&u.fb>0);
-    if(bcr!=null&&u.bL){var okb=bcr<=u.bL+1e-9,wb='건폐율 '+f2x(bcr,u.bL)+' % '+(okb?'≤':'>')+' 법정 '+f2(u.bL)+' %';add('0.1.0',okb?'적합':'부적합',1,wb+' — 건축법 제55조');add('0.9.0',okb?'적합':'부적합',1,wb+' — 국토계획법 제77조');}
+    if(bcr!=null&&u.bL){var okb=bcr<=u.bL+1e-9,wb='건폐율 '+f2x(bcr,u.bL)+' % '+(okb?'≤':'>')+' 법정 '+f2(u.bL)+' %';add('0.1.0',okb?'적합':'부적합',1,wb+' — 건축법 제55조');add('0.9.0',okb?'적합':'부적합',1,wb+' — 국토계획법 제77조'+sb);}
     else{if(bcr==null)miss('대지면적 · 건축면적');if(!u.bL)miss('법정 건폐율');}
-    if(far!=null&&u.fL&&!farHold){var okf=far<=u.fL+1e-9,wf='용적률 '+f2x(far,u.fL)+' % '+(okf?'≤':'>')+' 법정 '+f2(u.fL)+' %';add('0.2.0',okf?'적합':'부적합',1,wf+' — 건축법 제56조');add('0.10.0',okf?'적합':'부적합',1,wf+' — 국토계획법 제78조');}
+    if(far!=null&&u.fL&&!farHold){var okf=far<=u.fL+1e-9,wf='용적률 '+f2x(far,u.fL)+' % '+(okf?'≤':'>')+' 법정 '+f2(u.fL)+' %';add('0.2.0',okf?'적합':'부적합',1,wf+' — 건축법 제56조');add('0.10.0',okf?'적합':'부적합',1,wf+' — 국토계획법 제78조'+sf);}
     else{if(farHold)miss('용적률 산정용 연면적(지하층이 있어 연면적으로는 용적률 판정 보류)');if(far==null)miss('연면적');if(!u.fL)miss('법정 용적률');}
     /* ② 규모 문턱 */
     if(u.fa!=null&&u.h!=null){
@@ -1852,9 +1910,9 @@ setTimeout(scaleA4,100);
     var zn=u.zon.replace(/\s+/g,'');
     var zs=(zn.match(ZONE_RE)||[]).filter(function(v,i,a){return a.indexOf(v)===i;});
     if(zs.length===1&&CAP[zs[0]]){var cp=CAP[zs[0]];
-      if(u.bL&&u.bL>cp[0]+1e-9)warn.push('입력한 법정 건폐율 '+f2(u.bL)+' % 가 '+zs[0]+' 상한 '+cp[0]+' %(국토계획법 시행령 제84조제1항)보다 큽니다. 완화 특례(같은 조 제4항 이하)가 아니면 조례 값을 다시 확인하십시오.');
-      if(u.fL&&u.fL>cp[1]+1e-9)warn.push('입력한 법정 용적률 '+f2(u.fL)+' % 가 '+zs[0]+' 상한 '+cp[1].toLocaleString('ko-KR')+' %(국토계획법 시행령 제85조제1항)보다 큽니다. 완화 특례(같은 조 제3항 이하)가 아니면 조례 값을 다시 확인하십시오.');
-      if(!u.bL||!u.fL)miss(zs[0]+' 조례 값(시행령 상한: 건폐율 '+cp[0]+' % · 용적률 '+cp[1].toLocaleString('ko-KR')+' % 이하)');
+      if(u.bL&&u.bL>cp[0]+1e-9&&od.b==null)warn.push('입력한 법정 건폐율 '+f2(u.bL)+' % 가 '+zs[0]+' 상한 '+cp[0]+' %(국토계획법 시행령 제84조제1항)보다 큽니다. 완화 특례(같은 조 제4항 이하)가 아니면 조례 값을 다시 확인하십시오.');
+      if(u.fL&&u.fL>cp[1]+1e-9&&od.f==null)warn.push('입력한 법정 용적률 '+f2(u.fL)+' % 가 '+zs[0]+' 상한 '+cp[1].toLocaleString('ko-KR')+' %(국토계획법 시행령 제85조제1항)보다 큽니다. 완화 특례(같은 조 제3항 이하)가 아니면 조례 값을 다시 확인하십시오.');
+      if((!u.bL&&od.b==null)||(!u.fL&&od.f==null))miss(zs[0]+' 조례 값(시행령 상한: 건폐율 '+cp[0]+' % · 용적률 '+cp[1].toLocaleString('ko-KR')+' % 이하)');
     }
     if(zs.length){add('0.11.0',NA,2,'용도지역 지정됨('+zs.join(', ')+') — 국토계획법 제79조제1항');add('0.11.1',NA,2,'용도지역 세분됨('+zs.join(', ')+') — 국토계획법 제79조제2항');}
     /* ③ 지역지구 글자 */
@@ -1902,7 +1960,7 @@ setTimeout(scaleA4,100);
       +(P.rows.length?body:'<div class="pp-warn">새로 고를 답이 없습니다.</div>')
       +((P.warn||[]).length?'<div class="pp-warn">'+P.warn.map(esc).join('<br>')+'</div>':'')
       +(P.need.length?'<div class="pp-miss">개요에 넣으면 더 판정되는 칸: '+esc(P.need.join(', '))+'</div>':'')
-      +'<div class="pp-ref">자동 선판정은 개요 숫자와 글자만 봅니다. 대지위치(시 · 군 · 구)별 조례 값은 들어 있지 않아 법정 건폐율 · 용적률은 넣은 값으로만 대조하고(시행령 상한을 넘으면 경고), 토지이용계획 · 도면 내용은 확인하지 못하므로 최종 판단은 설계자가 합니다. 세부 호는 직접 고르십시오.</div>'
+      +'<div class="pp-ref">자동 선판정은 개요 숫자와 글자만 봅니다. 조례 값은 전북특별자치도 14개 시 · 군의 용도지역별 건폐율 · 용적률만 들어 있고(그 밖의 지역 · 조경 · 주차 등 다른 조례 기준은 없음), 법정 건폐율 · 용적률은 넣은 값으로 대조하며(조례 값 · 시행령 상한을 넘으면 경고), 토지이용계획 · 도면 내용은 확인하지 못하므로 최종 판단은 설계자가 합니다. 세부 호는 직접 고르십시오.</div>'
       +'</div><div class="pp-ft"><button type="button" class="pic-btn" onclick="judgeClose()">닫기</button>'+(P.rows.length?'<button type="button" class="pic-btn pp-go" onclick="judgeApply()">체크한 답 채우기</button>':'')+'</div></div>';
     ov.hidden=false; document.body.style.overflow='hidden';
     var f=ov.querySelector('.pp-go')||ov.querySelector('.pp-x'); if(f)f.focus();
