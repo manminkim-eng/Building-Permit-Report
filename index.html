@@ -783,6 +783,10 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
 .pic-ord-diff{display:block;color:#b91c1c;font-weight:700;}
 .pic-ord-btn{margin:4px 0 2px;padding:5px 11px;border:1px solid #b45309;border-radius:8px;background:#fff;color:#92400e;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;}
 .pic-ord-btn:hover{background:#fef3c7;}
+.ref-ord-wrap{overflow-x:auto;margin-top:6px;} .ref-ord{width:100%;border-collapse:collapse;font-size:11.5px;line-height:1.55;}
+.ref-ord th,.ref-ord td{border:1px solid #e4e9f0;padding:4px 6px;text-align:left;vertical-align:top;word-break:keep-all;} .ref-ord th{background:#f8fafd;font-weight:800;color:#334155;}
+.ref-ord a{color:#3d2f14;font-weight:700;text-decoration:underline;text-decoration-color:#d9b86c;text-underline-offset:2px;}
+.jd-memo{font-size:11px;color:#92400e;margin-top:1px;} .jd-opt{display:flex;align-items:center;gap:6px;font-size:12px;color:#334155;margin-right:auto;text-align:left;line-height:1.4;} #jd-ov .pp-ft .pic-btn{white-space:nowrap;flex:0 0 auto;}
 .pic-ord-dt{font-size:11.5px;color:#92400e;margin:1px 0;} .pic-ord-dt summary{cursor:pointer;font-weight:700;}
 .pic-item{display:grid;grid-template-columns:170px 1fr;gap:10px;padding:9px 12px;border-top:1px solid #f1f4f8;border-left:3px solid #e2e8f0;}
 .pic-item:first-of-type{border-top:0;}
@@ -1163,6 +1167,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
               <tr><td class="a4-th">건축구분 · 주용도</td><td class="a4-td" id="r-use">-</td><td class="a4-th" style="width:90px;">지역 / 지구</td><td class="a4-td" id="r-zoning">-</td></tr>
               <tr><td class="a4-th">대지 · 건축면적</td><td class="a4-td" id="r-areas">-</td><td class="a4-th">연면적</td><td class="a4-td" id="r-total">-</td></tr>
               <tr><td class="a4-th">건폐율 · 용적률</td><td class="a4-td" id="r-ratio">-</td><td class="a4-th">규모 · 높이</td><td class="a4-td" id="r-scale">-</td></tr>
+              <tr id="r-legal-row" hidden><td class="a4-th">법정값 근거</td><td class="a4-td" colspan="3" id="r-legal"></td></tr>
               <tr><td class="a4-th">구 조</td><td class="a4-td" id="r-structure">-</td><td class="a4-th">주 차</td><td class="a4-td" id="r-park">-</td></tr>
             </tbody>
           </table>
@@ -1208,8 +1213,9 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
         <div class="ref-block-body">
           <div style="margin-bottom:10px;"><div class="sif-rt">체크리스트 데이터</div><div class="sif-rd">세움터 「한국건축규정 체크리스트」 출력물 1건(서식기준 [시행 2024. 4. 19.] 국토교통부고시 제2024-206호)을 옮긴 법령 98개 · 체크항목 151개입니다. 「대상법규아님」은 세움터가 덧붙인 선택지로, 고시 원문에는 없습니다. 현행 한국건축규정은 국토교통부고시 제2026-360호(2026. 7. 8. 발령)이며, 체크리스트의 줄 · 선택지는 세움터 견본을 그대로 따릅니다.</div></div>
           <div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">법령 링크 · 대조 기준일</div><div class="sif-rd">체크리스트와 자동 선판정 창의 법령 이름(↗)을 누르면 국가법령정보센터의 <strong>현행 조문</strong>이 새 창으로 열립니다(인터넷 필요). 근거 표기(법령명 · 조 · 조문 제목 · 세부 항 · 호)는 <strong>2026. 11. 12. 시행본</strong> 원문과 대조했습니다. 이때 국토의 계획 및 이용에 관한 법률 제63조(심의 없이 연장: 제1항제3호~제5호) · 제76조(제5항은 제5호까지 — 「6항」 으로 바로잡음)의 세부 호와 조문 제목 5곳을 현행에 맞췄습니다. 법령이 그 뒤 개정되면 링크는 새 조문을 보여 주지만 이 도구의 줄 · 선택지는 다음 판에서 맞춥니다.</div></div>
-          <div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">조례 값 — 전북특별자치도 14개 시 · 군 (기준일 2026. 11. 12.)</div><div class="sif-rd">대지위치에 시 · 군 이름이 있고 「지역 / 지구 / 구역」 칸에 용도지역이 하나 있으면, 그 시 · 군 도시계획(군계획) 조례의 <strong>용도지역별 건폐율 · 용적률</strong>(「용도지역 안에서의 건폐율 · 용적률」 조문 제1항 각 호의 값)을 개요 탭 계산 줄 아래에 보여 주고 「조례 값 채우기」 로 법정 칸에 넣습니다. 들어 있는 조례(시행일 · 건폐율 조 · 용적률 조): 전주시(2026. 4. 13. · 제45조 · 제47조) · 군산시(2026. 11. 9. · 제55조 · 제60조) · 익산시(2025. 12. 31. · 제55조 · 제60조) · 정읍시(2026. 11. 6. · 제53조 · 제58조) · 남원시(2026. 9. 18. · 제57조 · 제62조) · 김제시(2025. 12. 16. · 제57조 · 제62조) · 완주군(2025. 12. 18. · 제47조 · 제52조) · 진안군(2026. 3. 30. · 제53조 · 제55조) · 무주군(2025. 12. 10. · 제42조 · 제47조) · 장수군(2026. 10. 1. · 제57조 · 제62조) · 임실군(2026. 2. 25. · 제44조 · 제45조) · 순창군(2026. 8. 18. · 제55조 · 제59조) · 고창군(2025. 12. 31. · 제57조 · 제62조) · 부안군(2025. 7. 18. · 제57조 · 제62조). <strong>들어 있지 않은 것</strong>: 전북 밖 지역, 지구단위계획 · 성장관리계획 · 용도지구 · 완화/강화 특례 조문. 조례가 개정되면 값이 달라질 수 있으니 ↗ 로 원문을 확인하십시오.</div></div>
-          <div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">건축 조례 값 — 전북특별자치도 14개 시 · 군 (기준일 2026. 11. 12.)</div><div class="sif-rd">대지위치에 시 · 군 이름이 있으면 그 시 · 군 「건축 조례」 의 <strong>조경 비율</strong>(연면적 구간별 · 필요 조경면적 계산) · <strong>공개공지</strong>(조례로 더한 대상 · 면적) · <strong>대지 분할 제한</strong>(최소 면적)을 개요 탭 조례 값 안내 아래에 보여 줍니다(위임: 건축법 제42조 · 시행령 제27조, 시행령 제27조의2, 건축법 제57조 · 시행령 제80조). 들어 있는 조례(시행일 · 조경 조 · 공개공지 조 · 분할 조): 전주시(2025. 12. 26. · 제32조 · 제33조 · 제39조) · 군산시(2024. 8. 1. · 제37조 · 제46조 · 제42조) · 익산시(2025. 5. 14. · 제19조 · 제37조 · 제33조) · 정읍시(2026. 7. 10. · 제24조 · 제34조 · 제30조) · 남원시(2025. 7. 18. · 제27조 · 제36조 · 제30조) · 김제시(2026. 2. 26. · 제32조 · 제33조 · 제38조) · 완주군(2025. 11. 13. · 제23조 · 제26조 · 제29조) · 진안군(2024. 5. 14. · 제34조 · 제40조 · 제38조) · 무주군(2025. 11. 5. · 제27조 · 제37조 · 제32조) · 장수군(2024. 7. 15. · 제30조 · 제31조 · 제36조) · 임실군(2024. 12. 31. · 제24조 · 제31조 · 제26조) · 순창군(2026. 8. 18. · 제30조 · 제31조 · 제35조) · 고창군(2024. 12. 16. · 제34조 · 제39조 · 제37조) · 부안군(2025. 2. 10. · 제29조 · 제30조 · 제35조). 자동 선판정은 조경 「대상」 을 ④ 묶음(기본 꺼짐)으로 제안하고, 조례가 층수로 공개공지 대상을 더한 시 · 군에서는 그 층수 이상이면 「대상법규아님」 을 제안하지 않습니다. <strong>들어 있지 않은 것</strong>: 조경 완화 · 예외의 판정(글자만 표시), 대지 안의 공지 · 일조 높이 · 맞벽 등 다른 조문, 주차장 조례 기준.</div></div>
+          <div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">조례 값 — 전북특별자치도 14개 시 · 군 (기준일 2026. 11. 12.)</div><div class="sif-rd">대지위치에 시 · 군 이름이 있고 「지역 / 지구 / 구역」 칸에 용도지역이 하나 있으면, 그 시 · 군 도시계획(군계획) 조례의 <strong>용도지역별 건폐율 · 용적률</strong>(「용도지역 안에서의 건폐율 · 용적률」 조문 제1항 각 호의 값)을 개요 탭 계산 줄 아래에 보여 주고 「조례 값 채우기」 로 법정 칸에 넣습니다. 들어 있는 조례와 조문은 아래 「조례 목록」 표에 있습니다. <strong>들어 있지 않은 것</strong>: 전북 밖 지역, 지구단위계획 · 성장관리계획 · 용도지구 · 완화/강화 특례 조문. 조례가 개정되면 값이 달라질 수 있으니 ↗ 로 원문을 확인하십시오.</div></div>
+          <div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">건축 조례 값 — 전북특별자치도 14개 시 · 군 (기준일 2026. 11. 12.)</div><div class="sif-rd">대지위치에 시 · 군 이름이 있으면 그 시 · 군 「건축 조례」 의 <strong>조경 비율</strong>(연면적 구간별 · 필요 조경면적 계산) · <strong>공개공지</strong>(조례로 더한 대상 · 면적) · <strong>대지 분할 제한</strong>(최소 면적)을 개요 탭 조례 값 안내 아래에 보여 줍니다(위임: 건축법 제42조 · 시행령 제27조, 시행령 제27조의2, 건축법 제57조 · 시행령 제80조). 들어 있는 조례와 조문은 아래 「조례 목록」 표에 있습니다. 자동 선판정은 조경 「대상」 을 ④ 묶음(기본 꺼짐)으로 제안하고, 조례가 층수로 공개공지 대상을 더한 시 · 군에서는 그 층수 이상이면 「대상법규아님」 을 제안하지 않습니다. <strong>들어 있지 않은 것</strong>: 조경 완화 · 예외의 판정(글자만 표시), 대지 안의 공지 · 일조 높이 · 맞벽 등 다른 조문, 주차장 조례 기준.</div></div>
+          <div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">조례 목록 — 전북특별자치도 14개 시 · 군 (기준일 2026. 11. 12.)</div><div class="sif-rd">조례 이름(↗)을 누르면 국가법령정보센터의 조례 원문이 새 창으로 열립니다. 근거는 「조례명 제○조」 로 적고 [ ] 안은 그 조례의 시행일입니다. 넣은 법정 건폐율 · 용적률이 조례 값과 같을 때만 조서(A4 참고 건물개요 · 비고)에 조례를 근거로 적고, 다르면 「입력값」 으로 적습니다.</div><div class="ref-ord-wrap" id="ref-ord-tbl"></div></div>
           <div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">아직 없는 것</div><div class="sif-rd">① 세움터가 용도 · 규모에 따라 걸러 낸 나머지 법령 ② 의제처리 법령(별표 2 Ⅱ) ③ 글자가 선으로 바뀐 PDF(도형형) 읽기 ④ 세움터 엑셀 올리기 연계.</div></div><div style="border-top:1px solid #eef1f6;padding-top:10px;margin-bottom:10px;"><div class="sif-rt">설계개요 PDF 불러오기</div><div class="sif-rd">글자가 살아 있는 도면 PDF 에서 개요 쪽을 찾아 사업명 · 건축주 · 대지위치 · 지번 · 지역/지구 · 면적 · 층수 · 높이 · 구조 · 주차 대수를 읽습니다. 사무소마다 서식이 달라 못 읽거나 잘못 읽을 수 있으므로 미리보기에서 꼭 확인하십시오. PDF 는 이 기기 안에서만 읽습니다.</div></div>
           <div class="warn-box"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="warn-box-text">세부 호(1항 1호 등)가 어느 선택지에 딸리는지는 출력물의 칸 배치에서 옮긴 것이라, 일부 줄은 세움터 화면과 다를 수 있습니다. 제출 전 세움터 화면과 대조하십시오.</div></div>
         </div>
@@ -1227,6 +1233,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
      자동 선판정 v0.5(③ 묶음 기본 체크 끔 · 지하층 있으면 용적률 보류 · 구조안전 제9호 · 소방 동의 용도별 문턱 · 띄어 쓴 용도지역 읽기)
    v6.1.5 (2026-11-12) — 조례 값 적용(전북특별자치도 14개 시 · 군 도시계획 조례의 용도지역별 건폐율 · 용적률 · 기준일 2026-11-12) · 자동 선판정 v0.6(조례 값 대조)
    v6.1.6 (2026-11-12) — 건축 조례 값 1단계(전북 14개 시 · 군 건축 조례의 조경 비율 · 공개공지 조례 대상 · 대지 분할 최소면적 · 기준일 2026-11-12) · 자동 선판정 v0.7(조경 「대상」 제안 · 공개공지 조례 층수 대상이면 「대상법규아님」 제안 안 함)
+   v6.1.7 (2026-11-12) — 조례 근거 표현: 선판정 근거 수치를 비고에 넣기(빈 칸만 · A4 「비 고」 인쇄) · A4 참고 건물개요에 법정값과 근거 조례(조례 값과 다르면 「입력값」) · 개요 탭 조례 안내에 위임 근거 병기 · 근거 탭 조례 목록 표 · 자동 선판정 v0.8
    체크리스트 데이터 CL: 세움터 「한국건축규정 체크리스트」 출력물 1건(서식기준 국토교통부고시 제2024-206호)에서 옮김
      — 구역 2 · 법령 98 · 체크항목 151. 「대상법규아님」은 세움터가 덧붙인 선택지.
    아직 없음: 세움터 견본에서 걸러진 법령 42개 · 의제처리 법령(다른 건의 세움터 출력물로 보강 예정).
@@ -1365,6 +1372,7 @@ function ordRender(){
   const same=(d.b==null||(bl!=null&&Math.abs(bl-d.b)<=1e-9))&&(d.f==null||(fl!=null&&Math.abs(fl-d.f)<=1e-9));
   if((d.b!=null||d.f!=null)&&!same)h+='<br><button type="button" class="pic-ord-btn" onclick="ordFill()">조례 값 채우기</button>';
   else if(d.b!=null||d.f!=null)h+='<span class="pic-ord-sub">법정 건폐율 · 용적률 칸이 조례 값과 같습니다.</span>';
+  h+='<span class="pic-ord-sub">위임 근거: 국토계획법 제77조 · 제78조 → 같은 법 시행령 제84조제1항 · 제85조제1항 → '+esc(d.o.n)+' '+esc(d.o.bj)+' · '+esc(d.o.fj)+'</span>';
   h+='<span class="pic-ord-sub">'+ORD.date+' 기준 조례 제1항 각 호의 값입니다. 지구단위계획 · 성장관리계획 · 용도지구 · 완화/강화 특례는 반영하지 않으므로 조례 원문과 토지이용계획확인원을 확인하십시오.</span>';
   e.innerHTML=h;
 }
@@ -1410,9 +1418,30 @@ function bordRender(){
   else{const c=bordZoneCat(), ks=Object.keys(o.d);
     h+='('+esc(o.dj)+') '+((c.length===1&&o.d[c[0]]!=null)?'이 대지('+(c[0]==='기타'?'그 밖의 지역':c[0]+'지역')+') <span class="pic-ord-v">'+o.d[c[0]]+' ㎡ 이상</span> · ':'')+esc(ks.map(k=>k+' '+o.d[k]).join(' · '))+' ㎡';
     if(o.dnote)h+='<span class="pic-ord-note">단서: '+esc(o.dnote)+'</span>';}
+  h+='<span class="pic-ord-sub">위임 근거: 조경 — 건축법 제42조제1항 · 시행령 제27조 / 공개공지 — 건축법 제43조 · 시행령 제27조의2 / 분할 — 건축법 제57조제1항 · 시행령 제80조</span>';
   h+='<span class="pic-ord-sub">'+BORD.date+' 기준 조례 조문의 값입니다. 조경은 녹지지역 · 공장 등 건축법 시행령 제27조제1항 예외와 제2항 기준(공장 · 물류시설, 대지 200 ~ 300 ㎡ 등)에 해당하면 달라지고, 대지 안의 공지 · 일조 · 주차장 조례 기준은 들어 있지 않습니다. 조례 원문을 확인하십시오.</span>';
   e.innerHTML=h;
 }
+/* ── v6.1.7 조례 근거 표현 — 근거 탭 조례 목록 표 · A4 참고 건물개요의 법정값 근거 줄 ── */
+function ordBasis(){
+  /* 넣은 법정 건폐율 · 용적률이 조례 값과 같으면 조례를 근거로, 다르거나 조례 값이 없으면 「입력값」 으로 적는다 */
+  const d=ordFind(), bl=numOf('bcrLegal'), fl=numOf('farLegal'), t=[]; let cite=false;
+  const one=(nm,v,ov,jo)=>{ if(v==null) return;
+    if(d.o&&ov!=null&&Math.abs(v-ov)<=1e-9){t.push(nm+' '+f2(v)+' % — '+d.o.n+' '+jo);cite=true;}
+    else if(d.o&&ov!=null)t.push(nm+' '+f2(v)+' % — 입력값('+d.o.n+' '+jo+' 값 '+f2(ov)+' % 와 다름)');
+    else t.push(nm+' '+f2(v)+' % — 입력값'); };
+  one('건폐율',bl,d.b,d.o?d.o.bj:''); one('용적률',fl,d.f,d.o?d.o.fj:'');
+  return t.length?t.join(' · ')+(cite?' (조례 기준일 '+ORD.date+')':''):'';
+}
+function refOrdRender(){
+  const e=document.getElementById('ref-ord-tbl'); if(!e) return;
+  const lk=(o)=>'<a href="'+ordUrl(o)+'" target="_blank" rel="noopener" title="국가법령정보센터에서 조례 원문 열기 (새 창)">'+esc(o.n)+' ↗</a>';
+  let h='<table class="ref-ord"><thead><tr><th>시 · 군</th><th>도시계획(군계획) 조례 — 건폐율 · 용적률</th><th>건축 조례 — 조경 · 공개공지 · 분할</th></tr></thead><tbody>';
+  Object.keys(ORD.L).forEach(k=>{const a=ORD.L[k], b=BORD.L[k];
+    h+='<tr><td>'+esc(k)+'</td><td>'+lk(a)+'<br>'+esc(a.bj)+' · '+esc(a.fj)+' [시행 '+esc(a.e)+']</td><td>'+(b?lk(b)+'<br>'+esc(b.lj||'—')+' · '+esc(b.pj||'—')+' · '+esc(b.dj||'—')+' [시행 '+esc(b.e)+']':'—')+'</td></tr>';});
+  e.innerHTML=h+'</tbody></table>';
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refOrdRender); else refOrdRender();
 function lim(r){const b=numOf('bcrLegal'),f=numOf('farLegal'),t=[];if(b&&r.bcr!=null)t.push('건폐율 '+(r.bcr<=b+1e-9?'적합':'초과')+'(법정 '+f2(b)+' %)');if(f&&r.far!=null)t.push('용적률 '+(r.far<=f+1e-9?'적합':'초과')+'(법정 '+f2(f)+' %)');return t.length?' → '+t.join(' · '):' — 법정 건폐율 · 용적률을 넣으면 대조합니다';}
 function recalc(){
   const r=ratios(), e=document.getElementById('pic-calc');
@@ -1446,7 +1475,10 @@ function renderResult(){
   const s=numOf('siteArea'),b=numOf('bldArea'),t=numOf('totalArea'),r=ratios();
   set('r-areas',(s==null&&b==null)?'':'대지 '+(s==null?'-':f2(s)+' ㎡')+' · 건축 '+(b==null?'-':f2(b)+' ㎡'));
   set('r-total',t==null?'':f2(t)+' ㎡'+(numOf('farArea')!=null?' (용적률 산정용 '+f2(numOf('farArea'))+' ㎡)':''));
-  set('r-ratio',(r.bcr==null&&r.far==null)?'':'건폐율 '+(r.bcr==null?'-':f2(r.bcr)+' %')+' · 용적률 '+(r.far==null?'-':f2(r.far)+' %'));
+  /* v6.1.7 법정값을 넣었으면 계산값 옆에 「(법정 ○ %)」, 아래 줄에 그 근거(조례 또는 입력값) */
+  const bLg=numOf('bcrLegal'), fLg=numOf('farLegal');
+  set('r-ratio',(r.bcr==null&&r.far==null)?'':'건폐율 '+(r.bcr==null?'-':f2(r.bcr)+' %'+(bLg!=null?' (법정 '+f2(bLg)+' %)':''))+' · 용적률 '+(r.far==null?'-':f2(r.far)+' %'+(fLg!=null?' (법정 '+f2(fLg)+' %)':'')));
+  {const lg=ordBasis(), lr=document.getElementById('r-legal-row'); if(lr){lr.hidden=!lg; document.getElementById('r-legal').textContent=lg;}}
   const fa=numOf('floorsAbove'),fb=numOf('floorsBelow'),hh=numOf('bldHeight');
   set('r-scale',[fb?'지하 '+fb+'층':'',fa!=null?'지상 '+fa+'층':'',hh!=null?'높이 '+f2(hh)+' m':''].filter(Boolean).join(' · '));
   set('r-structure',valOf('structure'));
@@ -1820,7 +1852,7 @@ setTimeout(scaleA4,100);
   document.addEventListener('keydown',function(e){if(e.key==='Escape'){var ov=document.getElementById('pp-ov');if(ov&&!ov.hidden)window.ppClose();}});
 })();
 /* ══════════════════════════════════════════════════════════════
-   개요로 자동 선판정 v0.7 (2026-11-12 건축 조례 조경 · 공개공지 · v0.6 조례 값 대조 · v0.5 같은 날 · 처음 v0.4 2026-11-11) — 개요 값으로 체크리스트 답을 미리 골라 미리보기에서 확인 후 채운다
+   개요로 자동 선판정 v0.8 (2026-11-12 근거 수치를 비고에 · v0.7 건축 조례 조경 · 공개공지 · v0.6 조례 값 대조 · v0.5 같은 날 · 처음 v0.4 2026-11-11) — 개요 값으로 체크리스트 답을 미리 골라 미리보기에서 확인 후 채운다
    · 이미 답한 항목은 절대 덮어쓰지 않는다.
    · 문턱에 못 미치면 세움터 견본 관례대로 「대상법규아님」(MIN 결정 2026-11-11).
    · 묶음: ① 계산(건폐율 · 용적률 대 법정값) ② 규모 문턱 ③ 지역지구 글자(개요에 그 지역 · 지구 · 구역 글자가 없으면)
@@ -1888,15 +1920,17 @@ setTimeout(scaleA4,100);
       if(od.b!=null){ if(u.bL&&Math.abs(u.bL-od.b)<=1e-9)sb=' · 법정값 = '+od.o.n+' '+od.o.bj; else if(u.bL&&u.bL>od.b)warn.push('입력한 법정 건폐율 '+f2(u.bL)+' % 가 '+od.o.n+' '+od.o.bj+'의 '+od.zs[0]+' 값 '+f2(od.b)+' % 보다 큽니다. 완화 특례가 아니면 다시 확인하십시오.'); else if(!u.bL)miss(od.key+' 조례 건폐율 '+f2(od.b)+' %(개요 탭 「조례 값 채우기」)'); }
       if(od.f!=null){ if(u.fL&&Math.abs(u.fL-od.f)<=1e-9)sf=' · 법정값 = '+od.o.n+' '+od.o.fj; else if(u.fL&&u.fL>od.f)warn.push('입력한 법정 용적률 '+f2(u.fL)+' % 가 '+od.o.n+' '+od.o.fj+'의 '+od.zs[0]+' 값 '+od.f.toLocaleString('ko-KR')+' % 보다 큽니다. 완화 특례가 아니면 다시 확인하십시오.'); else if(!u.fL)miss(od.key+' 조례 용적률 '+od.f.toLocaleString('ko-KR')+' %(개요 탭 「조례 값 채우기」)'); }
     }
-    function add(k,t,tier,why){R.push({k:k,t:t,tier:tier,why:why});}
+    /* v0.8 m = 비고에 넣을 짧은 근거 수치(실질 답에만 · 「대상법규아님」 줄에는 넣지 않는다 — A4 가 길어지지 않게) */
+    function add(k,t,tier,why,m){R.push({k:k,t:t,tier:tier,why:why,m:m||''});}
+    function ordM(v,ov,jo){return (od.o&&od.zi>=0&&ov!=null)?(Math.abs(v-ov)<=1e-9?' · '+od.o.n+' '+jo:' · 법정값은 입력값(조례 '+f2(ov)+' %)'):'';}
     function miss(n){need[n]=1;}
     /* ① 계산 */
     var bcr=(u.site&&u.bld!=null)?u.bld/u.site*100:null, fa=u.far!=null?u.far:u.tot, far=(u.site&&fa!=null)?fa/u.site*100:null;
     /* v6.1.4 지하층 면적은 용적률 산정에서 빠진다(건축법 시행령 제119조제1항제4호). 지하층이 있는데 산정용 칸이 비면 연면적으로 잘못 「부적합」 이 나오므로 보류 */
     var farHold=(u.far==null&&u.fb!=null&&u.fb>0);
-    if(bcr!=null&&u.bL){var okb=bcr<=u.bL+1e-9,wb='건폐율 '+f2x(bcr,u.bL)+' % '+(okb?'≤':'>')+' 법정 '+f2(u.bL)+' %';add('0.1.0',okb?'적합':'부적합',1,wb+' — 건축법 제55조');add('0.9.0',okb?'적합':'부적합',1,wb+' — 국토계획법 제77조'+sb);}
+    if(bcr!=null&&u.bL){var okb=bcr<=u.bL+1e-9,wb='건폐율 '+f2x(bcr,u.bL)+' % '+(okb?'≤':'>')+' 법정 '+f2(u.bL)+' %';var mb='건폐율 '+f2x(bcr,u.bL)+' % '+(okb?'≤':'>')+' '+f2(u.bL)+' %'+ordM(u.bL,od.b,od.o?od.o.bj:'');add('0.1.0',okb?'적합':'부적합',1,wb+' — 건축법 제55조',mb);add('0.9.0',okb?'적합':'부적합',1,wb+' — 국토계획법 제77조'+sb,mb);}
     else{if(bcr==null)miss('대지면적 · 건축면적');if(!u.bL)miss('법정 건폐율');}
-    if(far!=null&&u.fL&&!farHold){var okf=far<=u.fL+1e-9,wf='용적률 '+f2x(far,u.fL)+' % '+(okf?'≤':'>')+' 법정 '+f2(u.fL)+' %';add('0.2.0',okf?'적합':'부적합',1,wf+' — 건축법 제56조');add('0.10.0',okf?'적합':'부적합',1,wf+' — 국토계획법 제78조'+sf);}
+    if(far!=null&&u.fL&&!farHold){var okf=far<=u.fL+1e-9,wf='용적률 '+f2x(far,u.fL)+' % '+(okf?'≤':'>')+' 법정 '+f2(u.fL)+' %';var mf='용적률 '+f2x(far,u.fL)+' % '+(okf?'≤':'>')+' '+f2(u.fL)+' %'+ordM(u.fL,od.f,od.o?od.o.fj:'');add('0.2.0',okf?'적합':'부적합',1,wf+' — 건축법 제56조',mf);add('0.10.0',okf?'적합':'부적합',1,wf+' — 국토계획법 제78조'+sf,mf);}
     else{if(farHold)miss('용적률 산정용 연면적(지하층이 있어 연면적으로는 용적률 판정 보류)');if(far==null)miss('연면적');if(!u.fL)miss('법정 용적률');}
     /* ② 규모 문턱 */
     if(u.fa!=null&&u.h!=null){
@@ -1908,30 +1942,30 @@ setTimeout(scaleA4,100);
     } else {if(u.fa==null)miss('지상 층수');if(u.h==null)miss('최고높이');}
     if(u.fb==null)miss('지하 층수');
     if(u.fa!=null&&u.tot!=null){
-      if(u.fa>=6&&u.tot>=2000)add('1.19.0','대상',2,'지상 '+u.fa+'층 · 연면적 '+f2(u.tot)+' ㎡ — 건축법 제64조제1항'+(u.fa===6?' (6층은 시행령 제89조 직통계단 예외 확인)':''));
+      if(u.fa>=6&&u.tot>=2000)add('1.19.0','대상',2,'지상 '+u.fa+'층 · 연면적 '+f2(u.tot)+' ㎡ — 건축법 제64조제1항'+(u.fa===6?' (6층은 시행령 제89조 직통계단 예외 확인)':''),'지상 '+u.fa+'층 · 연면적 '+f2(u.tot)+' ㎡');
       else add('1.19.0',NA,2,'지상 '+u.fa+'층 · 연면적 '+f2(u.tot)+' ㎡ — 6층 이상이면서 2,000 ㎡ 이상 아님(건축법 제64조제1항)');
     }
     if(u.h!=null){
-      if(u.h>31)add('1.19.1','대상',2,'높이 '+f2(u.h)+' m > 31 m — 건축법 제64조제2항(규칙 예외 확인)');
+      if(u.h>31)add('1.19.1','대상',2,'높이 '+f2(u.h)+' m > 31 m — 건축법 제64조제2항(규칙 예외 확인)','높이 '+f2(u.h)+' m > 31 m');
       else add('1.19.1',NA,2,'높이 '+f2(u.h)+' m ≤ 31 m — 건축법 제64조제2항');
     }
     /* v0.5 조경 — 건축법 제42조제1항(면적 200 ㎡ 이상인 대지에 건축) · 시행령 제27조제1항제1 · 2 · 3 · 6 · 9호. 대수선 · 용도변경은 「건축」 이 아니라 판정하지 않는다 */
     var zq=u.zon.replace(/\s+/g,''), uq=u.use.replace(/\s+/g,''), isBuild=!/대수선|용도변경/.test(u.work);
     if(u.site!=null&&isBuild){
-      if(u.site<200)add('1.2.0','비대상',2,'대지면적 '+f2(u.site)+' ㎡ < 200 ㎡ — 건축법 제42조제1항');
+      if(u.site<200)add('1.2.0','비대상',2,'대지면적 '+f2(u.site)+' ㎡ < 200 ㎡ — 건축법 제42조제1항','대지 '+f2(u.site)+' ㎡ < 200 ㎡');
       else{var le=[];
         if(/녹지지역/.test(zq))le.push('녹지지역(제1호)');
         if(/(자연환경보전|농림|관리)지역/.test(zq)&&!/지구단위계획/.test(zq))le.push('자연환경보전 · 농림 · 관리지역(제9호 — 지구단위계획구역 제외)');
         if(/축사/.test(uq))le.push('축사(제6호)');
         if(/공장/.test(uq)&&u.site<5000)le.push('대지 5,000 ㎡ 미만 공장(제2호)');
         if(/공장/.test(uq)&&u.tot!=null&&u.tot<1500)le.push('연면적 1,500 ㎡ 미만 공장(제3호)');
-        if(le.length)add('1.2.0','예외대상',2,le.join(' · ')+' — 건축법 시행령 제27조제1항');
+        if(le.length)add('1.2.0','예외대상',2,le.join(' · ')+' — 건축법 시행령 제27조제1항','시행령 제27조제1항 — '+le.map(function(x){return x.replace(/\(.*$/,'');}).join(' · '));
         /* v0.7 예외 글자가 없고 그 시 · 군 건축 조례 값이 있으면 「대상」 을 ④ 묶음(기본 꺼짐)으로 제안 — 산업단지 공장 · 조례 예외 등은 개요로 알 수 없어 기본 체크하지 않는다 */
-        else if(bo&&bo.l&&u.tot!=null){var lp=bordLand(bo,u.tot);if(lp!=null)add('1.2.0','대상',4,'대지면적 '+f2(u.site)+' ㎡ ≥ 200 ㎡(건축법 제42조제1항) · 조경면적 대지의 '+lp+' % 이상 = '+f2(u.site*lp/100)+' ㎡ 이상('+bo.n+' '+bo.lj+') — 시행령 제27조 예외 · 조례 완화 대상이 아닌지 확인');}}
+        else if(bo&&bo.l&&u.tot!=null){var lp=bordLand(bo,u.tot);if(lp!=null)add('1.2.0','대상',4,'대지면적 '+f2(u.site)+' ㎡ ≥ 200 ㎡(건축법 제42조제1항) · 조경면적 대지의 '+lp+' % 이상 = '+f2(u.site*lp/100)+' ㎡ 이상('+bo.n+' '+bo.lj+') — 시행령 제27조 예외 · 조례 완화 대상이 아닌지 확인','조경 '+lp+' % = '+f2(u.site*lp/100)+' ㎡ 이상 · '+bo.n+' '+bo.lj);}}
     }
     /* v0.5 에너지 절약계획서 — 녹색건축법 시행령 제10조제1항(연면적 합계 500 ㎡ 이상 · 단독주택 등 제외). 500 ㎡ 이상의 대상 여부는 냉난방 설비 · 고시 예외가 있어 판정하지 않는다 */
-    if(/단독주택|다중주택|다가구|공관/.test(uq))add('1.28.0','비대상',2,'단독주택 — 녹색건축법 시행령 제10조제1항제1호');
-    else if(u.tot!=null&&u.tot<500)add('1.28.0','비대상',2,'연면적 '+f2(u.tot)+' ㎡ < 500 ㎡ — 녹색건축법 시행령 제10조제1항');
+    if(/단독주택|다중주택|다가구|공관/.test(uq))add('1.28.0','비대상',2,'단독주택 — 녹색건축법 시행령 제10조제1항제1호','단독주택');
+    else if(u.tot!=null&&u.tot<500)add('1.28.0','비대상',2,'연면적 '+f2(u.tot)+' ㎡ < 500 ㎡ — 녹색건축법 시행령 제10조제1항','연면적 '+f2(u.tot)+' ㎡ < 500 ㎡');
     /* v0.7 시행령 제27조의2제1항제2호 — 건축조례가 층수로 대상을 더한 시 · 군(예: 16층 이상)에서는 연면적이 작아도 대상일 수 있으므로 제안하지 않고 경고만 한다 */
     if(u.tot!=null&&u.tot<5000){
       if(bo&&bo.pfloor&&u.fa!=null&&u.fa>=bo.pfloor)warn.push('지상 '+u.fa+'층 — '+bo.n+' '+bo.pj+'에 '+bo.pfloor+'층 이상 건축물의 공개공지 규정이 있어 「대상법규아님」 을 제안하지 않았습니다. 대상 여부를 직접 확인하십시오.');
@@ -1942,7 +1976,7 @@ setTimeout(scaleA4,100);
     if(u.tot!=null&&u.tot>=(wood?500:200)&&!excl)why.push('연면적 '+f2(u.tot)+' ㎡');
     if(u.h!=null&&u.h>=13)why.push('높이 '+f2(u.h)+' m');
     if(/단독주택|다중주택|다가구|공관|공동주택|아파트|연립주택|다세대|기숙사/.test(u.use.replace(/\s+/g,'')))why.push('단독주택 · 공동주택(제9호 — 규모와 무관)');
-    if(why.length)add('1.22.1','대상(내진성능 확인)',2,why.join(' · ')+' — 건축법 시행령 제32조제2항');
+    if(why.length)add('1.22.1','대상(내진성능 확인)',2,why.join(' · ')+' — 건축법 시행령 제32조제2항',why.map(function(x){return x.replace(/\(.*$/,'');}).join(' · '));
     /* v6.1.4 소방시설법 시행령 제7조제1항제1호 단서(학교시설 100 · 노유자/수련시설 200 · 정신의료기관/의료재활시설 300 ㎡) · 제6호(공동주택 · 숙박시설은 규모와 무관) */
     var fu=u.use.replace(/\s+/g,''),th=400,thN='';
     if(/학교/.test(fu)){th=100;thN=' 가목 학교시설 — 학교시설사업 촉진법에 따른 건축일 때';}
@@ -1950,10 +1984,10 @@ setTimeout(scaleA4,100);
     else if(/정신의료기관|정신병원|의료재활/.test(fu)){th=300;thN=' 다 · 라목 정신의료기관 · 의료재활시설';}
     var wf2=[];if(u.tot!=null&&u.tot>=th)wf2.push('연면적 '+f2(u.tot)+' ㎡ ≥ '+th+' ㎡(제1호'+thN+')');if(u.fa!=null&&u.fa>=6)wf2.push('6층 이상(제4호)');
     if(/공동주택|아파트|기숙사|숙박시설/.test(fu))wf2.push('공동주택 · 숙박시설(제6호 — 규모와 무관)');
-    if(wf2.length)add('1.36.0','대상',2,wf2.join(' · ')+' — 소방시설법 시행령 제7조제1항(같은 조 제2항 제외 확인)');
+    if(wf2.length)add('1.36.0','대상',2,wf2.join(' · ')+' — 소방시설법 시행령 제7조제1항(같은 조 제2항 제외 확인)',wf2.map(function(x){return x.replace(/\(.*$/,'');}).join(' · '));
     if(u.pp!=null&&u.pp<50){var we='총주차대수 '+u.pp+'대 < 50대 — 친환경자동차법 시행령 제18조의5';add('1.64.0',NA,2,we);add('1.64.1',NA,2,we);}
-    if(u.pl!=null&&u.pl>0){add('1.57.0','설치대상',2,'법정 주차 '+u.pl+'대 — 주차장법 제19조');
-      if(u.pp!=null)add('1.57.1',u.pp>=u.pl?'적합':'부적합',2,'계획 '+u.pp+'대 '+(u.pp>=u.pl?'≥':'<')+' 법정 '+u.pl+'대 — 주차장법 제19조');}
+    if(u.pl!=null&&u.pl>0){add('1.57.0','설치대상',2,'법정 주차 '+u.pl+'대 — 주차장법 제19조','법정 '+u.pl+'대');
+      if(u.pp!=null)add('1.57.1',u.pp>=u.pl?'적합':'부적합',2,'계획 '+u.pp+'대 '+(u.pp>=u.pl?'≥':'<')+' 법정 '+u.pl+'대 — 주차장법 제19조','계획 '+u.pp+'대 '+(u.pp>=u.pl?'≥':'<')+' 법정 '+u.pl+'대');}
     else if(u.pl==null)miss('주차 법정 · 계획');
     /* v6.1.4 「제2종 일반주거지역」 처럼 띄어 써도 읽도록 빈칸을 뺀 글자로 찾는다 */
     var zn=u.zon.replace(/\s+/g,'');
@@ -1988,7 +2022,7 @@ setTimeout(scaleA4,100);
       var z; try{z=lawOf(x.k);}catch(e){bad.push(x.k);return;}
       var oi=z.I.o.findIndex(function(o){return o.t===x.t;}); if(oi<0){bad.push(x.k+':'+x.t);return;}
       if(answered(x.k)){done++;return;}
-      rows.push({k:x.k,oi:oi,t:x.t,tier:x.tier,why:x.why,sec:+x.k.split('.')[0],law:z.L.law,no:z.L.no,item:z.I.n});
+      rows.push({k:x.k,oi:oi,t:x.t,tier:x.tier,why:x.why,m:x.m||'',sec:+x.k.split('.')[0],law:z.L.law,no:z.L.no,item:z.I.n});
     });
     return {rows:rows,done:done,bad:bad,need:r.need,warn:r.warn||[]};
   }
@@ -2001,28 +2035,30 @@ setTimeout(scaleA4,100);
       body+='<div class="jd-tier"><label class="jd-th"><input type="checkbox" '+(t<3?'checked':'')+' onchange="judgeTier('+t+',this.checked)"> '+esc(TIER[t])+' <span class="jd-n">'+rs.length+'항목</span></label>'
         +'<table class="pp-tbl jd-tbl"><tbody>'+rs.map(function(x){var id='jd-'+x.k.replace(/\./g,'_');
           return '<tr><td><input type="checkbox" class="jd-c" data-t="'+t+'" data-k="'+x.k+'" id="'+id+'" '+(t<3?'checked':'')+'></td>'
-            +'<td><span class="jd-law">'+(x.sec?'건축물':'입지')+' '+x.no+'. '+(lawUrl(x.law)?'<a class="jd-law-a" href="'+lawUrl(x.law)+'" target="_blank" rel="noopener" title="국가법령정보센터에서 현행 조문 열기 (새 창)">'+esc(x.law)+' ↗</a>':esc(x.law))+'</span><br><label for="'+id+'"><b>'+esc(x.item)+'</b> → <span class="jd-ans">'+esc(x.t)+'</span></label><div class="jd-why">'+esc(x.why)+'</div></td></tr>';
+            +'<td><span class="jd-law">'+(x.sec?'건축물':'입지')+' '+x.no+'. '+(lawUrl(x.law)?'<a class="jd-law-a" href="'+lawUrl(x.law)+'" target="_blank" rel="noopener" title="국가법령정보센터에서 현행 조문 열기 (새 창)">'+esc(x.law)+' ↗</a>':esc(x.law))+'</span><br><label for="'+id+'"><b>'+esc(x.item)+'</b> → <span class="jd-ans">'+esc(x.t)+'</span></label><div class="jd-why">'+esc(x.why)+'</div>'+(x.m?'<div class="jd-memo">비고 → '+esc(x.m)+'</div>':'')+'</td></tr>';
         }).join('')+'</tbody></table></div>';
     });
     ov.innerHTML='<div class="pp-box"><div class="pp-hd"><div id="jd-ttl" class="pp-ttl">⚡ 개요로 자동 선판정</div><button type="button" class="pp-x" aria-label="닫기" onclick="judgeClose()">✕</button></div>'
-      +'<div class="pp-bd"><div class="pp-info">개요 값으로 고른 답 <b>'+P.rows.length+'항목</b>입니다. 근거를 보고 체크한 항목만 채웁니다. ③ 지역지구 글자 묶음은 토지이용계획확인원을, ④ 일반 묶음은 도면을 확인한 뒤 직접 체크하십시오(두 묶음은 처음에 체크가 꺼져 있습니다).'+(P.done?' 이미 답한 '+P.done+'항목은 건너뜁니다(덮어쓰지 않음).':'')+'</div>'
+      +'<div class="pp-bd"><div class="pp-info">개요 값으로 고른 답 <b>'+P.rows.length+'항목</b>입니다. 근거를 보고 체크한 항목만 채웁니다. 「비고 →」 가 붙은 항목은 근거 수치를 비고 칸에 함께 넣습니다(비어 있는 칸만). ③ 지역지구 글자 묶음은 토지이용계획확인원을, ④ 일반 묶음은 도면을 확인한 뒤 직접 체크하십시오(두 묶음은 처음에 체크가 꺼져 있습니다).'+(P.done?' 이미 답한 '+P.done+'항목은 건너뜁니다(덮어쓰지 않음).':'')+'</div>'
       +(P.rows.length?body:'<div class="pp-warn">새로 고를 답이 없습니다.</div>')
       +((P.warn||[]).length?'<div class="pp-warn">'+P.warn.map(esc).join('<br>')+'</div>':'')
       +(P.need.length?'<div class="pp-miss">개요에 넣으면 더 판정되는 칸: '+esc(P.need.join(', '))+'</div>':'')
       +'<div class="pp-ref">자동 선판정은 개요 숫자와 글자만 봅니다. 조례 값은 전북특별자치도 14개 시 · 군의 용도지역별 건폐율 · 용적률과 건축 조례의 조경 비율 · 공개공지 대상 · 분할 면적만 들어 있고(그 밖의 지역 · 대지 안의 공지 · 주차 등 다른 조례 기준은 없음), 법정 건폐율 · 용적률은 넣은 값으로 대조하며(조례 값 · 시행령 상한을 넘으면 경고), 토지이용계획 · 도면 내용은 확인하지 못하므로 최종 판단은 설계자가 합니다. 세부 호는 직접 고르십시오.</div>'
-      +'</div><div class="pp-ft"><button type="button" class="pic-btn" onclick="judgeClose()">닫기</button>'+(P.rows.length?'<button type="button" class="pic-btn pp-go" onclick="judgeApply()">체크한 답 채우기</button>':'')+'</div></div>';
+      +'</div><div class="pp-ft">'+(P.rows.some(function(x){return x.m;})?'<label class="jd-opt"><input type="checkbox" id="jd-memo" checked> 근거 수치를 비고에 넣기 (비어 있는 칸만 · A4 「비 고」 칸에 인쇄)</label>':'')+'<button type="button" class="pic-btn" onclick="judgeClose()">닫기</button>'+(P.rows.length?'<button type="button" class="pic-btn pp-go" onclick="judgeApply()">체크한 답 채우기</button>':'')+'</div></div>';
     ov.hidden=false; document.body.style.overflow='hidden';
     var f=ov.querySelector('.pp-go')||ov.querySelector('.pp-x'); if(f)f.focus();
   };
   window.judgeTier=function(t,on){document.querySelectorAll('#jd-ov .jd-c[data-t="'+t+'"]').forEach(function(c){c.checked=on;});};
   window.judgeClose=function(){var ov=document.getElementById('jd-ov');if(ov)ov.hidden=true;document.body.style.overflow='';};
   window.judgeApply=function(){
-    var P=window._jdLast||{rows:[]},n=0;
+    var P=window._jdLast||{rows:[]},n=0,nm=0,jm=document.getElementById('jd-memo'),wm=!!(jm&&jm.checked);
     document.querySelectorAll('#jd-ov .jd-c:checked').forEach(function(c){
       var x=P.rows.find(function(r){return r.k===c.dataset.k;}); if(!x||answered(x.k)) return;
       var a=ANS[x.k]||(ANS[x.k]={}); a.o=x.oi; a.s=[]; n++;
+      /* v0.8 비고가 비어 있을 때만 근거 수치를 넣는다(이미 적은 비고는 건드리지 않음) */
+      if(wm&&x.m&&!a.m){a.m=x.m.slice(0,200);nm++;}
     });
-    window.judgeClose(); syncAll(); mmToast(n+'항목을 선판정 답으로 채웠습니다');
+    window.judgeClose(); syncAll(); mmToast(n+'항목을 선판정 답으로 채웠습니다'+(nm?' · 비고 '+nm+'칸에 근거 수치':''));
   };
   document.addEventListener('keydown',function(e){if(e.key==='Escape'){var ov=document.getElementById('jd-ov');if(ov&&!ov.hidden)window.judgeClose();}});
 })();
