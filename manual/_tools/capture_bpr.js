@@ -1,11 +1,12 @@
 // 건축허가조사 및 검사조서 매뉴얼 화면 캡처 — usage: node capture_bpr.js <repoDir> <outDir> <견본PDF> <sample_answers.json>
 // 편의시설 매뉴얼과 같은 규격: 1440×900 · DSF 1.25 · _marks.json(번호 배지 % 좌표) · _example.json(예제 검증값)
 /* 예제 A(가상 사업 「만민 연구동 신축공사」) — 면적 · 층수 · 체크리스트 답은 세움터 견본(특장차 연구동) 출력물 그대로, 사업명 · 건축주 · 위치만 가상
-   ① 설계개요 PDF(가상 견본) 불러오기 → ② 종합의견 입력 → ③ 자동 선판정(①~③ 묶음) → ④ 나머지 답은 세움터 견본 답으로 채움 → 조서 출력 */
+   ① 설계개요 PDF(가상 견본) 불러오기 → ② 종합의견 입력 → ③ 자동 선판정(① · ② 묶음은 기본 체크, ③ 묶음은 토지이용계획을 확인했다고 보고 켬) → ④ 나머지 답은 세움터 견본 답으로 채움 → 조서 출력
+   v6.1.5(2026-11-12): 조례 값 그림 s27_ord 추가 · 법령 링크 표시점 · ③ 묶음 기본 꺼짐 반영 · 선판정 답과 세움터 견본 답 대조(judgeCmp) 기록 */
 const {chromium}=require(process.env.MM_PW||'playwright');const fs=require('fs');const path=require('path');const {setup,server}=require('./serve');
 const repo=path.resolve(process.argv[2]),out=path.resolve(process.argv[3]),PDF=path.resolve(process.argv[4]),ANSW=JSON.parse(fs.readFileSync(process.argv[5],'utf8'));fs.mkdirSync(out,{recursive:true});
 const VW=1440,VH=900,DSF=1.25,PORT=8896;
-const FREEZE=`(()=>{const T=new Date(2026,10,11,10,0,0).getTime();const D=Date;class F extends D{constructor(...a){if(a.length)super(...a);else super(T);}static now(){return T;}}window.Date=F;window.alert=()=>{};window.confirm=()=>true;try{localStorage.clear()}catch(e){}})()`;
+const FREEZE=`(()=>{const T=new Date(2026,10,12,10,0,0).getTime();const D=Date;class F extends D{constructor(...a){if(a.length)super(...a);else super(T);}static now(){return T;}}window.Date=F;window.alert=()=>{};window.confirm=()=>true;try{localStorage.clear()}catch(e){}})()`;
 const HELP=`window.__vis=e=>e&&e.getClientRects().length>0;
 window.__set=(id,v)=>{const e=document.getElementById(id);e.value=String(v);e.dispatchEvent(new Event(e.tagName==='SELECT'?'change':'input',{bubbles:true}));};
 window.__card=(t)=>{const h=[...document.querySelectorAll('.card-title')].find(e=>__vis(e)&&e.textContent.trim().startsWith(t));return h?h.closest('.card'):null;};
@@ -32,12 +33,13 @@ const SHOTS=[
  {id:'s03_filebar',tab:'input',clip:'.pic-filebar',m:[['.pic-btn-pdf','설계개요 PDF 불러오기'],['.pic-filebar .pic-btn:nth-of-type(2)','파일로 저장'],['.pic-filebar .pic-btn:nth-of-type(3)','파일 불러오기'],['.pic-filebar .pic-btn-warn','전체 초기화']]},
  {id:'s05_cover',tab:'input',clip:'card:조서 표지',m:[['#projectName','사업명'],['#client','건축주'],['#lotNo','지번'],['#siteLoc','대지위치'],['#designDate','설계일자'],['#reportDate','조사 / 검사일자']]},
  {id:'s06_inspector',tab:'input',clip:'card:조사 / 검사자',m:[['#author','성명'],['#licNo','면허번호'],['#memNo','협회 회원번호'],['#regNo','등록번호'],['#firm','사무소명']]},
- {id:'s07_bldinfo',tab:'input',clip:'card:건물개요',m:[['#workType','건축구분'],['#zoning','지역 / 지구 / 구역'],['#siteArea','면적'],['#floorsAbove','층수'],['#bldHeight','최고높이 · 구조'],['#parkLegal','주차'],['#bcrLegal','법정 건폐율 · 용적률'],['#pic-calc','계산 · 대조']]},
+ {id:'s07_bldinfo',tab:'input',clip:'card:건물개요',m:[['#workType','건축구분'],['#zoning','지역 / 지구 / 구역'],['#siteArea','면적'],['#floorsAbove','층수'],['#bldHeight','최고높이 · 구조'],['#parkLegal','주차'],['#bcrLegal','법정 건폐율 · 용적률'],['#pic-calc','계산 · 대조'],['#pic-ord','조례 값 안내']]},
+ {id:'s27_ord',tab:'input',pre:"window.__sv=['siteLoc','bcrLegal','farLegal'].map(i=>document.getElementById(i).value);__set('siteLoc','전북특별자치도 익산시 (예시)');__set('bcrLegal','');__set('farLegal','');recalc()",clip:'#pic-calc',union:'#pic-ord',m:[['#pic-calc','계산 줄'],['#pic-ord','조례 값 상자'],['#pic-ord .pic-ord-btn','조례 값 채우기']],post:"['siteLoc','bcrLegal','farLegal'].forEach((i,j)=>__set(i,window.__sv[j]));recalc()"},
  {id:'s08_opinion',tab:'input',clip:'card:종합의견',m:[['#opinion','종합의견'],['#etcNote','그 밖의 사항']]},
  {id:'s09_check_top',tab:'check',clip:'viewport',m:[['#pic-prog','진행 표시'],['#pic-filter','보기'],['#pic-q','찾기'],['.pic-toolbar .pic-btn-pdf','자동 선판정'],['.pic-toolbar .pic-btn:nth-of-type(2)','미답 → 대상법규아님'],['.pic-toolbar .pic-btn-warn','답 모두 지우기'],['.pic-sec-h','입지 관련 법령']]},
  {id:'s10_judge',tab:null,pre:"judgeOpen();document.querySelector('#jd-ov .pp-bd').scrollTop=0",wait:700,fixed:true,clip:'#jd-ov .pp-box',m:[['#jd-ov .pp-info','안내 · 항목 수'],['jdtier:0','① 계산'],['jdtier:1','② 규모 문턱']]},
- {id:'s11_judge_tail',tab:null,pre:"const b=document.querySelector('#jd-ov .pp-bd');b.scrollTop=b.scrollHeight",wait:600,fixed:true,clip:'#jd-ov .pp-box',m:[['jdlastrow','④ 일반 — 기본 체크 꺼짐'],['#jd-ov .pp-miss,#jd-ov .pp-ref','더 넣을 칸 · 한계'],['#jd-ov .pp-go','체크한 답 채우기']],post:"judgeApply()"},
- {id:'s12_law_done',tab:'check',pre:"window.scrollTo(0,0)",clip:'LAW:0.1.0',m:[['item:0.1.0','선판정으로 고른 답'],['#mm-g0_1_0','비고']]},
+ {id:'s11_judge_tail',tab:null,pre:"const b=document.querySelector('#jd-ov .pp-bd');b.scrollTop=b.scrollHeight",wait:600,fixed:true,clip:'#jd-ov .pp-box',m:[['jdlastrow','③ · ④ 묶음 — 기본 체크 꺼짐'],['#jd-ov .pp-miss,#jd-ov .pp-ref','더 넣을 칸 · 한계'],['#jd-ov .pp-go','체크한 답 채우기']],post:"judgeTier(3,true);judgeApply()"},
+ {id:'s12_law_done',tab:'check',pre:"window.scrollTo(0,0)",clip:'LAW:0.1.0',m:[['item:0.1.0','선판정으로 고른 답'],['#mm-g0_1_0','비고'],['LAWA','법령 이름 링크']]},
  {id:'s13_subs',tab:'check',pre:"__answers(window.__ANSW)",clip:'SUBLAW',m:[['SUBITEM','선택지'],['SUBS','세부 호']]},
  {id:'s14_sumbar',tab:'check',clip:'.sum-bar-wrap',m:[['#sb-site','입지'],['#sb-bld','건축물'],['#sb-all','전체'],['#sb-real','실질 답'],['#sb-none','미답']]},
  {id:'s15_result',tab:'result',clip:'viewport',m:[['.mm-btn-print','인쇄 / PDF 저장'],['.mm-btn-jpg','JPG 저장'],['label.bff-figopt:nth-of-type(1)','세부 호 모두 인쇄'],['label.bff-figopt:nth-of-type(2)','대상법규아님 빼고 인쇄'],['#a4Page','A4 조서']]},
@@ -63,7 +65,7 @@ const SHOTS=[
  const shot=async(S)=>{
   const info=await pg.evaluate(({S,VW,VH})=>{
    const abs=e=>{const r=e.getBoundingClientRect();return {x:r.left+scrollX,y:r.top+scrollY,w:r.width,h:r.height};};
-   const res=x=>{if(x==='LAW:0.1.0')return __lawOf('0.1.0');if(x==='SUBLAW')return __lawOf(window.__SUBK);if(x==='SUBITEM')return __find('item:'+window.__SUBK)&&__find('item:'+window.__SUBK).querySelector('.pic-opts');if(x==='SUBS')return __find('subs:'+window.__SUBK);
+   const res=x=>{if(x==='LAW:0.1.0')return __lawOf('0.1.0');if(x==='LAWA'){const l=__lawOf('0.1.0');return l?l.querySelector('a.pic-law-a'):null;}if(x==='SUBLAW')return __lawOf(window.__SUBK);if(x==='SUBITEM')return __find('item:'+window.__SUBK)&&__find('item:'+window.__SUBK).querySelector('.pic-opts');if(x==='SUBS')return __find('subs:'+window.__SUBK);
      if(x.endsWith(' thead')){const t=__find(x.slice(0,-6));return t?t.querySelector('thead'):null;}return __find(x);};
    let clip;
    if(S.clip==='viewport'){clip={x:0,y:scrollY,width:VW,height:VH};}
@@ -99,9 +101,15 @@ const SHOTS=[
  /* ③ 사용자가 직접 넣는 칸 */
  await pg.evaluate(()=>{__set('designDate','2026-10-30');__set('opinion','관계 법령에 적합하게 설계되었음.');recalc();});
  ex.calc=await pg.evaluate(()=>document.getElementById('pic-calc').textContent);
- for(const id of ['s01_overview','s03_filebar','s05_cover','s06_inspector','s07_bldinfo','s08_opinion','s09_check_top'])await run(SHOTS.find(x=>x.id===id));
+  ex.ordNone=await pg.evaluate(()=>document.getElementById('pic-ord').innerText);
+ for(const id of ['s01_overview','s03_filebar','s05_cover','s06_inspector','s07_bldinfo'])await run(SHOTS.find(x=>x.id===id));
+ {const S=SHOTS.find(x=>x.id==='s27_ord');await pg.evaluate(S.pre);await pg.waitForTimeout(500);ex.ordBox=await pg.evaluate(()=>document.getElementById('pic-ord').innerText);const p2=S.pre,q2=S.post;S.pre=null;S.post=null;await run(S);S.pre=p2;S.post=q2;await pg.evaluate(S.post);await pg.waitForTimeout(400);}
+ ex.calc2=await pg.evaluate(()=>document.getElementById('pic-calc').textContent);
+ for(const id of ['s08_opinion','s09_check_top'])await run(SHOTS.find(x=>x.id===id));
  /* ④ 자동 선판정 */
- const pre=await pg.evaluate(()=>{judgeOpen();const P=window._jdLast;judgeClose();return {n:P.rows.length,tiers:[1,2,3,4].map(t=>P.rows.filter(r=>r.tier===t).length),need:P.need};});ex.judge=pre;
+ const pre=await pg.evaluate(()=>{judgeOpen();const P=window._jdLast;judgeClose();return {n:P.rows.length,tiers:[1,2,3,4].map(t=>P.rows.filter(r=>r.tier===t).length),need:P.need,warn:P.warn||[],rows:P.rows.map(r=>({k:r.k,t:r.t,tier:r.tier}))};});
+ {const nz=v=>String(v||'').replace(/\s+/g,'');const c={same:0,diff:[],blank:[]};pre.rows.forEach(r=>{if(!(r.k in ANSW))c.blank.push(r.k+':'+r.t+'(묶음 '+r.tier+')');else if(nz(ANSW[r.k])===nz(r.t))c.same++;else c.diff.push(r.k+':'+r.t+' ↔ 견본 '+ANSW[r.k]+'(묶음 '+r.tier+')');});ex.judgeCmp=c;delete pre.rows;}
+ ex.judge=pre;
  await run(SHOTS.find(x=>x.id==='s10_judge'));await run(SHOTS.find(x=>x.id==='s11_judge_tail'));
  ex.afterJudge=await pg.evaluate(()=>document.getElementById('pic-prog').textContent);
  await run(SHOTS.find(x=>x.id==='s12_law_done'));
@@ -134,10 +142,10 @@ const SHOTS=[
  await mp.screenshot({path:path.join(out,'s25_mobile_check.png')});meta['s25_mobile_check']={w:390,h:844,marks:[]};
  await mp.evaluate(()=>{switchTab('result');window.scrollTo(0,0);});await mp.waitForTimeout(900);
  await mp.screenshot({path:path.join(out,'s26_mobile_a4.png')});meta['s26_mobile_a4']={w:390,h:844,marks:[]};
- const order=['s01_overview','s02_tabs','s03_filebar','s04_pdf_preview','s05_cover','s06_inspector','s07_bldinfo','s08_opinion','s09_check_top','s10_judge','s11_judge_tail','s12_law_done','s13_subs','s14_sumbar','s15_result','s16_a4_cover','s17_a4_cl','s18_a4_sign','s19_onlyreal','s20_reference','s21_help_howto','s22_help_method','s23_help_caution','s24_mobile_main','s25_mobile_check','s26_mobile_a4'];
+ const order=['s01_overview','s02_tabs','s03_filebar','s04_pdf_preview','s05_cover','s06_inspector','s07_bldinfo','s08_opinion','s09_check_top','s10_judge','s11_judge_tail','s12_law_done','s13_subs','s14_sumbar','s15_result','s16_a4_cover','s17_a4_cl','s18_a4_sign','s19_onlyreal','s20_reference','s21_help_howto','s22_help_method','s23_help_caution','s24_mobile_main','s25_mobile_check','s26_mobile_a4','s27_ord'];
  const M2={};order.forEach(k=>{if(meta[k])M2[k]=meta[k];});
  fs.writeFileSync(path.join(out,'_marks.json'),JSON.stringify(M2,null,1));fs.writeFileSync(path.join(out,'_example.json'),JSON.stringify(ex,null,1));
  const miss=[];Object.entries(M2).forEach(([k,v])=>v.marks.forEach(m=>{if(m.miss)miss.push(k+':'+m.miss);else if(m.x<0||m.y<0||m.x+m.w>100.5||m.y+m.h>100.5)miss.push(k+':OUT '+m.label+' '+m.x+','+m.y+','+m.w+','+m.h);}));
- console.log(JSON.stringify({pdf:ex.pdf,judge:ex.judge,after:ex.afterJudge,full:ex.full,sub:ex.subItem,pages:[ex.pagesAll,ex.pagesSel],sizes:Object.fromEntries(Object.entries(M2).map(([k,v])=>[k,v.w+'x'+v.h])),miss,errs:errs.slice(0,15)},null,1));
+ console.log(JSON.stringify({pdf:ex.pdf,judge:ex.judge,cmp:ex.judgeCmp,ordNone:ex.ordNone,ordBox:ex.ordBox,calc:ex.calc,calc2:ex.calc2,after:ex.afterJudge,full:ex.full,sub:ex.subItem,pages:[ex.pagesAll,ex.pagesSel],sizes:Object.fromEntries(Object.entries(M2).map(([k,v])=>[k,v.w+'x'+v.h])),miss,errs:errs.slice(0,15)},null,1));
  await b.close();s.close();
 })();
