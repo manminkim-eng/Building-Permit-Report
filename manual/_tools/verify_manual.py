@@ -18,7 +18,7 @@ chk('범례 수 = 표시점 수', not bad, str(bad))
 need = [ex['calc'], ex['afterJudge'], ex['full']['prog'], ex['onlyReal'], ex['subItem']['law'], ex['pdf']['val']['projectName']]
 miss = [n for n in need if n not in h]
 chk('예제 수치가 본문에 있음', not miss, str(miss))
-chk('예제 선판정', ex['judge']['n'] == 140 and ex['judge']['tiers'] == [4, 59, 44, 33] and f"{sum(ex['judge']['tiers'][:3])}항목" in h)
+chk('예제 선판정', ex['judge']['n'] == 140 and ex['judge']['tiers'] == [4, 59, 45, 32] and f"{sum(ex['judge']['tiers'][:3])}항목" in h)
 chk('예제 출력 쪽수', ex['pagesAll'] == 10 and ex['pagesSel'] == 3 and ex['full']['none'] == '0칸')
 ids = set(re.findall(r'id="([^"]+)"', h)); links = set(re.findall(r'href="#([^"]+)"', h))
 chk('내부 링크', links <= ids, str(sorted(links - ids)[:5]))
@@ -31,7 +31,7 @@ chk('SW — 매뉴얼 프리캐시 안 함', "'./manual" not in sw and '"./manua
 import json as _j
 _m=re.search(r'const ORD=(\{.*?\});\s*\n', app, re.S); _o=_j.loads(_m.group(1)) if _m else {'L':{}}
 chk('조례 51곳 — 시 · 군 이름이 본문에 있음', len(_o['L'])==51 and all(k in h for k in _o['L']))
-chk('v6.1.16 본문', '(v6.1.16)' in h and 'v6.1.16 (2026-11-13)' in h and 'v6.1.13 (2026-11-13)' in h and '102법령 · 159항목' in h and '건축주 구분' in h and 'v6.1.12 (2026-11-13)' in h and '2024. 5. 17. 시행' in h and 'id="s4-5">4-5. 조례 값' in h and 'id="fig-s27_ord"' in h and 'id="fig-s28_pg"' in h and 'v6.1.10 (2026-11-13)' in h and '근거 수치를 비고에' in h and f"{sum(ex['judge']['tiers'][:2])}항목" in h and '기본 꺼짐 — 토지이용계획확인원 확인 후 체크' in h)
+chk('v6.1.17 본문', '(v6.1.17)' in h and 'v6.1.17 (2026-11-13)' in h and '세부 호 자동 선택' in h and '토지 형질변경' in h and 'v6.1.16 (2026-11-13)' in h and 'v6.1.13 (2026-11-13)' in h and '102법령 · 159항목' in h and '건축주 구분' in h and 'v6.1.12 (2026-11-13)' in h and '2024. 5. 17. 시행' in h and 'id="s4-5">4-5. 조례 값' in h and 'id="fig-s27_ord"' in h and 'id="fig-s28_pg"' in h and 'v6.1.10 (2026-11-13)' in h and '근거 수치를 비고에' in h and f"{sum(ex['judge']['tiers'][:2])}항목" in h and '기본 꺼짐 — 토지이용계획확인원 확인 후 체크' in h)
 chk('선판정 답 = 세움터 견본(①~③ 묶음 — ④는 기본 꺼짐)', [d for d in ex['judgeCmp']['diff'] if not d.endswith('(묶음 4)')]==[] and ex['judgeCmp']['same']+len(ex['judgeCmp']['blank'])+len(ex['judgeCmp']['diff'])==ex['judge']['n'])
 chk('PDF 있음', os.path.exists(os.path.join(M, 'BPR_사용자매뉴얼_Ver-6.1.pdf')))
 sys.exit(0 if ok else 1)
