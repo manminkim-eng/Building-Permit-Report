@@ -2,6 +2,7 @@
 // 편의시설 매뉴얼과 같은 규격: 1440×900 · DSF 1.25 · _marks.json(번호 배지 % 좌표) · _example.json(예제 검증값)
 /* 예제 A(가상 사업 「만민 연구동 신축공사」) — 면적 · 층수 · 체크리스트 답은 세움터 견본(특장차 연구동) 출력물 그대로, 사업명 · 건축주 · 위치만 가상
    ① 설계개요 PDF(가상 견본) 불러오기 → ② 종합의견 입력 → ③ 자동 선판정(① · ② 묶음은 기본 체크, ③ 묶음은 토지이용계획을 확인했다고 보고 켬) → ④ 나머지 답은 세움터 견본 답으로 채움 → 조서 출력
+   v6.1.15(2026-11-13): 개요 그림에 지목 · 건축주 구분 표시점 · 예제 건축주 구분 「민간」(견본 답 기준) · 세부 호 예제 법령을 고정 키(lkOf)로 찾음
    v6.1.10(2026-11-13): 건축 조례 · 주차장 · 대지 안의 공지 안내 그림 s28_pg 추가(서산시 · 제2종일반주거지역 · 공장 — 설명용)
    v6.1.5(2026-11-12): 조례 값 그림 s27_ord 추가 · 법령 링크 표시점 · ③ 묶음 기본 꺼짐 반영 · 선판정 답과 세움터 견본 답 대조(judgeCmp) 기록 */
 const {chromium}=require(process.env.MM_PW||'playwright');const fs=require('fs');const path=require('path');const {setup,server}=require('./serve');
@@ -34,7 +35,7 @@ const SHOTS=[
  {id:'s03_filebar',tab:'input',clip:'.pic-filebar',m:[['.pic-btn-pdf','설계개요 PDF 불러오기'],['.pic-filebar .pic-btn:nth-of-type(2)','파일로 저장'],['.pic-filebar .pic-btn:nth-of-type(3)','파일 불러오기'],['.pic-filebar .pic-btn-warn','전체 초기화']]},
  {id:'s05_cover',tab:'input',clip:'card:조서 표지',m:[['#projectName','사업명'],['#client','건축주'],['#lotNo','지번'],['#siteLoc','대지위치'],['#designDate','설계일자'],['#reportDate','조사 / 검사일자']]},
  {id:'s06_inspector',tab:'input',clip:'card:조사 / 검사자',m:[['#author','성명'],['#licNo','면허번호'],['#memNo','협회 회원번호'],['#regNo','등록번호'],['#firm','사무소명']]},
- {id:'s07_bldinfo',tab:'input',clip:'card:건물개요',m:[['#workType','건축구분'],['#zoning','지역 / 지구 / 구역'],['#siteArea','면적'],['#floorsAbove','층수'],['#bldHeight','최고높이 · 구조'],['#parkLegal','주차'],['#bcrLegal','법정 건폐율 · 용적률'],['#pic-calc','계산 · 대조'],['#pic-ord','조례 값 안내']]},
+ {id:'s07_bldinfo',tab:'input',clip:'card:건물개요',m:[['#workType','건축구분'],['#zoning','지역 / 지구 / 구역'],['#landCat','지목'],['#pubOwner','건축주 구분'],['#siteArea','면적'],['#floorsAbove','층수'],['#bldHeight','최고높이 · 구조'],['#parkLegal','주차'],['#bcrLegal','법정 건폐율 · 용적률'],['#pic-calc','계산 · 대조'],['#pic-ord','조례 값 안내']]},
  {id:'s28_pg',tab:'input',pre:"window.__sv2=['siteLoc','zoning','mainUse'].map(i=>document.getElementById(i).value);__set('siteLoc','충청남도 서산시 (예시)');__set('zoning','제2종일반주거지역');__set('mainUse','공장');recalc()",clip:'#pic-bord',union:'#pic-pg',m:[['#pic-bord','건축 조례 상자'],['#pic-pg','주차장 조례 · 대지 안의 공지 상자']],post:"['siteLoc','zoning','mainUse'].forEach((i,j)=>__set(i,window.__sv2[j]));recalc()"},
  {id:'s27_ord',tab:'input',pre:"window.__sv=['siteLoc','bcrLegal','farLegal'].map(i=>document.getElementById(i).value);__set('siteLoc','전북특별자치도 익산시 (예시)');__set('bcrLegal','');__set('farLegal','');recalc()",clip:'#pic-calc',union:'#pic-ord',m:[['#pic-calc','계산 줄'],['#pic-ord','조례 값 상자'],['#pic-ord .pic-ord-btn','조례 값 채우기']],post:"['siteLoc','bcrLegal','farLegal'].forEach((i,j)=>__set(i,window.__sv[j]));recalc()"},
  {id:'s08_opinion',tab:'input',clip:'card:종합의견',m:[['#opinion','종합의견'],['#etcNote','그 밖의 사항']]},
@@ -101,7 +102,7 @@ const SHOTS=[
  await shot({id:'s04_pdf_preview',fixed:true,clip:'#pp-ov .pp-box',m:[['#pp-ov .pp-info','읽은 쪽 · 안내'],['pp:projectName','채움 체크 · 읽은 값'],['pp:zoning','지역 / 지구 / 구역'],['pp:siteArea','면적'],['#pp-ov .pp-go','채우기']]});
  await pg.evaluate(()=>ppFill());await pg.waitForTimeout(600);
  /* ③ 사용자가 직접 넣는 칸 */
- await pg.evaluate(()=>{__set('designDate','2026-10-30');__set('opinion','관계 법령에 적합하게 설계되었음.');recalc();});
+ await pg.evaluate(()=>{__set('designDate','2026-10-30');__set('opinion','관계 법령에 적합하게 설계되었음.');__set('pubOwner','민간');recalc();});
  ex.calc=await pg.evaluate(()=>document.getElementById('pic-calc').textContent);
   ex.ordNone=await pg.evaluate(()=>document.getElementById('pic-ord').innerText);
  for(const id of ['s01_overview','s03_filebar','s05_cover','s06_inspector','s07_bldinfo'])await run(SHOTS.find(x=>x.id===id));
@@ -119,7 +120,7 @@ const SHOTS=[
  /* ⑤ 나머지 답(세움터 견본) · 세부 호 예제 항목 */
  const sk=await pg.evaluate(a=>{__answers(a);const it=[...document.querySelectorAll('.pic-subs')].find(x=>!x.hidden&&x.querySelectorAll('.pic-sub').length>=2&&x.querySelectorAll('.pic-sub').length<=8);return it?it.closest('.pic-item').dataset.k:null;},ANSW);
  await pg.evaluate(k=>{window.__SUBK=k;const I=findItem(k);if(ANS[k]&&(!ANS[k].s||!ANS[k].s.length)){ANS[k].s=[0];syncItem(k);}},sk);
- ex.subK=sk;ex.subItem=await pg.evaluate(k=>{const p=k.split('.');const S=CL[+p[0]];const L=S.laws.find(l=>l.no===+p[1]);const I=L.items[+p[2]];return {law:L.law,item:I.n,opt:I.o[ANS[k].o].t,subs:I.o[ANS[k].o].s};},sk);
+ ex.subK=sk;ex.subItem=await pg.evaluate(k=>{const p=k.split('.');const S=CL[+p[0]];const L=S.laws.find(l=>lkOf(l)===+p[1]);const I=L.items[+p[2]];return {law:L.law,item:I.n,opt:I.o[ANS[k].o].t,subs:I.o[ANS[k].o].s};},sk);
  await run(SHOTS.find(x=>x.id==='s13_subs'));
  ex.full=await pg.evaluate(()=>({prog:document.getElementById('pic-prog').textContent,site:document.getElementById('sb-site').textContent,bld:document.getElementById('sb-bld').textContent,all:document.getElementById('sb-all').textContent,real:document.getElementById('sb-real').textContent,none:document.getElementById('sb-none').textContent}));
  await run(SHOTS.find(x=>x.id==='s14_sumbar'));
