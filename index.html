@@ -42,7 +42,7 @@
 <link rel="stylesheet" href="./assets/fonts/manmin-fonts.css"/><!-- v5.0 로컬 폴백 폰트 — CDN 차단·오프라인 대비. CDN link 보다 먼저 로드되어야 한다 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" integrity="sha384-SN6A48CJQjx946+DRb8wsoifC4a8ur9ZS6R+HCTgnBHOKCa6GLXAR3Qn8d1jztxg" crossorigin="anonymous"/>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H" crossorigin="anonymous"></script>
 <style>:root{--d:#d8ac50;--d-deep:#785a28;--d-lt:#f1cd7c;--d-tint:#f6ecd6;--d-rgb:216,172,80;--fs-badge:11px;--fs-cap:11.5px;--fs-sm:12.5px;--fs-desc:13px;--fs-body:14px;--fs-sec:16px;--fs-card:17px;--fs-stat:20px;}
 
 /* v5.0 — 유니버설 셀렉터에서 font-family 를 뺐다.
@@ -1238,6 +1238,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
    v6.1.7 (2026-11-12) — 조례 근거 표현: 선판정 근거 수치를 비고에 넣기(빈 칸만 · A4 「비 고」 인쇄) · A4 참고 건물개요에 법정값과 근거 조례(조례 값과 다르면 「입력값」) · 개요 탭 조례 안내에 위임 근거 병기 · 근거 탭 조례 목록 표 · 자동 선판정 v0.8
    v6.1.8 (2026-11-12) — 주차장 조례 · 대지 안의 공지 안내(전북 14개 시 · 군: 부설주차장 대상 지역 · 참고 대수 · 장애인 전용 · 인근 설치 / 띄울 거리 공통 4종 — 판정에 쓰지 않음) · 조경 「대상」 제안은 공업지역 · 공장 · 창고 · 물류시설이면 하지 않음 · 자동 선판정 v0.9(주차 대상 지역 · 참고 대수 경고)
    v6.1.9 (2026-11-13) — 지역 확대: 전남광주통합특별시(종전 전라남도) 22개 · 충청남도 15개 시 · 군의 건폐율 · 용적률과 건축 조례(조경 · 공개공지 · 분할) — 기준일 2026-11-13 · 천안시 건폐율 · 용적률은 시행 예정본만 조회되어 값을 싣지 않음 · 근거 탭 조례 목록을 도별로 묶음
+   v6.1.11 (2026-11-13) — html2canvas 1.4.1 머리 태그 SRI(integrity sha384 · crossorigin) · 인쇄 공통 원본 MM-PRINT v1.0 → v1.1(지연 로더도 SRI)(정밀검토 B8 · 작업지시서 §25-6-87 제외분) — 화면 · 계산 · 인쇄 불변
    v6.1.10 (2026-11-13) — 주차장 조례 · 대지 안의 공지 안내를 전남 22 · 충남 15 시 · 군으로 넓힘(51곳 · 기준일 2026-11-13) — 계획 · 보전관리지역만 대상인 조례 · 주거지역 공장 거리 · 별표를 읽지 못한 곳 처리
    체크리스트 데이터 CL: 세움터 「한국건축규정 체크리스트」 출력물 1건(서식기준 국토교통부고시 제2024-206호)에서 옮김
      — 구역 2 · 법령 98 · 체크항목 151. 「대상법규아님」은 세움터가 덧붙인 선택지.
@@ -2990,7 +2991,7 @@ function mmToast(msg){
 })();
 </script>
 <!-- MM-PROJECT:END -->
-<!-- MM-PRINT:BEGIN v1.0 -->
+<!-- MM-PRINT:BEGIN v1.1 -->
 <style id="mm-print-css">
 /* MANMIN 공통 인쇄 원본 manmin-print.css v1.0 (2026-11-08, 작업지시서 §25-6-42) — 인쇄 때만 적용. 도구 색 · 카드 · 배지는 건드리지 않음.
    이 블록은 </body> 바로 앞에 들어가 같은 선택자 · 같은 우선순위면 도구 규칙보다 뒤에 와서 이김 → 모든 도구에 맞는 것만 넣음. 행 높이 등 도구 고유 규칙은 도구에 남김. */
@@ -3004,7 +3005,7 @@ function mmToast(msg){
 }
 </style>
 <script id="mm-print-js" data-name="건축허가조사및검사조서" data-pageno="0">
-/* MANMIN 공통 인쇄 원본 manmin-print.js v1.0 (2026-11-08, 작업지시서 §25-6-42)
+/* MANMIN 공통 인쇄 원본 manmin-print.js v1.1 (2026-11-12, 작업지시서 §25-6-87 — html2canvas 지연 로더 SRI · 원본 v1.0 2026-11-08 §25-6-42)
    정본: Z:\MIN-A\01.만민자료\02.설계자료\11.개발자료\64.개발자료[인쇄공통]\버전s-1.0\manmin-print-v1.0\
    도구에는 inject.py 가 MM-PRINT:BEGIN · MM-PRINT:END 표식 사이에 그대로 끼워 넣음(외부 링크 없음 · 오프라인 동작). 도구에서 직접 고치지 말 것.
    묶음: ① R27 html2canvas 보호 ② 인쇄 정보(쪽 번호 · PDF 이름 · 이름 없으면 제목 비우기 = R26) ③ 인쇄 선명화(맑은 고딕 · 연한 글자 · 0.5pt 선 · 고정폭 600→400)
@@ -3014,8 +3015,8 @@ function mmToast(msg){
 /* R27 (2026-09-04 · S10) — ① html2canvas 는 문서를 복제할 때 브라우저 확장 프로그램이 shadow DOM 에 심은 style 시트(Tailwind .c{transform:rotate(30deg)} · antd 등)까지 본문으로 펼친다.
    화면에서는 격리돼 보이지 않던 규칙이 클론에서 td.c / .r / .k 같은 짧은 클래스에 맞아 JPG 셀이 기울고 행이 부푼다(38 실측 2026-09-04 · 확장 31시트 누출).
    처방: 캡처 직전 우리 문서의 light-DOM style/link 에 data-mm-own 을 찍고, 클론에서 표식 없는 style/link 를 제거한다.
-   ② 라이브러리가 없으면(구 SW opaque 캐시 · CDN 차단) exportA4Jpg 가 ReferenceError 로 조용히 멈춘다(40 미리보기 미표시) → 지연 로더가 CDN 에서 받아 이어서 실행한다. 계산·출력 함수 무접촉(전역 html2canvas 래핑). */
-(function(){var CDN='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';var raw=window.html2canvas;var cur;function wrap(h){if(!h||h.__mm)return h;function p(el,opt){document.querySelectorAll('style,link[rel=stylesheet]').forEach(function(n){n.setAttribute('data-mm-own','1');});opt=Object.assign({},opt||{});var prev=opt.onclone;opt.onclone=function(doc,x){doc.querySelectorAll('style,link[rel=stylesheet]').forEach(function(n){if(!n.hasAttribute('data-mm-own')&&(n.textContent||'').indexOf('___html2canvas___')<0)n.remove();});return prev?prev(doc,x):undefined;};return h(el,opt);}p.__mm=1;try{Object.keys(h).forEach(function(k){p[k]=h[k];});}catch(e){}return p;}function lazy(el,opt){return new Promise(function(res,rej){var s=document.createElement('script');s.src=CDN;s.onload=function(){if(cur&&cur!==lazy)res(cur(el,opt));else rej(new Error('html2canvas 초기화 실패'));};s.onerror=function(){rej(new Error('html2canvas 로드 실패 — 네트워크·차단 확인'));};document.head.appendChild(s);});}cur=raw?wrap(raw):lazy;try{Object.defineProperty(window,'html2canvas',{configurable:true,get:function(){return cur;},set:function(v){cur=wrap(v);}});}catch(e){window.html2canvas=cur;}})();
+   ② 라이브러리가 없으면(구 SW opaque 캐시 · CDN 차단) exportA4Jpg 가 ReferenceError 로 조용히 멈춘다(40 미리보기 미표시) → 지연 로더가 CDN 에서 받아 이어서 실행한다. v1.1(2026-11-12 · §25-6-87) — 지연 로더도 SRI(integrity sha384 · crossorigin) 로 받는다(도구 머리 태그와 같은 값). 계산·출력 함수 무접촉(전역 html2canvas 래핑). */
+(function(){var CDN='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';var SRI='sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H';var raw=window.html2canvas;var cur;function wrap(h){if(!h||h.__mm)return h;function p(el,opt){document.querySelectorAll('style,link[rel=stylesheet]').forEach(function(n){n.setAttribute('data-mm-own','1');});opt=Object.assign({},opt||{});var prev=opt.onclone;opt.onclone=function(doc,x){doc.querySelectorAll('style,link[rel=stylesheet]').forEach(function(n){if(!n.hasAttribute('data-mm-own')&&(n.textContent||'').indexOf('___html2canvas___')<0)n.remove();});return prev?prev(doc,x):undefined;};return h(el,opt);}p.__mm=1;try{Object.keys(h).forEach(function(k){p[k]=h[k];});}catch(e){}return p;}function lazy(el,opt){return new Promise(function(res,rej){var s=document.createElement('script');s.src=CDN;s.integrity=SRI;s.crossOrigin='anonymous';s.onload=function(){if(cur&&cur!==lazy)res(cur(el,opt));else rej(new Error('html2canvas 초기화 실패'));};s.onerror=function(){rej(new Error('html2canvas 로드 실패 — 네트워크·차단 확인'));};document.head.appendChild(s);});}cur=raw?wrap(raw):lazy;try{Object.defineProperty(window,'html2canvas',{configurable:true,get:function(){return cur;},set:function(v){cur=wrap(v);}});}catch(e){window.html2canvas=cur;}})();
 
 /* ② 인쇄 정보 v1 + R26 */
 (function () {
