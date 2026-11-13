@@ -15,6 +15,7 @@
    v6.1.7 (2026-11-12) — 조례 근거 표현(선판정 근거 수치를 비고에 · A4 참고 건물개요에 법정값 근거 · 위임 근거 병기 · 근거 탭 조례 목록 표) · 자동 선판정 v0.8
    v6.1.9 (2026-11-13) — 지역 확대: 전남 22 · 충남 15 시 · 군 건폐율 · 용적률 + 건축 조례(조경 · 공개공지 · 분할)
    v6.1.8 (2026-11-12) — 주차장 조례 · 대지 안의 공지 안내(전북 14개 시 · 군 · 판정에 쓰지 않음) · 조경 「대상」 제안 조건부 · 자동 선판정 v0.9
+   v6.1.12 (2026-11-13) — 조례 별표 9곳 · 천안시 건폐율 · 용적률 채움
    v6.1.11 (2026-11-13) — html2canvas SRI · 인쇄 공통 원본 MM-PRINT v1.1(정밀검토 B8)
    v6.1.10 (2026-11-13) — 주차장 조례 · 대지 안의 공지 안내 지역 확대(전남 22 · 충남 15 시 · 군, 51곳)
    ⛔ navigate 분기를 제거하지 말 것. 제거하면 배포가 화면에 반영되지 않는다.
@@ -33,7 +34,7 @@ const mmMatch = (req, opt) => caches.keys()
   .then((ks) => ks.reduce((p, k) => p.then((r) => r || caches.open(k).then((c) => c.match(req, opt))), Promise.resolve(undefined)))
   .then((r) => (r && r.type === 'opaque' && req && req.mode === 'cors') ? undefined : r);
 
-const CACHE  = 'permit-v6.1.11';   /* 2026-11-13 html2canvas SRI · MM-PRINT v1.1 (종전 permit-v6.1.10 — 2026-11-13 주차장 조례 · 대지 안의 공지 지역 확대 · 그 전 permit-v6.1.9 — 2026-11-13 건폐율 · 용적률 · 건축 조례 지역 확대) */
+const CACHE  = 'permit-v6.1.12';   /* 2026-11-13 조례 별표 9곳 · 천안 건폐율 · 용적률 (종전 permit-v6.1.11 — html2canvas SRI · MM-PRINT v1.1 · 그 전 permit-v6.1.10 — 2026-11-13 주차장 조례 · 대지 안의 공지 지역 확대 · 그 전 permit-v6.1.9 — 2026-11-13 건폐율 · 용적률 · 건축 조례 지역 확대) */
 const ORPHAN = [];
 const ASSETS = [
   './',

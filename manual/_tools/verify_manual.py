@@ -27,11 +27,11 @@ chk('주민등록번호 모양 없음', not re.search(r'\d{6}-\d{7}', h))
 app = open(os.path.join(repo, 'index.html'), encoding='utf-8').read()
 chk('앱 — 매뉴얼 단추', 'class="tb tb-manual"' in app and 'Building-Permit-Report/manual/' in app and '매뉴얼은 인터넷 연결 시 열립니다' in app)
 sw = open(os.path.join(repo, 'sw.js'), encoding='utf-8').read()
-chk('SW — 매뉴얼 프리캐시 안 함', "'./manual" not in sw and '"./manual' not in sw and 'permit-v6.1.10' in sw)
+chk('SW — 매뉴얼 프리캐시 안 함', "'./manual" not in sw and '"./manual' not in sw and 'permit-v6.1.12' in sw)
 import json as _j
 _m=re.search(r'const ORD=(\{.*?\});\s*\n', app, re.S); _o=_j.loads(_m.group(1)) if _m else {'L':{}}
 chk('조례 51곳 — 시 · 군 이름이 본문에 있음', len(_o['L'])==51 and all(k in h for k in _o['L']))
-chk('v6.1.10 본문', '(v6.1.10)' in h and 'id="s4-5">4-5. 조례 값' in h and 'id="fig-s27_ord"' in h and 'id="fig-s28_pg"' in h and 'v6.1.10 (2026-11-13)' in h and '근거 수치를 비고에' in h and f"{sum(ex['judge']['tiers'][:2])}항목" in h and '기본 꺼짐 — 토지이용계획확인원 확인 후 체크' in h)
+chk('v6.1.12 본문', '(v6.1.12)' in h and 'v6.1.12 (2026-11-13)' in h and '2024. 5. 17. 시행' in h and 'id="s4-5">4-5. 조례 값' in h and 'id="fig-s27_ord"' in h and 'id="fig-s28_pg"' in h and 'v6.1.10 (2026-11-13)' in h and '근거 수치를 비고에' in h and f"{sum(ex['judge']['tiers'][:2])}항목" in h and '기본 꺼짐 — 토지이용계획확인원 확인 후 체크' in h)
 chk('선판정 답 = 세움터 견본', ex['judgeCmp']['diff']==[] and ex['judgeCmp']['same']+len(ex['judgeCmp']['blank'])==ex['judge']['n'])
 chk('PDF 있음', os.path.exists(os.path.join(M, 'BPR_사용자매뉴얼_Ver-6.1.pdf')))
 sys.exit(0 if ok else 1)
