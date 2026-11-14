@@ -39,7 +39,7 @@ const mmMatch = (req, opt) => caches.keys()
   .then((ks) => ks.reduce((p, k) => p.then((r) => r || caches.open(k).then((c) => c.match(req, opt))), Promise.resolve(undefined)))
   .then((r) => (r && r.type === 'opaque' && req && req.mode === 'cors') ? undefined : r);
 
-const CACHE  = 'permit-v6.1.17';   /* 2026-11-13 1112 대조 개선 (종전 permit-v6.1.16 — 설치계획서 제안 ④ 묶음 · 매뉴얼 개정 · 그 전 permit-v6.1.15 — 자동 선판정 전체 항목 1 · 2 · 3단계 · 그 전 permit-v6.1.14 — 체크리스트 4법령 · 층별 · 주차 소수 · 지목 · 그 전 permit-v6.1.13 — 「제」 없는 용도지역 표기 · 그 전 permit-v6.1.12 — 조례 별표 9곳 · 천안 건폐율 · 용적률 · 그 전 permit-v6.1.11 — html2canvas SRI · MM-PRINT v1.1 · 그 전 permit-v6.1.10 — 2026-11-13 주차장 조례 · 대지 안의 공지 지역 확대 · 그 전 permit-v6.1.9 — 2026-11-13 건폐율 · 용적률 · 건축 조례 지역 확대) */
+const CACHE  = 'permit-v6.1.18';   /* 2026-11-14 한국건축규정 적용 고시 날짜별(조사 / 검사일자 2026-07-08 이후 제2026-360호) (종전 permit-v6.1.17 — 1112 대조 개선 · 그 전 permit-v6.1.16 — 설치계획서 제안 ④ 묶음 · 매뉴얼 개정 · 그 전 permit-v6.1.15 — 자동 선판정 전체 항목 1 · 2 · 3단계 · 그 전 permit-v6.1.14 — 체크리스트 4법령 · 층별 · 주차 소수 · 지목 · 그 전 permit-v6.1.13 — 「제」 없는 용도지역 표기 · 그 전 permit-v6.1.12 — 조례 별표 9곳 · 천안 건폐율 · 용적률 · 그 전 permit-v6.1.11 — html2canvas SRI · MM-PRINT v1.1 · 그 전 permit-v6.1.10 — 2026-11-13 주차장 조례 · 대지 안의 공지 지역 확대 · 그 전 permit-v6.1.9 — 2026-11-13 건폐율 · 용적률 · 건축 조례 지역 확대) */
 const ORPHAN = [];
 const ASSETS = [
   './',
