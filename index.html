@@ -791,6 +791,12 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
 .pic-item{display:grid;grid-template-columns:170px 1fr;gap:10px;padding:9px 12px;border-top:1px solid #f1f4f8;border-left:3px solid #e2e8f0;}
 .pic-item:first-of-type{border-top:0;}
 .pic-item.is-done{border-left-color:#785a28;}
+/* v6.1.19 「확인 필요」 — ③ 지역지구 글자 · ④ 일반 선판정으로 채운 답(화면만, 인쇄 안 함) */
+.pic-item.is-auto{border-left-color:#d97706;background:#fffbeb;}
+.pic-auto{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9px;background:#fde68a;color:#92400e;font-size:10.5px;font-weight:800;vertical-align:1px;}
+.pic-ok{margin-left:6px;padding:2px 9px;border:1px solid #d97706;border-radius:7px;background:#fff;color:#92400e;font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;}
+.pic-ok:hover{background:#fef3c7;}
+@media print{.pic-auto,.pic-ok{display:none!important;}}
 .pic-item.is-na{border-left-color:#cbd5e1;background:#fafbfc;}
 .pic-item-nm{font-size:12.5px;font-weight:700;color:#1a2744;line-height:1.5;padding-top:6px;}
 .pic-opts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
@@ -991,6 +997,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
     <span class="sum-item">☑ 전체: <b id="sb-all">—</b></span>
     <span class="sum-item">✍️ 실질 답: <b id="sb-real">—</b></span>
     <span class="sum-item">⬜ 미답: <b id="sb-none">—</b></span>
+    <span class="sum-item">🟨 확인 필요: <b id="sb-auto">—</b></span>
   </div>
 </div>
 
@@ -1128,7 +1135,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
       <div class="pic-tools">
         <label class="pic-lb" for="pic-filter">보기</label>
         <select id="pic-filter" class="fire-select pic-sel" onchange="applyFilter()">
-          <option value="all">전체</option><option value="none">미답만</option><option value="real">실질 답만(대상법규아님 제외)</option>
+          <option value="all">전체</option><option value="none">미답만</option><option value="real">실질 답만(대상법규아님 제외)</option><option value="auto">확인 필요만(③ · ④ 선판정)</option>
         </select>
         <label class="pic-lb" for="pic-q">찾기</label>
         <input id="pic-q" class="fire-input pic-q" type="search" placeholder="법령 · 항목 이름" oninput="applyFilter()"/>
@@ -1145,7 +1152,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
     <div class="a4-export-bar no-print">
       <span class="bar-lbl">📄 A4 출력 :</span>
       <button class="mm-btn mm-btn-print" onclick="doPrint()">🖨️ 인쇄 / PDF 저장</button>
-      <button class="mm-btn mm-btn-jpg" id="btn-jpg" onclick="exportA4Jpg()">🖼️ JPG 저장</button>
+      <button class="mm-btn mm-btn-jpg" id="btn-jpg" onclick="autoGuard()&&exportA4Jpg()">🖼️ JPG 저장</button>
       <label class="bff-figopt"><input type="checkbox" id="optSubs" checked onchange="renderResult()"> 세부 호 선택지 모두 인쇄</label>
       <label class="bff-figopt"><input type="checkbox" id="optOnlyReal" onchange="renderResult()"> 「대상법규아님」 줄 빼고 인쇄(선별 제출용)</label>
     </div>
@@ -1252,6 +1259,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
    v6.1.9 (2026-11-13) — 지역 확대: 전남광주통합특별시(종전 전라남도) 22개 · 충청남도 15개 시 · 군의 건폐율 · 용적률과 건축 조례(조경 · 공개공지 · 분할) — 기준일 2026-11-13 · 천안시 건폐율 · 용적률은 시행 예정본만 조회되어 값을 싣지 않음 · 근거 탭 조례 목록을 도별로 묶음
    v6.1.10 (2026-11-13) — 주차장 조례 · 대지 안의 공지 안내를 전남 22 · 충남 15 시 · 군으로 넓힘(51곳 · 기준일 2026-11-13) — 계획 · 보전관리지역만 대상인 조례 · 주거지역 공장 거리 · 별표를 읽지 못한 곳 처리
    v6.1.11 (2026-11-13) — html2canvas 1.4.1 머리 태그 SRI(integrity sha384 · crossorigin) · 인쇄 공통 원본 MM-PRINT v1.0 → v1.1(지연 로더도 SRI)(정밀검토 B8 · 작업지시서 §25-6-87 제외분) — 화면 · 계산 · 인쇄 불변
+   v6.1.19 (2026-11-18) — 자동 선판정 ① ~ ④ 네 묶음 모두 기본 체크(MIN A안) · ③ 지역지구 글자 · ④ 일반으로 채운 답은 체크리스트에 🟨 「확인 필요」(화면만 · 인쇄 안 함 · 저장 파일 c 값) — 「확인」 단추 · 답을 고치면 지워짐 · 보기 「확인 필요만」 · 진행 스트립 「확인 필요 n칸」 · 남은 채로 인쇄 / JPG 저장하면 한 번 물음.
    v6.1.18 (2026-11-14) — 한국건축규정 적용 고시를 조사 / 검사일자로 고름: 2026. 7. 8. 이후 국토교통부고시 제2026-360호, 그 전 제2024-206호 — A4 체크리스트 머리 · 꼬리말 · 조서 안내(종전 두 고시를 늘 함께 적음). 체크리스트 데이터 변경 없음.
    v6.1.17 (2026-11-13) — 1112 업로드 체크리스트 대조 개선: 조경 녹지 예외가 다른 용도지역에도 걸치면 ② → ④ · 걸치는 대지(국토계획법 제84조 · 건축법 제54조) ③ · 법정값이 비어도 조례 최솟값 이하면 건폐율 · 용적률 ③ 적합 ·
      대지 안의 공지 별표 2 아니면 ③ 대상법규아님 · 도시지역 농지 제37조 ③ · 세부 호 자동 선택(제56 · 58 · 77 · 78 · 84조 · 건축법 제54조) · 개요 칸 형질변경 · 접한 도로 너비 · 조경(법정) · PDF 에서 읽기
@@ -1304,7 +1312,7 @@ function renderList(){
       h+=`<div class="pic-law" data-txt="${esc((L.law+' '+L.items.map(i=>i.n).join(' ')).toLowerCase())}"><div class="pic-law-h"><span class="pic-no">${L.no}</span>${lawA(L.law,'pic-law-nm')}</div>`;
       L.items.forEach((I,ii)=>{
         const k=keyOf(si,lkOf(L),ii), gid='g'+k.replace(/\./g,'_');
-        h+=`<div class="pic-item" data-k="${k}" id="it-${gid}"><div class="pic-item-nm" id="lb-${gid}">${esc(I.n)}</div><div class="pic-item-body">`
+        h+=`<div class="pic-item" data-k="${k}" id="it-${gid}"><div class="pic-item-nm" id="lb-${gid}">${esc(I.n)}<span class="pic-auto" id="au-${gid}" hidden>확인 필요</span><button type="button" class="pic-ok" id="ok-${gid}" hidden onclick="autoOk('${k}')" aria-label="${esc(I.n)} 선판정 답 확인">확인</button></div><div class="pic-item-body">`
           +`<div class="pic-opts" role="radiogroup" aria-labelledby="lb-${gid}">`
           +I.o.map((o,oi)=>`<label class="pic-opt${o.t===NA?' pic-opt-na':''}"><input type="radio" name="${gid}" value="${oi}" onchange="pick('${k}',${oi})"><span>${esc(o.t)}</span></label>`).join('')
           +`<button type="button" class="pic-clr" onclick="unpick('${k}')" aria-label="${esc(I.n)} 답 지우기">지움</button></div>`
@@ -1324,6 +1332,8 @@ function syncItem(k){
   const I=findItem(k), gid=gidOf(k), a=ANS[k]||{}, box=document.getElementById('it-'+gid); if(!box) return;
   box.querySelectorAll('input[type=radio]').forEach(r=>{r.checked=(a.o!=null&&+r.value===a.o);});
   box.classList.toggle('is-done',answered(k)); box.classList.toggle('is-na',isNA(I,k));
+  const au=answered(k)&&!!a.c; box.classList.toggle('is-auto',au);
+  const ab=document.getElementById('au-'+gid), ob=document.getElementById('ok-'+gid); if(ab){ab.hidden=!au;ab.textContent=au?'확인 필요 '+(a.c===3?'③':'④'):'';} if(ob)ob.hidden=!au;
   const sub=document.getElementById('sub-'+gid), o=answered(k)?I.o[a.o]:null;
   if(o&&o.s&&o.s.length){
     sub.hidden=false;
@@ -1331,23 +1341,27 @@ function syncItem(k){
   } else { sub.hidden=true; sub.innerHTML=''; }
   const mm=document.getElementById('mm-'+gid); if(mm&&mm.value!==(a.m||'')) mm.value=a.m||'';
 }
-function pick(k,oi){const a=ANS[k]||(ANS[k]={});if(a.o!==oi){a.o=oi;a.s=[];}syncItem(k);progress();applyFilter(true);}
-function unpick(k){if(ANS[k]){const m=ANS[k].m;ANS[k]=m?{m:m}:undefined;if(!ANS[k])delete ANS[k];}syncItem(k);progress();applyFilter(true);}
-function pickSub(k,sx,on){const a=ANS[k];if(!a)return;a.s=a.s||[];const i=a.s.indexOf(sx);if(on&&i<0)a.s.push(sx);if(!on&&i>=0)a.s.splice(i,1);a.s.sort((x,y)=>x-y);}
+function pick(k,oi){const a=ANS[k]||(ANS[k]={});if(a.o!==oi){a.o=oi;a.s=[];}delete a.c;syncItem(k);progress();applyFilter(true);}
+/* v6.1.19 선판정 ③ · ④ 답을 사람이 확인 — 「확인 필요」 표시만 지운다(답은 그대로) */
+function autoOk(k){const a=ANS[k];if(a)delete a.c;syncItem(k);progress();applyFilter(true);}
+function autoLeft(){let n=0;eachItem((S,si,L,I,ii,k)=>{if(answered(k)&&ANS[k].c)n++;});return n;}
+function autoGuard(){const n=autoLeft();return !n||confirm('「확인 필요」 답이 '+n+'칸 남아 있습니다(③ 지역지구 글자 · ④ 일반 선판정).\n토지이용계획확인원 · 도면으로 확인하지 않은 답이 그대로 인쇄됩니다. 계속할까요?\n\n(체크리스트 탭 「보기 → 확인 필요만」에서 확인할 수 있습니다)');}
+function unpick(k){if(ANS[k]){const m=ANS[k].m;delete ANS[k].c;ANS[k]=m?{m:m}:undefined;if(!ANS[k])delete ANS[k];}syncItem(k);progress();applyFilter(true);}
+function pickSub(k,sx,on){const a=ANS[k];if(!a)return;if(a.c){delete a.c;syncItem(k);progress();}a.s=a.s||[];const i=a.s.indexOf(sx);if(on&&i<0)a.s.push(sx);if(!on&&i>=0)a.s.splice(i,1);a.s.sort((x,y)=>x-y);}
 function memo(k,v){v=v.trim();const a=ANS[k]||(ANS[k]={});if(v)a.m=v;else{delete a.m;if(a.o==null)delete ANS[k];}}
 function syncAll(){eachItem((S,si,L,I,ii,k)=>syncItem(k));progress();applyFilter(true);}
 
 function counts(){
-  const c={sec:CL.map(()=>({n:0,d:0})),all:0,done:0,real:0};
-  eachItem((S,si,L,I,ii,k)=>{c.sec[si].n++;c.all++;if(answered(k)){c.sec[si].d++;c.done++;if(!isNA(I,k))c.real++;}});
+  const c={sec:CL.map(()=>({n:0,d:0})),all:0,done:0,real:0,auto:0};
+  eachItem((S,si,L,I,ii,k)=>{c.sec[si].n++;c.all++;if(answered(k)){c.sec[si].d++;c.done++;if(!isNA(I,k))c.real++;if(ANS[k].c)c.auto++;}});
   return c;
 }
 function progress(){
   const c=counts(), set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
   CL.forEach((S,si)=>set('pic-secn-'+si,c.sec[si].d+'/'+c.sec[si].n));
   set('sb-site',c.sec[0]?c.sec[0].d+'/'+c.sec[0].n:'—'); set('sb-bld',c.sec[1]?c.sec[1].d+'/'+c.sec[1].n:'—');
-  set('sb-all',c.done+'/'+c.all); set('sb-real',c.real+'칸'); set('sb-none',(c.all-c.done)+'칸');
-  set('pic-prog','한국건축규정 체크리스트 ('+c.done+'/'+c.all+') — '+CL.map((S,si)=>S.name.replace(' 법령','')+' '+c.sec[si].d+'/'+c.sec[si].n).join(' · ')+' · 실질 답 '+c.real+'칸');
+  set('sb-all',c.done+'/'+c.all); set('sb-real',c.real+'칸'); set('sb-none',(c.all-c.done)+'칸'); set('sb-auto',c.auto+'칸');
+  set('pic-prog','한국건축규정 체크리스트 ('+c.done+'/'+c.all+') — '+CL.map((S,si)=>S.name.replace(' 법령','')+' '+c.sec[si].d+'/'+c.sec[si].n).join(' · ')+' · 실질 답 '+c.real+'칸'+(c.auto?' · 🟨 확인 필요 '+c.auto+'칸':''));
   window._s={c:c,FL:true};   /* JPG 저장 공통 코드가 FL(입력 완료 표시)을 본다 — 조서는 빈 칸으로도 낼 수 있으므로 항상 허용 */
 }
 function applyFilter(keep){
@@ -1357,7 +1371,7 @@ function applyFilter(keep){
     lw.querySelectorAll('.pic-item').forEach(it=>{
       const k=it.dataset.k, I=findItem(k);
       /* 「미답만」 보기에서 방금 답한 줄이 바로 사라지면 세부 호를 고를 수 없으므로, 답 고르는 동안(keep)에는 이미 보이던 줄은 그대로 둔다 */
-      let show=hitQ&&(f==='all'||(f==='none'&&(!answered(k)||(keep&&!it.hidden)))||(f==='real'&&answered(k)&&!isNA(I,k)));
+      let show=hitQ&&(f==='all'||(f==='none'&&(!answered(k)||(keep&&!it.hidden)))||(f==='real'&&answered(k)&&!isNA(I,k))||(f==='auto'&&answered(k)&&(!!ANS[k].c||(keep&&!it.hidden))));
       it.hidden=!show; any=any||show;
     });
     lw.hidden=!any;
@@ -1666,6 +1680,7 @@ function loadFile(inp){
         if(!I||!a||typeof a!=='object'){drop++;return;}
         const n={}; if(Number.isInteger(a.o)&&a.o>=0&&a.o<I.o.length){n.o=a.o;n.s=Array.isArray(a.s)?a.s.filter(x=>Number.isInteger(x)&&x>=0&&x<I.o[a.o].s.length):[];}
         if(typeof a.m==='string'&&a.m) n.m=a.m.slice(0,200);
+        if(n.o!=null&&(a.c===3||a.c===4)) n.c=a.c;   /* v6.1.19 확인 필요 표시 */
         if(n.o!=null||n.m) A[k]=n; else drop++;
       });
       ANS=A; recalc(); syncAll(); mmToast('불러왔습니다'+(drop?' · 맞지 않는 '+drop+'칸은 버림':''));
@@ -1689,6 +1704,7 @@ function switchTab(id){
   if(id==='check') applyFilter();
 }
 function doPrint(){
+  if(!autoGuard()) return;
   renderResult();
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab==='result'));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-result'));
@@ -2029,7 +2045,7 @@ setTimeout(scaleA4,100);
      ※ 주차장법 제19조의2 부설주차장 설치계획서 — 법정 대수가 1대 이상이면 「대상」 을 ④ 묶음(기본 꺼짐)으로 제안(v6.1.16 — 세움터 견본 2건의 답이 「대상」 · 「비대상」으로 갈림).
    ══════════════════════════════════════════════════════════════ */
 (function(){
-  var TIER={1:'① 계산 — 건폐율 · 용적률',2:'② 규모 문턱',3:'③ 지역지구 글자 — 토지이용계획확인원 확인 후 체크',4:'④ 일반 — 도면 확인 후 체크'};
+  var TIER={1:'① 계산 — 건폐율 · 용적률',2:'② 규모 문턱',3:'③ 지역지구 글자 — 채운 뒤 「확인 필요」(토지이용계획확인원)',4:'④ 일반 — 채운 뒤 「확인 필요」(도면)'};
   var ZONE_RE=/(제[12]종전용주거|제[123]종일반주거|준주거|중심상업|일반상업|근린상업|유통상업|전용공업|일반공업|준공업|보전녹지|생산녹지|자연녹지|보전관리|생산관리|계획관리|농림|자연환경보전)지역/g;
   var BIG_RE=/(^|[^종준])(주거|상업|공업|녹지|관리)지역/;
   /* v0.5 용도지역별 상한 [건폐율, 용적률] % — 국토계획법 시행령 제84조제1항 · 제85조제1항(2026-11-12 확인, 시행 2026. 9. 18. 본).
@@ -2359,14 +2375,14 @@ setTimeout(scaleA4,100);
     var body='';
     [1,2,3,4].forEach(function(t){
       var rs=P.rows.filter(function(x){return x.tier===t;}); if(!rs.length) return;
-      body+='<div class="jd-tier"><label class="jd-th"><input type="checkbox" '+(t<3?'checked':'')+' onchange="judgeTier('+t+',this.checked)"> '+esc(TIER[t])+' <span class="jd-n">'+rs.length+'항목</span></label>'
+      body+='<div class="jd-tier"><label class="jd-th"><input type="checkbox" checked'+' onchange="judgeTier('+t+',this.checked)"> '+esc(TIER[t])+' <span class="jd-n">'+rs.length+'항목</span></label>'
         +'<table class="pp-tbl jd-tbl"><tbody>'+rs.map(function(x){var id='jd-'+x.k.replace(/\./g,'_');
-          return '<tr><td><input type="checkbox" class="jd-c" data-t="'+t+'" data-k="'+x.k+'" id="'+id+'" '+(t<3?'checked':'')+'></td>'
+          return '<tr><td><input type="checkbox" class="jd-c" data-t="'+t+'" data-k="'+x.k+'" id="'+id+'" checked></td>'
             +'<td><span class="jd-law">'+(x.sec?'건축물':'입지')+' '+x.no+'. '+(lawUrl(x.law)?'<a class="jd-law-a" href="'+lawUrl(x.law)+'" target="_blank" rel="noopener" title="국가법령정보센터에서 현행 조문 열기 (새 창)">'+esc(x.law)+' ↗</a>':esc(x.law))+'</span><br><label for="'+id+'"><b>'+esc(x.item)+'</b> → <span class="jd-ans">'+esc(x.t)+(x.st&&x.st.length?' (■'+x.st.map(esc).join(' ■')+')':'')+'</span></label><div class="jd-why">'+esc(x.why)+'</div>'+(x.m?'<div class="jd-memo">비고 → '+esc(x.m)+'</div>':'')+'</td></tr>';
         }).join('')+'</tbody></table></div>';
     });
     ov.innerHTML='<div class="pp-box"><div class="pp-hd"><div id="jd-ttl" class="pp-ttl">⚡ 개요로 자동 선판정</div><button type="button" class="pp-x" aria-label="닫기" onclick="judgeClose()">✕</button></div>'
-      +'<div class="pp-bd"><div class="pp-info">개요 값으로 고른 답 <b>'+P.rows.length+'항목</b>입니다. 근거를 보고 체크한 항목만 채웁니다. 「비고 →」 가 붙은 항목은 근거 수치를 비고 칸에 함께 넣습니다(비어 있는 칸만). ③ 지역지구 글자 묶음은 토지이용계획확인원을, ④ 일반 묶음은 도면을 확인한 뒤 직접 체크하십시오(두 묶음은 처음에 체크가 꺼져 있습니다).'+(P.done?' 이미 답한 '+P.done+'항목은 건너뜁니다(덮어쓰지 않음).':'')+'</div>'
+      +'<div class="pp-bd"><div class="pp-info">개요 값으로 고른 답 <b>'+P.rows.length+'항목</b>입니다. 근거를 보고 체크한 항목만 채웁니다. 「비고 →」 가 붙은 항목은 근거 수치를 비고 칸에 함께 넣습니다(비어 있는 칸만). 네 묶음 모두 처음부터 체크되어 있습니다. ③ 지역지구 글자 · ④ 일반 묶음으로 채운 답은 체크리스트에 🟨 「확인 필요」가 붙습니다 — ③은 토지이용계획확인원, ④는 도면과 맞춰 본 뒤 「확인」을 누르거나 답을 고치십시오(「보기 → 확인 필요만」). 남은 채로 인쇄하면 한 번 묻습니다.'+(P.done?' 이미 답한 '+P.done+'항목은 건너뜁니다(덮어쓰지 않음).':'')+'</div>'
       +(P.rows.length?body:'<div class="pp-warn">새로 고를 답이 없습니다.</div>')
       +((P.warn||[]).length?'<div class="pp-warn">'+P.warn.map(esc).join('<br>')+'</div>':'')
       +(P.need.length?'<div class="pp-miss">개요에 넣으면 더 판정되는 칸: '+esc(P.need.join(', '))+'</div>':'')
@@ -2378,14 +2394,15 @@ setTimeout(scaleA4,100);
   window.judgeTier=function(t,on){document.querySelectorAll('#jd-ov .jd-c[data-t="'+t+'"]').forEach(function(c){c.checked=on;});};
   window.judgeClose=function(){var ov=document.getElementById('jd-ov');if(ov)ov.hidden=true;document.body.style.overflow='';};
   window.judgeApply=function(){
-    var P=window._jdLast||{rows:[]},n=0,nm=0,jm=document.getElementById('jd-memo'),wm=!!(jm&&jm.checked);
+    var P=window._jdLast||{rows:[]},n=0,nm=0,nc=0,jm=document.getElementById('jd-memo'),wm=!!(jm&&jm.checked);
     document.querySelectorAll('#jd-ov .jd-c:checked').forEach(function(c){
       var x=P.rows.find(function(r){return r.k===c.dataset.k;}); if(!x||answered(x.k)) return;
       var a=ANS[x.k]||(ANS[x.k]={}); a.o=x.oi; a.s=(x.si||[]).slice(); n++;
+      if(x.tier>=3){a.c=x.tier;nc++;} else delete a.c;   /* v6.1.19 ③ · ④ 는 「확인 필요」 */
       /* v0.8 비고가 비어 있을 때만 근거 수치를 넣는다(이미 적은 비고는 건드리지 않음) */
       if(wm&&x.m&&!a.m){a.m=x.m.slice(0,200);nm++;}
     });
-    window.judgeClose(); syncAll(); mmToast(n+'항목을 선판정 답으로 채웠습니다'+(nm?' · 비고 '+nm+'칸에 근거 수치':''));
+    window.judgeClose(); syncAll(); mmToast(n+'항목을 선판정 답으로 채웠습니다'+(nm?' · 비고 '+nm+'칸에 근거 수치':'')+(nc?' · 🟨 확인 필요 '+nc+'칸(보기 → 확인 필요만)':''));
   };
   document.addEventListener('keydown',function(e){if(e.key==='Escape'){var ov=document.getElementById('jd-ov');if(ov&&!ov.hidden)window.judgeClose();}});
 })();
