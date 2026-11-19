@@ -1,7 +1,8 @@
 // 건축허가조사 및 검사조서 매뉴얼 화면 캡처 — usage: node capture_bpr.js <repoDir> <outDir> <견본PDF> <sample_answers.json>
 // 편의시설 매뉴얼과 같은 규격: 1440×900 · DSF 1.25 · _marks.json(번호 배지 % 좌표) · _example.json(예제 검증값)
 /* 예제 A(가상 사업 「만민 연구동 신축공사」) — 면적 · 층수 · 체크리스트 답은 세움터 견본(특장차 연구동) 출력물 그대로, 사업명 · 건축주 · 위치만 가상
-   ① 설계개요 PDF(가상 견본) 불러오기 → ② 종합의견 입력 → ③ 자동 선판정(① · ② 묶음은 기본 체크, ③ 묶음은 토지이용계획을 확인했다고 보고 켬) → ④ 나머지 답은 세움터 견본 답으로 채움 → 조서 출력
+   ① 설계개요 PDF(가상 견본) 불러오기 → ② 종합의견 입력 → ③ 자동 선판정(v6.1.19 — ① ~ ④ 네 묶음 기본 체크 그대로 채움) → ④ 「확인 필요」(③ · ④) 답을 확인: 견본 답과 다른 ④ 답은 견본 답으로 고치고(도면을 보고 고친 것으로 봄) 나머지는 「확인」 → ⑤ 나머지 답은 세움터 견본 답으로 채움 → 조서 출력
+   v6.1.22(2026-11-20): 선판정 기본 체크 ① ~ ④ · 「확인 필요」 그림 s29_auto 추가 · 진행 스트립 「확인 필요」 표시점 · 확인 과정 기록(autoN · autoFix)
    v6.1.15(2026-11-13): 개요 그림에 지목 · 건축주 구분 표시점 · 예제 건축주 구분 「민간」(견본 답 기준) · 세부 호 예제 법령을 고정 키(lkOf)로 찾음
    v6.1.10(2026-11-13): 건축 조례 · 주차장 · 대지 안의 공지 안내 그림 s28_pg 추가(서산시 · 제2종일반주거지역 · 공장 — 설명용)
    v6.1.5(2026-11-12): 조례 값 그림 s27_ord 추가 · 법령 링크 표시점 · ③ 묶음 기본 꺼짐 반영 · 선판정 답과 세움터 견본 답 대조(judgeCmp) 기록 */
@@ -41,10 +42,11 @@ const SHOTS=[
  {id:'s08_opinion',tab:'input',clip:'card:종합의견',m:[['#opinion','종합의견'],['#etcNote','그 밖의 사항']]},
  {id:'s09_check_top',tab:'check',clip:'viewport',m:[['#pic-prog','진행 표시'],['#pic-filter','보기'],['#pic-q','찾기'],['.pic-toolbar .pic-btn-pdf','자동 선판정'],['.pic-toolbar .pic-btn:nth-of-type(2)','미답 → 대상법규아님'],['.pic-toolbar .pic-btn-warn','답 모두 지우기'],['.pic-sec-h','입지 관련 법령']]},
  {id:'s10_judge',tab:null,pre:"judgeOpen();document.querySelector('#jd-ov .pp-bd').scrollTop=0",wait:700,fixed:true,clip:'#jd-ov .pp-box',m:[['#jd-ov .pp-info','안내 · 항목 수'],['jdtier:0','① 계산'],['jdtier:1','② 규모 문턱']]},
- {id:'s11_judge_tail',tab:null,pre:"const b=document.querySelector('#jd-ov .pp-bd');b.scrollTop=b.scrollHeight",wait:600,fixed:true,clip:'#jd-ov .pp-box',m:[['jdlastrow','③ · ④ 묶음 — 기본 체크 꺼짐'],['#jd-ov .pp-miss,#jd-ov .pp-ref','더 넣을 칸 · 한계'],['#jd-ov .pp-go','체크한 답 채우기']],post:"judgeTier(3,true);judgeApply()"},
+ {id:'s11_judge_tail',tab:null,pre:"const b=document.querySelector('#jd-ov .pp-bd');b.scrollTop=b.scrollHeight",wait:600,fixed:true,clip:'#jd-ov .pp-box',m:[['jdlastrow','③ · ④ 묶음 — 채운 뒤 「확인 필요」'],['#jd-ov .pp-miss,#jd-ov .pp-ref','더 넣을 칸 · 한계'],['#jd-ov .pp-go','체크한 답 채우기']],post:"judgeApply()"},
+ {id:'s29_auto',tab:'check',pre:"document.getElementById('pic-filter').value='auto';applyFilter();window.scrollTo(0,0)",clip:'viewport',m:[['#pic-prog','진행 표시 — 🟨 확인 필요 칸 수'],['#pic-filter','보기 — 확인 필요만'],['AUTOB','「확인 필요 ③ / ④」 배지'],['AUTOOK','「확인」 단추']],post:"document.getElementById('pic-filter').value='all';applyFilter()"},
  {id:'s12_law_done',tab:'check',pre:"window.scrollTo(0,0)",clip:'LAW:0.1.0',m:[['item:0.1.0','선판정으로 고른 답'],['#mm-g0_1_0','비고'],['LAWA','법령 이름 링크']]},
  {id:'s13_subs',tab:'check',pre:"__answers(window.__ANSW)",clip:'SUBLAW',m:[['SUBITEM','선택지'],['SUBS','세부 호']]},
- {id:'s14_sumbar',tab:'check',clip:'.sum-bar-wrap',m:[['#sb-site','입지'],['#sb-bld','건축물'],['#sb-all','전체'],['#sb-real','실질 답'],['#sb-none','미답']]},
+ {id:'s14_sumbar',tab:'check',clip:'.sum-bar-wrap',m:[['#sb-site','입지'],['#sb-bld','건축물'],['#sb-all','전체'],['#sb-real','실질 답'],['#sb-auto','확인 필요'],['#sb-none','미답']]},
  {id:'s15_result',tab:'result',clip:'viewport',m:[['.mm-btn-print','인쇄 / PDF 저장'],['.mm-btn-jpg','JPG 저장'],['label.bff-figopt:nth-of-type(1)','세부 호 모두 인쇄'],['label.bff-figopt:nth-of-type(2)','대상법규아님 빼고 인쇄'],['#a4Page','A4 조서']]},
  {id:'s16_a4_cover',tab:'result',clip:'#a4Page .pic-formno',union:'a4info:1',m:[['a4info:0','조서 표지(별지 제23호서식)'],['.pic-submit','제출 문구'],['.pic-attach','첨부서류'],['a4info:1','참고 — 건물개요']]},
  {id:'s17_a4_cl',tab:'result',clip:'.pic-cl-head',union:'a4cl:0',maxH:1000,m:[['.pic-cl-head .a4-title','[별표 2] 체크리스트'],['#r-count','답한 항목 수'],['a4cl:0 thead','번호 · 법령 · 체크항목 · 체크 · 비고']]},
@@ -68,7 +70,7 @@ const SHOTS=[
  const shot=async(S)=>{
   const info=await pg.evaluate(({S,VW,VH})=>{
    const abs=e=>{const r=e.getBoundingClientRect();return {x:r.left+scrollX,y:r.top+scrollY,w:r.width,h:r.height};};
-   const res=x=>{if(x==='LAW:0.1.0')return __lawOf('0.1.0');if(x==='LAWA'){const l=__lawOf('0.1.0');return l?l.querySelector('a.pic-law-a'):null;}if(x==='SUBLAW')return __lawOf(window.__SUBK);if(x==='SUBITEM')return __find('item:'+window.__SUBK)&&__find('item:'+window.__SUBK).querySelector('.pic-opts');if(x==='SUBS')return __find('subs:'+window.__SUBK);
+   const res=x=>{if(x==='LAW:0.1.0')return __lawOf('0.1.0');if(x==='LAWA'){const l=__lawOf('0.1.0');return l?l.querySelector('a.pic-law-a'):null;}if(x==='SUBLAW')return __lawOf(window.__SUBK);if(x==='SUBITEM')return __find('item:'+window.__SUBK)&&__find('item:'+window.__SUBK).querySelector('.pic-opts');if(x==='SUBS')return __find('subs:'+window.__SUBK);if(x==='AUTOB')return [...document.querySelectorAll('.pic-auto')].find(e=>!e.hidden&&__vis(e))||null;if(x==='AUTOOK')return [...document.querySelectorAll('.pic-ok')].find(e=>!e.hidden&&__vis(e))||null;
      if(x.endsWith(' thead')){const t=__find(x.slice(0,-6));return t?t.querySelector('thead'):null;}return __find(x);};
    let clip;
    if(S.clip==='viewport'){clip={x:0,y:scrollY,width:VW,height:VH};}
@@ -116,7 +118,11 @@ const SHOTS=[
  ex.judge=pre;
  await run(SHOTS.find(x=>x.id==='s10_judge'));await run(SHOTS.find(x=>x.id==='s11_judge_tail'));
  ex.afterJudge=await pg.evaluate(()=>document.getElementById('pic-prog').textContent);
+ ex.autoN=await pg.evaluate(()=>autoLeft());
+ await run(SHOTS.find(x=>x.id==='s29_auto'));
  await run(SHOTS.find(x=>x.id==='s12_law_done'));
+ /* 「확인 필요」 확인 — 견본 답과 다른 ④ 답은 견본 답으로 고치고(도면 확인), 나머지는 「확인」 */
+ ex.autoFix=await pg.evaluate(a=>{const nz=v=>String(v||'').replace(/\s+/g,'');let fix=[],ok=0;eachItem((S,si,L,I,ii,k)=>{if(!answered(k)||!ANS[k].c)return;const cur=I.o[ANS[k].o].t;if(k in a&&nz(a[k])!==nz(cur)){const oi=I.o.findIndex(o=>nz(o.t)===nz(a[k]));if(oi>=0){const m=ANS[k].m;ANS[k]={o:oi,s:[]};if(m)ANS[k].m=m;fix.push(k+':'+cur+' → '+a[k]);return;}}delete ANS[k].c;ok++;});syncAll();return {fix,ok,left:autoLeft()};},ANSW);
  /* ⑤ 나머지 답(세움터 견본) · 세부 호 예제 항목 */
  const sk=await pg.evaluate(a=>{__answers(a);const it=[...document.querySelectorAll('.pic-subs')].find(x=>!x.hidden&&x.querySelectorAll('.pic-sub').length>=2&&x.querySelectorAll('.pic-sub').length<=8);return it?it.closest('.pic-item').dataset.k:null;},ANSW);
  await pg.evaluate(k=>{window.__SUBK=k;const I=findItem(k);if(ANS[k]&&(!ANS[k].s||!ANS[k].s.length)){ANS[k].s=[0];syncItem(k);}},sk);
@@ -146,10 +152,10 @@ const SHOTS=[
  await mp.screenshot({path:path.join(out,'s25_mobile_check.png')});meta['s25_mobile_check']={w:390,h:844,marks:[]};
  await mp.evaluate(()=>{switchTab('result');window.scrollTo(0,0);});await mp.waitForTimeout(900);
  await mp.screenshot({path:path.join(out,'s26_mobile_a4.png')});meta['s26_mobile_a4']={w:390,h:844,marks:[]};
- const order=['s01_overview','s02_tabs','s03_filebar','s04_pdf_preview','s05_cover','s06_inspector','s07_bldinfo','s08_opinion','s09_check_top','s10_judge','s11_judge_tail','s12_law_done','s13_subs','s14_sumbar','s15_result','s16_a4_cover','s17_a4_cl','s18_a4_sign','s19_onlyreal','s20_reference','s21_help_howto','s22_help_method','s23_help_caution','s24_mobile_main','s25_mobile_check','s26_mobile_a4','s27_ord','s28_pg'];
+ const order=['s01_overview','s02_tabs','s03_filebar','s04_pdf_preview','s05_cover','s06_inspector','s07_bldinfo','s08_opinion','s09_check_top','s10_judge','s11_judge_tail','s29_auto','s12_law_done','s13_subs','s14_sumbar','s15_result','s16_a4_cover','s17_a4_cl','s18_a4_sign','s19_onlyreal','s20_reference','s21_help_howto','s22_help_method','s23_help_caution','s24_mobile_main','s25_mobile_check','s26_mobile_a4','s27_ord','s28_pg'];
  const M2={};order.forEach(k=>{if(meta[k])M2[k]=meta[k];});
  fs.writeFileSync(path.join(out,'_marks.json'),JSON.stringify(M2,null,1));fs.writeFileSync(path.join(out,'_example.json'),JSON.stringify(ex,null,1));
  const miss=[];Object.entries(M2).forEach(([k,v])=>v.marks.forEach(m=>{if(m.miss)miss.push(k+':'+m.miss);else if(m.x<0||m.y<0||m.x+m.w>100.5||m.y+m.h>100.5)miss.push(k+':OUT '+m.label+' '+m.x+','+m.y+','+m.w+','+m.h);}));
- console.log(JSON.stringify({pdf:ex.pdf,judge:ex.judge,cmp:ex.judgeCmp,ordNone:ex.ordNone,ordBox:ex.ordBox,calc:ex.calc,calc2:ex.calc2,after:ex.afterJudge,full:ex.full,sub:ex.subItem,pages:[ex.pagesAll,ex.pagesSel],sizes:Object.fromEntries(Object.entries(M2).map(([k,v])=>[k,v.w+'x'+v.h])),miss,errs:errs.slice(0,15)},null,1));
+ console.log(JSON.stringify({pdf:ex.pdf,judge:ex.judge,cmp:ex.judgeCmp,ordNone:ex.ordNone,ordBox:ex.ordBox,calc:ex.calc,calc2:ex.calc2,after:ex.afterJudge,autoN:ex.autoN,autoFix:ex.autoFix,full:ex.full,sub:ex.subItem,pages:[ex.pagesAll,ex.pagesSel],sizes:Object.fromEntries(Object.entries(M2).map(([k,v])=>[k,v.w+'x'+v.h])),miss,errs:errs.slice(0,15)},null,1));
  await b.close();s.close();
 })();
