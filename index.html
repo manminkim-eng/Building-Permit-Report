@@ -1259,6 +1259,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
    v6.1.9 (2026-11-13) — 지역 확대: 전남광주통합특별시(종전 전라남도) 22개 · 충청남도 15개 시 · 군의 건폐율 · 용적률과 건축 조례(조경 · 공개공지 · 분할) — 기준일 2026-11-13 · 천안시 건폐율 · 용적률은 시행 예정본만 조회되어 값을 싣지 않음 · 근거 탭 조례 목록을 도별로 묶음
    v6.1.10 (2026-11-13) — 주차장 조례 · 대지 안의 공지 안내를 전남 22 · 충남 15 시 · 군으로 넓힘(51곳 · 기준일 2026-11-13) — 계획 · 보전관리지역만 대상인 조례 · 주거지역 공장 거리 · 별표를 읽지 못한 곳 처리
    v6.1.11 (2026-11-13) — html2canvas 1.4.1 머리 태그 SRI(integrity sha384 · crossorigin) · 인쇄 공통 원본 MM-PRINT v1.0 → v1.1(지연 로더도 SRI)(정밀검토 B8 · 작업지시서 §25-6-87 제외분) — 화면 · 계산 · 인쇄 불변
+   v6.1.20 (2026-11-19) — 도면 PDF 41건 점검 반영(U2 · U3 · U4): PDF 값 검사(지역 값은 지역 · 지구 · 구역 이름만 · 「용도지구」 · 「용도구역」은 칸 이름 · 구조는 「…조」 이름만 · 닫히지 않은 괄호 정리 · 주용도 앞 쉼표 떼기 · 보이지 않는 제어 글자 지움) · 선판정 ③은 용도지역 이름이 있을 때만, ④는 주용도 · 면적이 없으면 체크 꺼 둠 · 도면 건폐율 · 용적률과 계산값이 1 %p 넘게 다르면 미리보기 · 개요 탭 · 선판정 창에서 경고.
    v6.1.19 (2026-11-18) — 자동 선판정 ① ~ ④ 네 묶음 모두 기본 체크(MIN A안) · ③ 지역지구 글자 · ④ 일반으로 채운 답은 체크리스트에 🟨 「확인 필요」(화면만 · 인쇄 안 함 · 저장 파일 c 값) — 「확인」 단추 · 답을 고치면 지워짐 · 보기 「확인 필요만」 · 진행 스트립 「확인 필요 n칸」 · 남은 채로 인쇄 / JPG 저장하면 한 번 물음.
    v6.1.18 (2026-11-14) — 한국건축규정 적용 고시를 조사 / 검사일자로 고름: 2026. 7. 8. 이후 국토교통부고시 제2026-360호, 그 전 제2024-206호 — A4 체크리스트 머리 · 꼬리말 · 조서 안내(종전 두 고시를 늘 함께 적음). 체크리스트 데이터 변경 없음.
    v6.1.17 (2026-11-13) — 1112 업로드 체크리스트 대조 개선: 조경 녹지 예외가 다른 용도지역에도 걸치면 ② → ④ · 걸치는 대지(국토계획법 제84조 · 건축법 제54조) ③ · 법정값이 비어도 조례 최솟값 이하면 건폐율 · 용적률 ③ 적합 ·
@@ -1386,6 +1387,11 @@ function fillNA(){
 function clearAns(){ if(!confirm('체크리스트의 답과 비고를 모두 지웁니다. 계속할까요?')) return; ANS={}; syncAll(); mmToast('답을 모두 지웠습니다'); }
 
 /* ── 개요 ── */
+/* v6.1.20 불러온 PDF 에 적힌 건폐율 · 용적률과 지금 개요 면적으로 계산한 값이 1 %p 넘게 다르면 그 차이를 돌려준다(초기화 · 파일 불러오기 때 지움) */
+function docGap(){const d=window._ppDoc,r=ratios(),g=[];if(!d)return g;
+  if(d.bcr!=null&&r.bcr!=null&&Math.abs(r.bcr-d.bcr)>1)g.push('건폐율 '+f2(r.bcr)+' %(PDF '+f2(d.bcr)+' %)');
+  if(d.far!=null&&r.far!=null&&Math.abs(r.far-d.far)>1)g.push('용적률 '+f2(r.far)+' %(PDF '+f2(d.far)+' %'+(r.farBy==='연면적'?' — 용적률 산정용 연면적을 넣었는지 확인':'')+')');
+  return g;}
 function ratios(){
   const s=numOf('siteArea'),b=numOf('bldArea'),t=numOf('totalArea'),f=numOf('farArea');
   return {bcr:(s&&b!=null)?b/s*100:null, far:(s&&(f!=null||t!=null))?(f!=null?f:t)/s*100:null, farBy:f!=null?'용적률 산정용 연면적':'연면적'};
@@ -1603,6 +1609,7 @@ function recalc(){
   const r=ratios(), e=document.getElementById('pic-calc');
   if(e) e.textContent=(r.bcr==null&&r.far==null)?'건폐율 · 용적률은 면적을 넣으면 계산해 보여 줍니다.'
     :'건폐율 '+(r.bcr==null?'—':f2x(r.bcr,numOf('bcrLegal'))+' %')+' · 용적률 '+(r.far==null?'—':f2x(r.far,numOf('farLegal'))+' % ('+r.farBy+' 기준)')+lim(r);
+  {const g=docGap(); if(e&&g.length) e.textContent+=' ⚠ 불러온 PDF 의 비율과 다름: '+g.join(' · ')+' — 면적을 다시 확인하십시오.';}   /* v6.1.20 */
   ordRender(); bordRender(); pgRender(); kbcRender();
 }
 
@@ -1674,7 +1681,7 @@ function loadFile(inp){
     try{
       const o=JSON.parse(rd.result); if(!o||o.tool!=='MANMIN-건축허가조사및검사조서'||typeof o.ans!=='object') throw new Error('이 도구의 저장 파일이 아닙니다');
       FIELDS.forEach(id=>{const e=document.getElementById(id);if(e&&o.info&&typeof o.info[id]==='string')e.value=o.info[id];});
-      const A={}; let drop=0;
+      const A={}; let drop=0; window._ppDoc=null;
       Object.keys(o.ans||{}).forEach(k=>{
         let I=null; try{I=findItem(k);}catch(e){} const a=o.ans[k];
         if(!I||!a||typeof a!=='object'){drop++;return;}
@@ -1693,7 +1700,7 @@ function resetAll(){
   if(!confirm('입력한 개요와 체크리스트 답을 모두 지웁니다. 계속할까요?')) return;
   FIELDS.forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
   document.getElementById('author').value='김만민'; document.getElementById('firm').value='(주)대성건축사사무소'; document.getElementById('reportDate').value=getTodayISO();
-  ANS={}; recalc(); syncAll(); mmToast('초기화했습니다');
+  ANS={}; window._ppDoc=null; recalc(); syncAll(); mmToast('초기화했습니다');
 }
 
 /* ── 탭 · 인쇄 · 모달 ── */
@@ -1772,7 +1779,7 @@ setTimeout(scaleA4,100);
   var LABEL={
     projectName:/^(사업명|공사명|용역명|건물명)[:：]?$/, client:/^(건축주|발주처|발주자)[:：]?$/, name:/^성명$/,
     siteLoc:/^(대지위치|위치|소재지)[:：]?$/, lotNo:/^지번$/, relLot:/^관련지번$/,
-    zoning:/^(지역[\/·ㆍ]?지구|용도지역|지역지구구역|지역[\/·ㆍ]지구[\/·ㆍ]구역)$/, region:/^지역$/, district:/^지구$/, zone2:/^구역$/,
+    zoning:/^(지역[\/·ㆍ]?지구|용도지역|지역지구구역|지역[\/·ㆍ]지구[\/·ㆍ]구역)$/, region:/^지역$/, district:/^(지구|용도지구)$/, zone2:/^(구역|용도구역)$/,
     siteArea:/^(대지면적|사용면적합계|대지면적합계)$/, bldArea:/^건축면적$/, bcr:/^건폐율$/, far:/^(용적률|용적율)$/,
     farArea:/^(용적[률율]산정(용)?연면적|용적[률율]산정용)$/, totalArea:/^(연면적|연면적합계)$/, sum:/^(계|합계|소계)$/,
     mainUse:/^(주용도|건축물용도)$/, use:/^(용도|세부용도)$/, structure:/^(구조|구조형식|주구조|주구조[\/]지붕구조)$/, scale:/^(규모|층수)$/, bldHeight:/^(최고높이|건축물높이|높이)$/,
@@ -1799,7 +1806,7 @@ setTimeout(scaleA4,100);
     return page.getTextContent().then(function(tc){
       var out=[];
       tc.items.forEach(function(it){
-        var t=String(it.str||'').replace(/\s+/g,' ').trim(); if(!t) return;
+        var t=String(it.str||'').replace(/[\u0000-\u001f\u007f\ufffd]/g,' ').replace(/\s+/g,' ').trim(); if(!t) return;   /* v6.1.20 보이지 않는 제어 글자 지움 */
         var m=window.pdfjsLib.Util.transform(vp.transform,it.transform);
         var h=Math.hypot(m[2],m[3])||it.height||8, w=it.width||t.length*h*0.5;
         var horiz=Math.abs(m[0])>=Math.abs(m[1]);   /* 화면에서 가로로 놓인 글자인지 */
@@ -1892,9 +1899,11 @@ setTimeout(scaleA4,100);
     }
     v=textRight('siteLoc'); if(v)put('siteLoc',v.t.replace(/\s{2,}/g,' '),v);
     /* 지역 · 지구 · 구역: 한 칸 서식이 먼저, 없으면 따로 적힌 칸을 모음 */
-    v=textRight('zoning');
-    if(v) put('zoning',v.t.replace(/\s*,\s*/g,', '),v);
-    else{var zs=[];['region','district','zone2'].forEach(function(k){var x=textRight(k);if(x&&!/^[-–—]$/.test(nz(x.t)))zs.push(x.t.replace(/\s*,\s*/g,', '));});if(zs.length)put('zoning',zs.join(', '),{t:zs.join(' | ')});}
+    /* v6.1.20 지역 값은 「…지역 · …지구 · …구역」 이름일 때만(칸 이름 「용도지구」 · 주소 「전라북도 익산시」 는 받지 않음) */
+    var zonVal=function(t){var n=nz(t);return plain(t)&&/(지역|지구|구역)/.test(n)&&!/^(용도)?(지역|지구|구역)$/.test(n)&&n.length<=80;};
+    v=textRight('zoning',null,zonVal);
+    if(v) put('zoning',v.t.replace(/^\s*(용도지역|용도지구|용도구역)\s+/,'').replace(/\s*,\s*/g,', '),v);   /* 칸 이름이 값 앞에 붙은 것 떼기 */
+    else{var zs=[];['region','district','zone2'].forEach(function(k){var x=textRight(k,null,zonVal);if(x&&!/^[-–—]$/.test(nz(x.t)))zs.push(x.t.replace(/^\s*(용도지역|용도지구|용도구역)\s+/,'').replace(/\s*,\s*/g,', '));});if(zs.length)put('zoning',zs.join(', '),{t:zs.join(' | ')});}
     /* v6.1.14 지목 — 공간정보관리법 28개 지목 이름(여러 필지면 「답, 전」 처럼 이어 씀) */
     var JM='전|답|과수원|목장용지|임야|광천지|염전|대|공장용지|학교용지|주차장|주유소용지|창고용지|도로|철도용지|제방|하천|구거|유지|양어장|수도용지|공원|체육용지|유원지|종교용지|사적지|묘지|잡종지';
     v=textRight('landCat',null,function(t){return new RegExp('^('+JM+')([,·ㆍ/]('+JM+'))*$').test(nz(t));}); if(v)put('landCat',nz(v.t).replace(/[,·ㆍ\/]/g,', '),v);
@@ -1917,9 +1926,10 @@ setTimeout(scaleA4,100);
       if(cand) put('totalArea',num(cand.t),cand);
     })();
     var useOk=function(t){return /시설|주택|건축물|공장|창고|주차장|숙박|업무|판매|의료|교육|종교|근린/.test(nz(t))&&nz(t).length<=30;};
-    v=textRight('mainUse',null,useOk)||rightThenBelow(['use'],useOk); if(v)put('mainUse',tidy(v.t),v);
-    var stOk=function(t){var n=nz(t);return /조$|구조|콘크리트|철골|목구조|조[,\/]/.test(n)&&n.length<=40;};
-    v=rightThenBelow(['structure'],stOk); if(v)put('structure',tidy(v.t.split('/')[0]),v);
+    v=textRight('mainUse',null,useOk)||rightThenBelow(['use'],useOk); if(v)put('mainUse',tidy(v.t).replace(/^[,·ㆍ\s]+/,''),v);   /* v6.1.20 앞에 붙은 쉼표 떼기 */
+    /* v6.1.20 구조는 「…조 · …구조」 이름만(「2.2 구조설계 적용기준」 · 「구조내력」 같은 제목은 받지 않음) · 닫히지 않은 괄호는 잘라 냄 */
+    var stOk=function(t){var n=nz(t);return n.length<=30&&!/^[\d.()]/.test(n)&&!/^(내화|방화|주요|건축물의?)구조/.test(n)&&!/기준|내력|계획|설계|적용|검토|계산|안전|해석|일반사항|제\d+조|법|「/.test(n)&&(/(조|구조)$/.test(n)||/조[,\/(]/.test(n)||/콘크리트|철골|목구조|조적/.test(n));};
+    v=rightThenBelow(['structure'],stOk); if(v){var stv=tidy(v.t.split('/')[0]);if((stv.match(/\(/g)||[]).length>(stv.match(/\)/g)||[]).length)stv=stv.replace(/\s*\([^()]*$/,'');put('structure',stv,v);}
     /* 층수: 규모 줄 → 없으면 쪽 전체에서 「지상 n층」 「지하 n층」 중 가장 큰 것 */
     v=null;(by.scale||[]).some(function(c){v=firstVal(rightOf(c,C),function(t){return /지상\s*\d+\s*층|지하\s*\d+\s*층/.test(t);});return !!v;});
     if(v){var ma=/지상\s*(\d+)\s*층/.exec(v.t), mb=/지하\s*(\d+)\s*층/.exec(v.t); if(ma)put('floorsAbove',ma[1],v); put('floorsBelow',mb?mb[1]:'0',v);}
@@ -1992,10 +2002,16 @@ setTimeout(scaleA4,100);
     });
     var ref=[]; if(V._bcr)ref.push('도면의 건폐율 '+V._bcr+' %'+(V._bcrLegal?' (법정 '+V._bcrLegal+' %)':'')); if(V._far)ref.push('도면의 용적률 '+V._far+' %'+(V._farLegal?' (법정 '+V._farLegal+' %)':'')); if(V._relLot)ref.push('관련 지번 '+V._relLot+'(지번 칸에는 넣지 않음)'); if(V._parkQ&&V.parkLegal!=null)ref.push('주차 산출식 '+V._parkQ+'(주차장법 시행령 별표 1 비고 6 — 0.5 이상 1대)');
     var miss=ORDER.filter(function(id){return V[id]==null;}).map(function(id){return NAMES[id];});
+    /* v6.1.20 도면에 적힌 건폐율 · 용적률과 읽은 면적으로 계산한 값이 1 %p 넘게 다르면 경고 */
+    var chk=[];(function(){var s=+V.siteArea||0,b=+V.bldArea||0,t=+V.totalArea||0,fa=V.farArea!=null?+V.farArea:0,db=V._bcr!=null?+V._bcr:null,df=V._far!=null?+V._far:null;
+      if(s&&b&&db!=null){var cb=b/s*100;if(Math.abs(cb-db)>1)chk.push('건폐율: 도면 '+db+' % · 읽은 면적으로 계산 '+cb.toFixed(2)+' %');}
+      if(s&&(fa||t)&&df!=null){var cf=(fa||t)/s*100;if(Math.abs(cf-df)>1)chk.push('용적률: 도면 '+df+' % · 읽은 '+(fa?'용적률 산정용 연면적':'연면적')+'으로 계산 '+cf.toFixed(2)+' %'+(fa?'':'(용적률 산정용 연면적을 못 읽음 — 도면 비율로 거꾸로 셈하면 약 '+(s*df/100).toFixed(2)+' ㎡)'));}
+      if(b&&t&&t+0.01<b)chk.push('연면적 '+t+' ㎡ 가 건축면적 '+b+' ㎡ 보다 작음');})();
     var ov=document.getElementById('pp-ov'); if(!ov){ov=document.createElement('div');ov.id='pp-ov';ov.className='pp-ov no-print';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-labelledby','pp-ttl');document.body.appendChild(ov);}
     ov.innerHTML='<div class="pp-box"><div class="pp-hd"><div id="pp-ttl" class="pp-ttl">📄 설계개요 PDF 에서 읽은 값</div><button type="button" class="pp-x" aria-label="닫기" onclick="ppClose()">✕</button></div>'
       +'<div class="pp-bd"><div class="pp-info">'+esc2(fileName)+' · 전체 '+res.pages+'쪽 중 <b>'+res.best.page+'쪽</b>을 개요 쪽으로 보고 읽었습니다. 값을 확인 · 수정한 뒤 「채우기」를 누르십시오. 이미 값이 있는 칸은 체크를 꺼 두었습니다.</div>'
       +(n?'<table class="pp-tbl"><thead><tr><th>채움</th><th>칸</th><th>읽은 값</th><th>지금 화면</th></tr></thead><tbody>'+rows+'</tbody></table>':'<div class="pp-warn">읽을 수 있는 개요 값을 찾지 못했습니다. 직접 입력해 주십시오.</div>')
+      +(chk.length?'<div class="pp-warn">⚠ 도면 값과 맞지 않습니다 — 면적을 PDF 와 다시 맞춰 보십시오: '+esc2(chk.join(' · '))+'</div>':'')
       +(ref.length?'<div class="pp-ref">참고 — '+esc2(ref.join(' · '))+' (채운 뒤 체크리스트 탭 「⚡ 개요로 자동 선판정」으로 대조)</div>':'')
       +(miss.length?'<div class="pp-miss">못 읽은 칸: '+esc2(miss.join(', '))+'</div>':'')
       +'</div><div class="pp-ft"><button type="button" class="pic-btn" onclick="ppClose()">닫기</button>'+(n?'<button type="button" class="pic-btn pp-go" onclick="ppFill()">채우기</button>':'')+'</div></div>';
@@ -2012,7 +2028,8 @@ setTimeout(scaleA4,100);
       else e.value=val;
       n++;
     });
-    window.ppClose(); if(typeof recalc==='function') recalc(); mmToast(n+'칸 채움 — 다음: ⚡ 자동 선판정');
+    var LV=(window._ppLast&&window._ppLast.val)||{}; window._ppDoc=(LV._bcr!=null||LV._far!=null)?{bcr:LV._bcr!=null?+LV._bcr:null,far:LV._far!=null?+LV._far:null}:null;   /* v6.1.20 도면 비율 기억(대조용) */
+    window.ppClose(); if(typeof recalc==='function') recalc(); mmToast(n+'칸 채움 — 다음: ⚡ 자동 선판정'+(typeof docGap==='function'&&docGap().length?' · ⚠ 도면 비율과 다름(개요 탭 확인)':''));
   };
   window.pdfPick=function(inp){
     var f=inp.files&&inp.files[0]; if(!f) return; inp.value='';
@@ -2360,14 +2377,20 @@ setTimeout(scaleA4,100);
   function lawOf(k){var p=k.split('.'),S=CL[+p[0]],L=S.laws.find(function(l){return lkOf(l)===+p[1];});return {S:S,L:L,I:L.items[+p[2]]};}
   function plan(){
     var u=U(),r=rules(u),rows=[],done=0,bad=[];
+    /* v6.1.20 ③ 은 「지역 / 지구 / 구역」에 용도지역 이름이 있을 때만 · ④ 는 주용도와 면적이 모두 없으면 체크를 꺼 둠 */
+    var zOK=(znNorm(u.zon).match(ZONE_RE)||[]).length>0, off4=!u.use&&u.site==null&&u.tot==null, need=r.need.slice(), warn=(r.warn||[]).slice();
     r.R.forEach(function(x){
+      if(x.tier===3&&!zOK) return;
       var z; try{z=lawOf(x.k);}catch(e){bad.push(x.k);return;}
       var oi=z.I.o.findIndex(function(o){return o.t===x.t;}); if(oi<0){bad.push(x.k+':'+x.t);return;}
       if(answered(x.k)){done++;return;}
       var os=z.I.o[oi].s||[], si=(x.s||[]).map(function(t){return os.indexOf(t);}); if(si.some(function(i){return i<0;})){bad.push(x.k+':'+x.s.join('|'));return;}
       rows.push({k:x.k,oi:oi,t:x.t,tier:x.tier,why:x.why,m:x.m||'',si:si,st:(x.s||[]).slice(),sec:+x.k.split('.')[0],law:z.L.law,no:z.L.no,item:z.I.n});
     });
-    return {rows:rows,done:done,bad:bad,need:r.need,warn:r.warn||[]};
+    if(!zOK){ if(u.zon) warn.push('「지역 / 지구 / 구역」 칸(「'+u.zon+'」)에 용도지역 이름(예: 자연녹지지역)이 없어 ③ 지역지구 글자 묶음은 빼었습니다. 토지이용계획확인원대로 넣고 다시 여십시오.'); else if(r.R.some(function(x){return x.tier===3;})) warn.push('「지역 / 지구 / 구역」 칸이 비어 있어 ③ 지역지구 글자 묶음은 빼었습니다. 토지이용계획확인원대로 넣고 다시 여십시오.'); }
+    if(off4&&rows.some(function(x){return x.tier===4;})) warn.push('개요에 주용도 · 면적이 없어 ④ 일반 묶음은 체크를 꺼 두었습니다(근거 없는 「적합」 방지). 개요를 채운 뒤 다시 여십시오.');
+    (typeof docGap==='function'?docGap():[]).forEach(function(g){warn.push('불러온 PDF 의 비율과 다릅니다: '+g+'. 면적을 다시 확인하십시오.');});
+    return {rows:rows,done:done,bad:bad,need:need,warn:warn,off4:off4};
   }
   window.judgeOpen=function(){
     var P=plan(); window._jdLast=P;
@@ -2375,14 +2398,14 @@ setTimeout(scaleA4,100);
     var body='';
     [1,2,3,4].forEach(function(t){
       var rs=P.rows.filter(function(x){return x.tier===t;}); if(!rs.length) return;
-      body+='<div class="jd-tier"><label class="jd-th"><input type="checkbox" checked'+' onchange="judgeTier('+t+',this.checked)"> '+esc(TIER[t])+' <span class="jd-n">'+rs.length+'항목</span></label>'
+      body+='<div class="jd-tier"><label class="jd-th"><input type="checkbox" '+(t===4&&P.off4?'':'checked')+' onchange="judgeTier('+t+',this.checked)"> '+esc(TIER[t])+' <span class="jd-n">'+rs.length+'항목</span></label>'
         +'<table class="pp-tbl jd-tbl"><tbody>'+rs.map(function(x){var id='jd-'+x.k.replace(/\./g,'_');
-          return '<tr><td><input type="checkbox" class="jd-c" data-t="'+t+'" data-k="'+x.k+'" id="'+id+'" checked></td>'
+          return '<tr><td><input type="checkbox" class="jd-c" data-t="'+t+'" data-k="'+x.k+'" id="'+id+'" '+(t===4&&P.off4?'':'checked')+'></td>'
             +'<td><span class="jd-law">'+(x.sec?'건축물':'입지')+' '+x.no+'. '+(lawUrl(x.law)?'<a class="jd-law-a" href="'+lawUrl(x.law)+'" target="_blank" rel="noopener" title="국가법령정보센터에서 현행 조문 열기 (새 창)">'+esc(x.law)+' ↗</a>':esc(x.law))+'</span><br><label for="'+id+'"><b>'+esc(x.item)+'</b> → <span class="jd-ans">'+esc(x.t)+(x.st&&x.st.length?' (■'+x.st.map(esc).join(' ■')+')':'')+'</span></label><div class="jd-why">'+esc(x.why)+'</div>'+(x.m?'<div class="jd-memo">비고 → '+esc(x.m)+'</div>':'')+'</td></tr>';
         }).join('')+'</tbody></table></div>';
     });
     ov.innerHTML='<div class="pp-box"><div class="pp-hd"><div id="jd-ttl" class="pp-ttl">⚡ 개요로 자동 선판정</div><button type="button" class="pp-x" aria-label="닫기" onclick="judgeClose()">✕</button></div>'
-      +'<div class="pp-bd"><div class="pp-info">개요 값으로 고른 답 <b>'+P.rows.length+'항목</b>입니다. 근거를 보고 체크한 항목만 채웁니다. 「비고 →」 가 붙은 항목은 근거 수치를 비고 칸에 함께 넣습니다(비어 있는 칸만). 네 묶음 모두 처음부터 체크되어 있습니다. ③ 지역지구 글자 · ④ 일반 묶음으로 채운 답은 체크리스트에 🟨 「확인 필요」가 붙습니다 — ③은 토지이용계획확인원, ④는 도면과 맞춰 본 뒤 「확인」을 누르거나 답을 고치십시오(「보기 → 확인 필요만」). 남은 채로 인쇄하면 한 번 묻습니다.'+(P.done?' 이미 답한 '+P.done+'항목은 건너뜁니다(덮어쓰지 않음).':'')+'</div>'
+      +'<div class="pp-bd"><div class="pp-info">개요 값으로 고른 답 <b>'+P.rows.length+'항목</b>입니다. 근거를 보고 체크한 항목만 채웁니다. 「비고 →」 가 붙은 항목은 근거 수치를 비고 칸에 함께 넣습니다(비어 있는 칸만). 네 묶음 모두 처음부터 체크되어 있습니다. ③ 지역지구 글자 · ④ 일반 묶음으로 채운 답은 체크리스트에 🟨 「확인 필요」가 붙습니다 — ③은 토지이용계획확인원, ④는 도면과 맞춰 본 뒤 「확인」을 누르거나 답을 고치십시오(「보기 → 확인 필요만」). 남은 채로 인쇄하면 한 번 묻습니다.'+(P.off4?' <b>지금은 개요에 주용도 · 면적이 없어 ④ 일반 묶음 체크를 꺼 두었습니다.</b>':'')+(P.done?' 이미 답한 '+P.done+'항목은 건너뜁니다(덮어쓰지 않음).':'')+'</div>'
       +(P.rows.length?body:'<div class="pp-warn">새로 고를 답이 없습니다.</div>')
       +((P.warn||[]).length?'<div class="pp-warn">'+P.warn.map(esc).join('<br>')+'</div>':'')
       +(P.need.length?'<div class="pp-miss">개요에 넣으면 더 판정되는 칸: '+esc(P.need.join(', '))+'</div>':'')
