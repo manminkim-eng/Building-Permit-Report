@@ -1259,6 +1259,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
    v6.1.9 (2026-11-13) — 지역 확대: 전남광주통합특별시(종전 전라남도) 22개 · 충청남도 15개 시 · 군의 건폐율 · 용적률과 건축 조례(조경 · 공개공지 · 분할) — 기준일 2026-11-13 · 천안시 건폐율 · 용적률은 시행 예정본만 조회되어 값을 싣지 않음 · 근거 탭 조례 목록을 도별로 묶음
    v6.1.10 (2026-11-13) — 주차장 조례 · 대지 안의 공지 안내를 전남 22 · 충남 15 시 · 군으로 넓힘(51곳 · 기준일 2026-11-13) — 계획 · 보전관리지역만 대상인 조례 · 주거지역 공장 거리 · 별표를 읽지 못한 곳 처리
    v6.1.11 (2026-11-13) — html2canvas 1.4.1 머리 태그 SRI(integrity sha384 · crossorigin) · 인쇄 공통 원본 MM-PRINT v1.0 → v1.1(지연 로더도 SRI)(정밀검토 B8 · 작업지시서 §25-6-87 제외분) — 화면 · 계산 · 인쇄 불변
+   v6.1.22 (2026-11-20) — 세움터 서식 읽기(U1): 값이 칸 이름보다 조금 아래(같은 칸 안 오른쪽 아래)에 찍힌 허가서 · 허가신청서 · 사용승인신청서 · 사업계획승인신청서 · 가설건축물 신고서를 읽음(같은 줄 다음 칸 이름 앞까지 · 더 가까운 위쪽 칸 이름이 있으면 그 칸 값 · 숫자 칸은 숫자만 든 조각 · 대지위치는 주소 모양만) · 같은 글자를 겹쳐 찍은 PDF(가짜 굵게) 정리 · 단위 붙은 칸 이름 「대지면적(㎡)」 · 값과 다음 칸 이름이 붙은 조각 「26,510 건축면적 (㎡)」 떼기 · 「연면적 합계(용적률 산정용)」 칸 이름 · 전각 ％ · 괄호가 닫히지 않은 주용도는 아래 줄을 이음 — 도면자료 100건 정답 대조 맞음 437 → 492칸(재현율 68 → 77 %) · 새로 틀린 칸 0 · 화면 · 인쇄 · MM-PRINT 불변
    v6.1.21 (2026-11-19) — 도면자료 100건 검증 반영(U5): 칸 이름과 값이 한 조각으로 붙은 서식(「대지위치: …」 「◉ 대 지 면 적 : …」 「가. 위치 : …」 · 한 줄에 여럿 · 쌍점 없이 「용도지역 도시지역,…」)을 떼어 읽음 · 칸 이름 앞 글머리표 · 끝 쌍점 무시 · 건축연면적 · 건축규모 · 주차개요 · 작품명 칸 이름 · 건축주 값에서 전자우편 · 생년월일 · 연락처는 멈춤 · 주차 「54대」 만 적힌 것은 계획 대수 · 옥내 / 옥외 대수 더함 · 「455대(법정 259대)」 · 「3,649대(법정)」 · 띄어 쓴 숫자 · 넓이 「60,230.00 m」 · 건축주에 법령 문장 · 「…에 동의합니다」 받지 않음 · 값 앞 쌍점 떼기 · 용적률 산정용 연면적이 용적률(%) 값과 같거나 다른 면적이 없으면 버림. 100건 정답 대조 맞음 241 → 437칸.
    v6.1.20 (2026-11-19) — 도면 PDF 41건 점검 반영(U2 · U3 · U4): PDF 값 검사(지역 값은 지역 · 지구 · 구역 이름만 · 「용도지구」 · 「용도구역」은 칸 이름 · 구조는 「…조」 이름만 · 닫히지 않은 괄호 정리 · 주용도 앞 쉼표 떼기 · 보이지 않는 제어 글자 지움) · 선판정 ③은 용도지역 이름이 있을 때만, ④는 주용도 · 면적이 없으면 체크 꺼 둠 · 도면 건폐율 · 용적률과 계산값이 1 %p 넘게 다르면 미리보기 · 개요 탭 · 선판정 창에서 경고.
    v6.1.19 (2026-11-18) — 자동 선판정 ① ~ ④ 네 묶음 모두 기본 체크(MIN A안) · ③ 지역지구 글자 · ④ 일반으로 채운 답은 체크리스트에 🟨 「확인 필요」(화면만 · 인쇄 안 함 · 저장 파일 c 값) — 「확인」 단추 · 답을 고치면 지워짐 · 보기 「확인 필요만」 · 진행 스트립 「확인 필요 n칸」 · 남은 채로 인쇄 / JPG 저장하면 한 번 물음.
@@ -1782,7 +1783,7 @@ setTimeout(scaleA4,100);
     siteLoc:/^(대지위치|위치|소재지)[:：]?$/, lotNo:/^지번$/, relLot:/^관련지번$/,
     zoning:/^(지역[\/·ㆍ]?지구|용도지역|지역지구구역|지역[\/·ㆍ]지구[\/·ㆍ]구역)$/, region:/^지역$/, district:/^(지구|용도지구)$/, zone2:/^(구역|용도구역)$/,
     siteArea:/^(대지면적|사용면적합계|대지면적합계)$/, bldArea:/^건축면적$/, bcr:/^건폐율$/, far:/^(용적률|용적율)$/,
-    farArea:/^(용적[률율]산정(용)?연면적|용적[률율]산정용)$/, totalArea:/^(연면적|연면적합계|건축연면적)$/, sum:/^(계|합계|소계)$/,
+    farArea:/^(용적[률율]산정(용)?연면적(합계)?|용적[률율]산정용|연면적합계?\(용적[률율]산정용\))$/, totalArea:/^(연면적|연면적합계|건축연면적)$/, sum:/^(계|합계|소계)$/,
     mainUse:/^(주용도|건축물용도)$/, use:/^(용도|세부용도)$/, structure:/^(구조|구조형식|주구조|주구조[\/]지붕구조)$/, scale:/^(규모|층수|건축규모)$/, bldHeight:/^(최고높이|건축물높이|높이)$/,
     workType:/^(공종|건축구분|공사종별|공사구분)$/, landForm:/^(형질변경의?필요성|토지형질변경)$/, roadW:/^(대지에접한도로의?너비|접한도로너비|전면도로너비|도로너비)$/, landNote:/^(대지안의조경\(법정%?\)|조경\(법정%?\))$/, xLand:/^(대지안의조경\(설계\)|대지조성필요성|대지의안전상태|대지에접한도로개소|대지에접한도로의?길이|대지와도로의고저차|통과도로\/막다른도로|지상,지하장애물|보,차통행가능여부)$/, park:/^(주차장|주차대수|주차|총주차대수|주차개요)$/, land:/^(조경|조경면적)$/,
     xSsn:/^(주민등록번호|법인등록번호|사업자등록번호)$/, xAddr:/^주소$/, landCat:/^지목$/, xMisc:/^(비고|구분|형식|동별|층별|면적\(?(㎡|m²|M²)?\)?|바닥면적|지적면적|제외면적|사용면적|공부상면적|도로|도로현황|접도길이|용량|주건축물수|부속건축물|호\(?가구\)?수|전자우편|전자|우편|생년월일|전화번호|연락처|팩스)$/
@@ -1790,7 +1791,8 @@ setTimeout(scaleA4,100);
   var SCORE_KEYS=['siteArea','bldArea','bcr','far','totalArea','zoning','region','bldHeight','park','structure','scale','siteLoc','mainUse'];
   var BUL=/^[\s◉◈■□▣●○◦•ㆍ·\-–—*※▶►▷☞￭]+/, KENUM=/^(?:[가-하][.)]|[①-⑳])\s*/;
   function cleanLab(t){return String(t||'').replace(BUL,'').replace(KENUM,'').replace(BUL,'');}   /* v6.1.21 「◉ 대지면적 :」 「- 건 폐 율 :」 「가. 위치 :」 */
-  function labelOf(t){var n=nz(cleanLab(t)).replace(/[:：]+$/,'');if(!n||n.length>14)return null;for(var k in LABEL){if(LABEL[k].test(n))return k;}return null;}
+  function labelOf(t){var n=nz(cleanLab(t)).replace(/[:：]+$/,'').replace(/^(대지면적|건축면적|연면적|연면적합계|건폐율|용적[률율]|용적[률율]산정용(연면적)?|최고높이|높이)\((㎡|m²|M²|m2|%|m)\)$/,'$1');   /* v6.1.22 「대지면적(㎡)」 「용적률(%)」 단위 붙은 칸 이름 */
+  if(!n||n.length>14)return null;for(var k in LABEL){if(LABEL[k].test(n))return k;}return null;}
   /* 「지 번 지 목」처럼 칸 이름 여러 개가 한 칸으로 붙은 것 */
   function labelish(t){if(labelOf(t))return true;var p=String(t).trim().split(/\s+/);if(p.length<2||p.length>12)return false;var ok=0,i=0,j,hit;while(i<p.length){hit=0;for(j=Math.min(p.length,i+6);j>i;j--){if(labelOf(p.slice(i,j).join(''))){hit=j-i;break;}}if(hit){ok+=hit;i+=hit;}else i++;}return ok>=p.length;}
 
@@ -1809,14 +1811,27 @@ setTimeout(scaleA4,100);
     return page.getTextContent().then(function(tc){
       var out=[];
       tc.items.forEach(function(it){
-        var t=String(it.str||'').replace(/[\u0000-\u001f\u007f\ufffd]/g,' ').replace(/\s+/g,' ').trim(); if(!t) return;   /* v6.1.20 보이지 않는 제어 글자 지움 */
+        var t=String(it.str||'').replace(/[\u0000-\u001f\u007f\ufffd]/g,' ').replace(/\s+/g,' ').trim().replace(/％/g,'%'); if(!t) return;   /* v6.1.22 전각 ％ → % · v6.1.20 보이지 않는 제어 글자 지움 */
         var m=window.pdfjsLib.Util.transform(vp.transform,it.transform);
         var h=Math.hypot(m[2],m[3])||it.height||8, w=it.width||t.length*h*0.5;
         var horiz=Math.abs(m[0])>=Math.abs(m[1]);   /* 화면에서 가로로 놓인 글자인지 */
         out.push({t:t,n:nz(t),x:horiz?m[4]:m[4]-h,y:horiz?m[5]-h:m[5]-w,w:horiz?w:h,h:horiz?h:w});
       });
-      return {cells:splitGlued(joinKnown(merge(out))),w:vp.width,h:vp.height};
+      return {cells:splitGlued(joinKnown(merge(unbold(out)))),w:vp.width,h:vp.height};
     });
+  }
+  /* v6.1.22 같은 글자를 조금씩 비켜 여러 번 찍은 PDF(가짜 굵게 · 세움터 출력물) — 「22,22,,2,227」 처럼 읽히는 것을 막는다.
+       ① 같은 글자가 1pt 안에 겹치면 하나만 ② 두 글자 이상 조각이 낱글자 조각들로 이미 다 덮이면 버림. 겹친 글자가 20개 넘는 쪽에서만 */
+  function unbold(list){
+    var seen={},out=[],dup=0;
+    function key(t,x,y){return t+'|'+x+'|'+y;}
+    list.forEach(function(c){var x=Math.round(c.x),y=Math.round(c.y),hit=false;
+      for(var dx=-1;dx<=1&&!hit;dx++)for(var dy=-1;dy<=1&&!hit;dy++){var o=seen[key(c.t,x+dx,y+dy)];if(o&&Math.abs(o.x-c.x)<1&&Math.abs(o.y-c.y)<1)hit=true;}
+      if(hit){dup++;return;} seen[key(c.t,x,y)]=c; out.push(c);});
+    if(dup<20) return list;
+    var one={};out.forEach(function(c){if(c.t.length===1){var k=c.t+'|'+Math.round(c.y);(one[k]||(one[k]=[])).push(c);}});
+    function has(ch,c){for(var dy=-1;dy<=1;dy++){var a=one[ch+'|'+(Math.round(c.y)+dy)];if(a&&a.some(function(d){return Math.abs(d.y-c.y)<1.5&&d.x>=c.x-1&&d.x<=c.x+c.w+1;}))return true;}return false;}
+    return out.filter(function(c){if(c.t.length<2)return true;var cs=c.t.replace(/\s/g,'').split('');return !cs.every(function(ch){return has(ch,c);});});
   }
   function rowTol(a,b){return Math.max(3,Math.min(a.h,b.h)*0.6);}
   function cyOf(c){return c.y+c.h/2;}
@@ -1879,6 +1894,8 @@ setTimeout(scaleA4,100);
     if(!cuts.length){
       if(labelOf(t)) return null;
       var w=t.trim().split(/\s+/); if(w.length<2) return null;
+      for(var q=1;q<Math.min(4,w.length);q++){var hd=w.slice(0,q).join(' '),tl=w.slice(q).join(' ');   /* v6.1.22 값 뒤에 다음 칸 이름이 붙은 것 「26,510 건축면적 (㎡)」 */
+        if(/^[\d,.]+\s*(㎡|m²|M²|m2|%)?$/.test(hd)&&labelOf(tl)){var j0=t.indexOf(w[q],t.indexOf(w[q-1])+w[q-1].length);return [{s:0,e:j0,t:t.slice(0,j0)},{s:j0,e:t.length,t:t.slice(j0)}];}}
       for(var k=Math.min(6,w.length-1);k>=1;k--){var lab=w.slice(0,k).join(' '),key=labelOf(lab);
         if(key&&GB[key]&&nz(cleanLab(lab)).length>=3&&nz(t).length<=60){var rest=w.slice(k).join(' ');if(bOk(key,rest)){var i0=t.indexOf(w[0]),i1=t.indexOf(w[k-1],i0)+w[k-1].length;return [{s:0,e:i1,t:t.slice(0,i1)},{s:i1,e:t.length,t:t.slice(i1)}];}}}
       return null;
@@ -1901,6 +1918,16 @@ setTimeout(scaleA4,100);
   function sameRow(a,b,loose){return Math.abs(cyOf(a)-cyOf(b))<=Math.max(3.5,Math.min(a.h,b.h)*(loose?1.3:0.7));}
   function rightOf(c,cells,loose){return cells.filter(function(d){return d!==c&&sameRow(c,d,loose)&&d.x>=c.x+c.w*0.7;}).sort(function(a,b){return a.x-b.x;});}
   function below(c,cells){var cx=c.x+c.w/2;return cells.filter(function(d){return d!==c&&d.y>c.y+c.h*0.5&&Math.abs((d.x+d.w/2)-cx)<=Math.max(14,c.w*0.8);}).sort(function(a,b){return a.y-b.y;});}
+  /* v6.1.22 U1 세움터 서식 — 값이 칸 이름보다 조금 아래(같은 칸 안 오른쪽 아래)에 찍힌 것. 같은 줄 다음 칸 이름 앞까지 ·
+       칸 이름 높이의 2배 안 · 더 가까운 위쪽 칸 이름이 있으면 그 칸의 값으로 본다 */
+  function downIn(c,cells){
+    var cy=cyOf(c),lim=Math.max(14,c.h*2),bx=Infinity,labs=[];
+    cells.forEach(function(L){if(L!==c&&(labelOf(L.t)||labelish(L.t))){labs.push(L);if(L.x>c.x+c.w*0.5&&sameRow(c,L)&&L.x<bx)bx=L.x;}});
+    return cells.filter(function(d){var dy=cyOf(d)-cy;
+      if(d===c||dy<=c.h*0.3||dy>lim||d.x<c.x-2||d.x>=bx-1||labelOf(d.t)||labelish(d.t))return false;
+      return !labs.some(function(L){var e=cyOf(d)-cyOf(L);return L.x<=d.x+2&&e>=-2&&e<dy-2;});
+    }).sort(function(a,b){var d=cyOf(a)-cyOf(b);return Math.abs(d)>2?d:a.x-b.x;});
+  }
   /* 칸 이름 오른쪽 첫 값. 다른 칸 이름을 만나면 멈춘다(skip 에 든 이름은 건너뜀) */
   function firstVal(list,test,skip){
     for(var i=0;i<list.length;i++){var d=list[i],k=labelOf(d.t);
@@ -1916,16 +1943,19 @@ setTimeout(scaleA4,100);
     var C=pg.cells, by={}, r={}, src={};
     C.forEach(function(c){var k=labelOf(c.t);if(k)(by[k]||(by[k]=[])).push(c);});
     function plain(t){return nz(t).length>1&&!/^[:：\-–—]+$/.test(nz(t));}
-    function textRight(k,skip,test){var v=null;(by[k]||[]).some(function(c){v=firstVal(rightOf(c,C),test||plain,skip);return !!v;});return v;}
+    function fv(c,test,skip,loose){return firstVal(rightOf(c,C,loose),test,skip)||firstVal(downIn(c,C),test,skip);}   /* v6.1.22 오른쪽 → 없으면 칸 안 아래(U1) */
+    function textRight(k,skip,test){var v=null,dt=k==='siteLoc'?function(t){return bOk('siteLoc',t);}:(test||plain);(by[k]||[]).some(function(c){v=firstVal(rightOf(c,C),test||plain,skip);return !!v;});if(!v)(by[k]||[]).some(function(c){v=firstVal(downIn(c,C),dt,skip);return !!v;});return v;}   /* v6.1.22 칸 안 아래 대지위치는 주소 모양만(「위치 안내도」 제목 거름) */
     function rightThenBelow(keys,ok){
       var v=null;
       keys.some(function(k){return (by[k]||[]).some(function(c){v=firstVal(rightOf(c,C),ok);return !!v;});});
+      if(!v) keys.some(function(k){return (by[k]||[]).some(function(c){v=firstVal(downIn(c,C),ok);return !!v;});});
       if(!v) keys.some(function(k){return (by[k]||[]).some(function(c){v=firstVal(below(c,C).slice(0,6),ok);return !!v;});});
       return v;
     }
     function numRight(k,re,loose){
       var v=null;(by[k]||[]).some(function(c){v=firstVal(rightOf(c,C,loose),function(t){return re.test(t);});return !!v;});
       if(!v&&re===AREA)(by[k]||[]).some(function(c){v=firstVal(rightOf(c,C,loose),function(t){return /^[\d,]+(\.\d+)?[mM]?$/.test(nz(t));});return !!v;});
+      if(!v)(by[k]||[]).some(function(c){v=firstVal(downIn(c,C),function(t){return /^[\d,]+(\.\d+)?(㎡|m²|M²|m2|M2|[mM]|%|％)?$/.test(nz(t))&&(re.test(t)||re===AREA);});return !!v;});   /* v6.1.22 U1 칸 안 아래는 숫자만 든 조각만(「지침면적대비 -40.83㎡」 「금회증축:…」 은 받지 않음) */
       return v;
     }
     function rowText(c){return rightOf(c,C).map(function(d){return d.t;}).join(' | ');}
@@ -1969,7 +1999,9 @@ setTimeout(scaleA4,100);
       if(cand) put('totalArea',num(cand.t),cand);
     })();
     var useOk=function(t){return /시설|주택|건축물|공장|창고|주차장|숙박|업무|판매|의료|교육|종교|근린/.test(nz(t))&&nz(t).length<=30;};
-    v=textRight('mainUse',null,useOk)||rightThenBelow(['use'],useOk); if(v)put('mainUse',tidy(v.t).replace(/^[,·ㆍ\s]+/,''),v);   /* v6.1.20 앞에 붙은 쉼표 떼기 */
+    v=textRight('mainUse',null,useOk)||rightThenBelow(['use'],useOk);
+    if(v&&(v.t.match(/\(/g)||[]).length>(v.t.match(/\)/g)||[]).length){var nx=C.filter(function(d){var dy=cyOf(d)-cyOf(v);return d!==v&&dy>v.h*0.5&&dy<=v.h*1.8&&Math.abs(d.x-v.x)<=v.h*2&&!labelOf(d.t)&&!labelish(d.t);}).sort(function(a,b){var d=cyOf(a)-cyOf(b);return Math.abs(d)>2?d:a.x-b.x;})[0];
+      if(nx&&nz(nx.t).length<=20)v={t:v.t.replace(/\s+$/,'')+nx.t,x:v.x,y:v.y,w:v.w,h:v.h};}   /* v6.1.22 괄호가 닫히지 않은 주용도는 바로 아래 줄을 이음 */ if(v)put('mainUse',tidy(v.t).replace(/^[,·ㆍ\s]+/,''),v);   /* v6.1.20 앞에 붙은 쉼표 떼기 */
     /* v6.1.20 구조는 「…조 · …구조」 이름만(「2.2 구조설계 적용기준」 · 「구조내력」 같은 제목은 받지 않음) · 닫히지 않은 괄호는 잘라 냄 */
     var stOk=function(t){var n=nz(t);return n.length<=30&&!/^[\d.()]/.test(n)&&!/^(내화|방화|주요|건축물의?)구조/.test(n)&&!/기준|내력|계획|설계|적용|검토|계산|안전|해석|일반사항|제\d+조|법|「/.test(n)&&(/(조|구조)$/.test(n)||/조[,\/(]/.test(n)||/콘크리트|철골|목구조|조적/.test(n));};
     v=rightThenBelow(['structure'],stOk); if(v){var stv=tidy(v.t.split('/')[0]);if((stv.match(/\(/g)||[]).length>(stv.match(/\)/g)||[]).length)stv=stv.replace(/\s*\([^()]*$/,'');put('structure',stv,v);}
@@ -1981,7 +2013,7 @@ setTimeout(scaleA4,100);
     if(r.floorsAbove==null){var ga=0,gb=0,gc=null;C.filter(function(c){return c.n==='층별';}).forEach(function(c){below(c,C).forEach(function(d){var n=d.n,m;
       if((m=/^(?:지하|B)(\d+)(?:층|F)?$/i.exec(n))){if(+m[1]>gb)gb=+m[1];}else if((m=/^(?:지상)?(\d+)(?:층|F)$/i.exec(n))){if(+m[1]>ga){ga=+m[1];gc=d;}}});});
       if(ga){put('floorsAbove',ga,{t:'층별 표 '+gc.t});put('floorsBelow',String(gb),{t:'층별 표'});}}
-    v=null;(by.bldHeight||[]).some(function(c){v=firstVal(rightOf(c,C),function(t){return new RegExp('^'+NUM+'\\s*[mM]?$').test(t.trim());});return !!v;}); if(v)put('bldHeight',num(v.t),v);
+    v=null;(by.bldHeight||[]).some(function(c){v=fv(c,function(t){return new RegExp('^'+NUM+'\\s*[mM]?$').test(t.trim());});return !!v;}); if(v)put('bldHeight',num(v.t),v);
     v=null;(by.workType||[]).some(function(c){v=firstVal(rightOf(c,C),function(t){return /^(신축|증축|개축|재축|이전|대수선|용도변경)$/.test(nz(t));});return !!v;});
     if(v)put('workType',nz(v.t),v); else if(r.projectName){var mw=/(신축|증축|개축|재축|대수선|용도변경)/.exec(r.projectName);if(mw)put('workType',mw[1],{t:r.projectName});}
     /* 주차: 주차 줄의 글자를 이어서 읽고, 없으면 쪽 전체에서 산출식 · 설치 대수를 찾음 */
@@ -1992,7 +2024,7 @@ setTimeout(scaleA4,100);
         /* v6.1.14 「= 3.31대」 처럼 소수로 끝난 산출식 — 주차장법 시행령 별표 1 비고 6(소수점 이하 0.5 이상은 1대 · 총 1대 미만은 0대)으로 법정 대수를 정하고 미리보기에 알림 */
         if(a&&/\./.test(a[1])){var q=parseFloat(a[1]),n=q<1?0:Math.floor(q)+((q-Math.floor(q))>=0.5?1:0);r._parkQ=q+'대 → '+n+'대';a=[a[0],String(n)];}
         return {a:a,b:b};}
-      var done=(by.park||[]).some(function(c){var line=rowText(c);if(!/대/.test(line))return false;var s=scan(line);
+      var done=(by.park||[]).some(function(c){var line=rowText(c);if(!/대/.test(line))line=downIn(c,C).map(function(d){return d.t;}).join(' | ');if(!/대/.test(line))return false;   /* v6.1.22 U1 */var s=scan(line);
         /* v6.1.21 「주차대수: 54대」 처럼 대수만 적힌 것은 계획 대수 · 「옥외9대, 옥내22대」 는 더함 */
         if(!s.a&&!s.b){var io=0,ic=0,mm,rio=/(옥내|옥외|지하|지상|자주식|기계식)\s*(\d+)\s*대/g;while((mm=rio.exec(line))){io+=+mm[2];ic++;}
           if(ic>=2)s.b=[line,String(io)]; else if(!/법정|계획|당|설치|산정|이상|이하/.test(line)){var m1=/^\s*(?:총\s*)?(\d{1,4})\s*대(?![가-힣])/.exec(line);if(m1)s.b=m1;}}if(s.a)put('parkLegal',s.a[1],{t:line});if(s.b)put('parkPlan',s.b[1],{t:line});return !!(s.a||s.b);});
