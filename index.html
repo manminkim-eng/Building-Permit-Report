@@ -1259,6 +1259,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
    v6.1.9 (2026-11-13) — 지역 확대: 전남광주통합특별시(종전 전라남도) 22개 · 충청남도 15개 시 · 군의 건폐율 · 용적률과 건축 조례(조경 · 공개공지 · 분할) — 기준일 2026-11-13 · 천안시 건폐율 · 용적률은 시행 예정본만 조회되어 값을 싣지 않음 · 근거 탭 조례 목록을 도별로 묶음
    v6.1.10 (2026-11-13) — 주차장 조례 · 대지 안의 공지 안내를 전남 22 · 충남 15 시 · 군으로 넓힘(51곳 · 기준일 2026-11-13) — 계획 · 보전관리지역만 대상인 조례 · 주거지역 공장 거리 · 별표를 읽지 못한 곳 처리
    v6.1.11 (2026-11-13) — html2canvas 1.4.1 머리 태그 SRI(integrity sha384 · crossorigin) · 인쇄 공통 원본 MM-PRINT v1.0 → v1.1(지연 로더도 SRI)(정밀검토 B8 · 작업지시서 §25-6-87 제외분) — 화면 · 계산 · 인쇄 불변
+   v6.1.21 (2026-11-19) — 도면자료 100건 검증 반영(U5): 칸 이름과 값이 한 조각으로 붙은 서식(「대지위치: …」 「◉ 대 지 면 적 : …」 「가. 위치 : …」 · 한 줄에 여럿 · 쌍점 없이 「용도지역 도시지역,…」)을 떼어 읽음 · 칸 이름 앞 글머리표 · 끝 쌍점 무시 · 건축연면적 · 건축규모 · 주차개요 · 작품명 칸 이름 · 건축주 값에서 전자우편 · 생년월일 · 연락처는 멈춤 · 주차 「54대」 만 적힌 것은 계획 대수 · 옥내 / 옥외 대수 더함 · 「455대(법정 259대)」 · 「3,649대(법정)」 · 띄어 쓴 숫자 · 넓이 「60,230.00 m」 · 건축주에 법령 문장 · 「…에 동의합니다」 받지 않음 · 값 앞 쌍점 떼기 · 용적률 산정용 연면적이 용적률(%) 값과 같거나 다른 면적이 없으면 버림. 100건 정답 대조 맞음 241 → 437칸.
    v6.1.20 (2026-11-19) — 도면 PDF 41건 점검 반영(U2 · U3 · U4): PDF 값 검사(지역 값은 지역 · 지구 · 구역 이름만 · 「용도지구」 · 「용도구역」은 칸 이름 · 구조는 「…조」 이름만 · 닫히지 않은 괄호 정리 · 주용도 앞 쉼표 떼기 · 보이지 않는 제어 글자 지움) · 선판정 ③은 용도지역 이름이 있을 때만, ④는 주용도 · 면적이 없으면 체크 꺼 둠 · 도면 건폐율 · 용적률과 계산값이 1 %p 넘게 다르면 미리보기 · 개요 탭 · 선판정 창에서 경고.
    v6.1.19 (2026-11-18) — 자동 선판정 ① ~ ④ 네 묶음 모두 기본 체크(MIN A안) · ③ 지역지구 글자 · ④ 일반으로 채운 답은 체크리스트에 🟨 「확인 필요」(화면만 · 인쇄 안 함 · 저장 파일 c 값) — 「확인」 단추 · 답을 고치면 지워짐 · 보기 「확인 필요만」 · 진행 스트립 「확인 필요 n칸」 · 남은 채로 인쇄 / JPG 저장하면 한 번 물음.
    v6.1.18 (2026-11-14) — 한국건축규정 적용 고시를 조사 / 검사일자로 고름: 2026. 7. 8. 이후 국토교통부고시 제2026-360호, 그 전 제2024-206호 — A4 체크리스트 머리 · 꼬리말 · 조서 안내(종전 두 고시를 늘 함께 적음). 체크리스트 데이터 변경 없음.
@@ -1777,17 +1778,19 @@ setTimeout(scaleA4,100);
   var AREA=new RegExp(NUM+'\\s*(?:㎡|m²|M²|m2|M2)'), PCT=new RegExp(NUM+'\\s*%'), SSN=/\d{6}\s*-\s*\d{7}/;
   /* 칸 이름(공백 제거 후 비교). 읽는 칸 + 값을 찾을 때 「여기서 멈춤」 표지로만 쓰는 이름(x*) */
   var LABEL={
-    projectName:/^(사업명|공사명|용역명|건물명)[:：]?$/, client:/^(건축주|발주처|발주자)[:：]?$/, name:/^성명$/,
+    projectName:/^(사업명|공사명|용역명|건물명|작품명)[:：]?$/, client:/^(건축주|발주처|발주자)[:：]?$/, name:/^성명$/,
     siteLoc:/^(대지위치|위치|소재지)[:：]?$/, lotNo:/^지번$/, relLot:/^관련지번$/,
     zoning:/^(지역[\/·ㆍ]?지구|용도지역|지역지구구역|지역[\/·ㆍ]지구[\/·ㆍ]구역)$/, region:/^지역$/, district:/^(지구|용도지구)$/, zone2:/^(구역|용도구역)$/,
     siteArea:/^(대지면적|사용면적합계|대지면적합계)$/, bldArea:/^건축면적$/, bcr:/^건폐율$/, far:/^(용적률|용적율)$/,
-    farArea:/^(용적[률율]산정(용)?연면적|용적[률율]산정용)$/, totalArea:/^(연면적|연면적합계)$/, sum:/^(계|합계|소계)$/,
-    mainUse:/^(주용도|건축물용도)$/, use:/^(용도|세부용도)$/, structure:/^(구조|구조형식|주구조|주구조[\/]지붕구조)$/, scale:/^(규모|층수)$/, bldHeight:/^(최고높이|건축물높이|높이)$/,
-    workType:/^(공종|건축구분|공사종별|공사구분)$/, landForm:/^(형질변경의?필요성|토지형질변경)$/, roadW:/^(대지에접한도로의?너비|접한도로너비|전면도로너비|도로너비)$/, landNote:/^(대지안의조경\(법정%?\)|조경\(법정%?\))$/, xLand:/^(대지안의조경\(설계\)|대지조성필요성|대지의안전상태|대지에접한도로개소|대지에접한도로의?길이|대지와도로의고저차|통과도로\/막다른도로|지상,지하장애물|보,차통행가능여부)$/, park:/^(주차장|주차대수|주차|총주차대수)$/, land:/^(조경|조경면적)$/,
-    xSsn:/^(주민등록번호|법인등록번호|사업자등록번호)$/, xAddr:/^주소$/, landCat:/^지목$/, xMisc:/^(비고|구분|형식|동별|층별|면적\(?(㎡|m²|M²)?\)?|바닥면적|지적면적|제외면적|사용면적|공부상면적|도로|도로현황|접도길이|용량|주건축물수|부속건축물|호\(?가구\)?수)$/
+    farArea:/^(용적[률율]산정(용)?연면적|용적[률율]산정용)$/, totalArea:/^(연면적|연면적합계|건축연면적)$/, sum:/^(계|합계|소계)$/,
+    mainUse:/^(주용도|건축물용도)$/, use:/^(용도|세부용도)$/, structure:/^(구조|구조형식|주구조|주구조[\/]지붕구조)$/, scale:/^(규모|층수|건축규모)$/, bldHeight:/^(최고높이|건축물높이|높이)$/,
+    workType:/^(공종|건축구분|공사종별|공사구분)$/, landForm:/^(형질변경의?필요성|토지형질변경)$/, roadW:/^(대지에접한도로의?너비|접한도로너비|전면도로너비|도로너비)$/, landNote:/^(대지안의조경\(법정%?\)|조경\(법정%?\))$/, xLand:/^(대지안의조경\(설계\)|대지조성필요성|대지의안전상태|대지에접한도로개소|대지에접한도로의?길이|대지와도로의고저차|통과도로\/막다른도로|지상,지하장애물|보,차통행가능여부)$/, park:/^(주차장|주차대수|주차|총주차대수|주차개요)$/, land:/^(조경|조경면적)$/,
+    xSsn:/^(주민등록번호|법인등록번호|사업자등록번호)$/, xAddr:/^주소$/, landCat:/^지목$/, xMisc:/^(비고|구분|형식|동별|층별|면적\(?(㎡|m²|M²)?\)?|바닥면적|지적면적|제외면적|사용면적|공부상면적|도로|도로현황|접도길이|용량|주건축물수|부속건축물|호\(?가구\)?수|전자우편|전자|우편|생년월일|전화번호|연락처|팩스)$/
   };
   var SCORE_KEYS=['siteArea','bldArea','bcr','far','totalArea','zoning','region','bldHeight','park','structure','scale','siteLoc','mainUse'];
-  function labelOf(t){var n=nz(t);if(!n||n.length>14)return null;for(var k in LABEL){if(LABEL[k].test(n))return k;}return null;}
+  var BUL=/^[\s◉◈■□▣●○◦•ㆍ·\-–—*※▶►▷☞￭]+/, KENUM=/^(?:[가-하][.)]|[①-⑳])\s*/;
+  function cleanLab(t){return String(t||'').replace(BUL,'').replace(KENUM,'').replace(BUL,'');}   /* v6.1.21 「◉ 대지면적 :」 「- 건 폐 율 :」 「가. 위치 :」 */
+  function labelOf(t){var n=nz(cleanLab(t)).replace(/[:：]+$/,'');if(!n||n.length>14)return null;for(var k in LABEL){if(LABEL[k].test(n))return k;}return null;}
   /* 「지 번 지 목」처럼 칸 이름 여러 개가 한 칸으로 붙은 것 */
   function labelish(t){if(labelOf(t))return true;var p=String(t).trim().split(/\s+/);if(p.length<2||p.length>12)return false;var ok=0,i=0,j,hit;while(i<p.length){hit=0;for(j=Math.min(p.length,i+6);j>i;j--){if(labelOf(p.slice(i,j).join(''))){hit=j-i;break;}}if(hit){ok+=hit;i+=hit;}else i++;}return ok>=p.length;}
 
@@ -1812,7 +1815,7 @@ setTimeout(scaleA4,100);
         var horiz=Math.abs(m[0])>=Math.abs(m[1]);   /* 화면에서 가로로 놓인 글자인지 */
         out.push({t:t,n:nz(t),x:horiz?m[4]:m[4]-h,y:horiz?m[5]-h:m[5]-w,w:horiz?w:h,h:horiz?h:w});
       });
-      return {cells:joinKnown(merge(out)),w:vp.width,h:vp.height};
+      return {cells:splitGlued(joinKnown(merge(out))),w:vp.width,h:vp.height};
     });
   }
   function rowTol(a,b){return Math.max(3,Math.min(a.h,b.h)*0.6);}
@@ -1856,6 +1859,45 @@ setTimeout(scaleA4,100);
     });
     return out;
   }
+  /* ③ v6.1.21 칸 이름과 값이 한 조각으로 붙은 것 떼기(U5) — 작품집 · 설명서 · 발표자료의 「대지위치: 서울시…」 「◉ 대 지 면 적 : 5,567㎡」
+       「건폐율: 68.41% 용적율: 67.56%」(한 줄에 여럿) · 쌍점 없이 「용도지역 도시지역,일반상업지역」 「대지면적 1,508㎡」(값 모양이 맞을 때만) */
+  var GB={siteArea:1,bldArea:1,totalArea:1,farArea:1,bcr:2,far:2,zoning:3,region:3,district:3,zone2:3,siteLoc:4,scale:5,structure:6,bldHeight:1,mainUse:7,park:8};
+  function bOk(k,v){var n=nz(v);switch(GB[k]){case 1:return /^\d/.test(n);case 2:return /^\d[\d.,]*%/.test(n);case 3:return /(지역|지구|구역)/.test(n);
+    case 4:return /(시|도|군|구)[가-힣]*(구|군|읍|면|동|리|로|길)/.test(n)||/(동|리|가)\s*(산\s*)?\d/.test(v);case 5:return /층/.test(n);case 6:return /조$|조[,\/(+]|콘크리트|철골/.test(n);
+    case 7:return /시설|주택/.test(n);case 8:return /\d+대/.test(n);}return false;}
+  function gluedParts(t){
+    var cuts=[],re=/[:：]/g,m,last=0;
+    while((m=re.exec(t))){
+      var pre=t.slice(0,m.index),best=-1;
+      for(var s=pre.length-1;s>=Math.max(last,pre.length-26);s--){
+        var ch=pre.charAt(s); if(/\s/.test(ch)) continue;
+        if(s>0&&/[가-힣A-Za-z0-9]/.test(pre.charAt(s-1))) continue;   /* 낱말 중간에서 시작하지 않음 */
+        if(labelOf(pre.slice(s))&&/[가-힣]/.test(cleanLab(pre.slice(s)).charAt(0))) best=s;
+      }
+      if(best>=0){cuts.push({ls:best,ce:m.index+1});last=m.index+1;}
+    }
+    if(!cuts.length){
+      if(labelOf(t)) return null;
+      var w=t.trim().split(/\s+/); if(w.length<2) return null;
+      for(var k=Math.min(6,w.length-1);k>=1;k--){var lab=w.slice(0,k).join(' '),key=labelOf(lab);
+        if(key&&GB[key]&&nz(cleanLab(lab)).length>=3&&nz(t).length<=60){var rest=w.slice(k).join(' ');if(bOk(key,rest)){var i0=t.indexOf(w[0]),i1=t.indexOf(w[k-1],i0)+w[k-1].length;return [{s:0,e:i1,t:t.slice(0,i1)},{s:i1,e:t.length,t:t.slice(i1)}];}}}
+      return null;
+    }
+    var parts=[];
+    if(nz(t.slice(0,cuts[0].ls))) parts.push({s:0,e:cuts[0].ls,t:t.slice(0,cuts[0].ls)});
+    cuts.forEach(function(c,i){var ve=i+1<cuts.length?cuts[i+1].ls:t.length;parts.push({s:c.ls,e:c.ce,t:t.slice(c.ls,c.ce)});if(nz(t.slice(c.ce,ve)).replace(/^[:：]+/,''))parts.push({s:c.ce,e:ve,t:t.slice(c.ce,ve)});});
+    return parts.length>1?parts:null;
+  }
+  function splitGlued(list){
+    var out=[];
+    list.forEach(function(c){
+      var parts=/[:：]/.test(c.t)||/\s/.test(c.t)?gluedParts(c.t):null;
+      if(!parts){out.push(c);return;}
+      var L=c.t.length||1;
+      parts.forEach(function(p){var t=p.t.replace(/^[\s:：]+/,'').trim();if(!t)return;out.push({t:t,n:nz(t),x:c.x+c.w*p.s/L,y:c.y,w:Math.max(1,c.w*(p.e-p.s)/L),h:c.h});});
+    });
+    return out;
+  }
   function sameRow(a,b,loose){return Math.abs(cyOf(a)-cyOf(b))<=Math.max(3.5,Math.min(a.h,b.h)*(loose?1.3:0.7));}
   function rightOf(c,cells,loose){return cells.filter(function(d){return d!==c&&sameRow(c,d,loose)&&d.x>=c.x+c.w*0.7;}).sort(function(a,b){return a.x-b.x;});}
   function below(c,cells){var cx=c.x+c.w/2;return cells.filter(function(d){return d!==c&&d.y>c.y+c.h*0.5&&Math.abs((d.x+d.w/2)-cx)<=Math.max(14,c.w*0.8);}).sort(function(a,b){return a.y-b.y;});}
@@ -1883,17 +1925,18 @@ setTimeout(scaleA4,100);
     }
     function numRight(k,re,loose){
       var v=null;(by[k]||[]).some(function(c){v=firstVal(rightOf(c,C,loose),function(t){return re.test(t);});return !!v;});
-      if(!v&&re===AREA)(by[k]||[]).some(function(c){v=firstVal(rightOf(c,C,loose),function(t){return /^[\d,]+(\.\d+)?$/.test(nz(t));});return !!v;});
+      if(!v&&re===AREA)(by[k]||[]).some(function(c){v=firstVal(rightOf(c,C,loose),function(t){return /^[\d,]+(\.\d+)?[mM]?$/.test(nz(t));});return !!v;});
       return v;
     }
     function rowText(c){return rightOf(c,C).map(function(d){return d.t;}).join(' | ');}
-    function put(id,val,cell){if(val==null||val===''||SSN.test(String(val)))return;r[id]=String(val);src[id]=cell?cell.t:'';}
+    function put(id,val,cell){if(val==null||val===''||SSN.test(String(val)))return;val=String(val).replace(/^[\s:：]+/,'');if(!val)return;r[id]=val;   /* v6.1.21 값 앞 쌍점 떼기 */
+      src[id]=cell?cell.t:'';}
     var v;
     /* 사업명: 칸 이름이 있으면 그 값, 없으면 「…공사」로 끝나는 가장 큰 글자 */
     v=textRight('projectName'); if(v)put('projectName',tidy(v.t),v);
     if(!r.projectName){var big=null;C.forEach(function(c){if(/(신축|증축|개축|재축|대수선|용도변경|리모델링|이전)\s*공사$/.test(c.t)&&nz(c.t).length<=40&&(!big||c.h>big.h))big=c;});if(big)put('projectName',tidy(big.t),big);}
     /* 건축주: 바로 오른쪽이 「성명」이면 그 오른쪽 */
-    v=textRight('client',['name']); if(v)put('client',tidy(v.t),v);
+    v=textRight('client',['name'],function(t){return plain(t)&&nz(t).length<=30&&!/「|제\d+조|따라|위하여|동의|송달|합니다|니다\.?$/.test(t);}); if(v)put('client',tidy(v.t),v);   /* v6.1.21 법령 문장은 받지 않음 */
     if(!r.client&&by.client&&by.name){   /* 「건축주」가 성명 · 주소 두 줄에 걸쳐 가운데 놓인 서식 */
       by.client.some(function(c){var nm=by.name.filter(function(d){return d.x>c.x&&Math.abs(cyOf(d)-cyOf(c))<=c.h*3.2;})[0]; if(!nm) return false; var x=firstVal(rightOf(nm,C),plain); if(x)put('client',tidy(x.t),x); return !!x;});
     }
@@ -1902,7 +1945,7 @@ setTimeout(scaleA4,100);
     /* v6.1.20 지역 값은 「…지역 · …지구 · …구역」 이름일 때만(칸 이름 「용도지구」 · 주소 「전라북도 익산시」 는 받지 않음) */
     var zonVal=function(t){var n=nz(t);return plain(t)&&/(지역|지구|구역)/.test(n)&&!/^(용도)?(지역|지구|구역)$/.test(n)&&n.length<=80;};
     v=textRight('zoning',null,zonVal);
-    if(v) put('zoning',v.t.replace(/^\s*(용도지역|용도지구|용도구역)\s+/,'').replace(/\s*,\s*/g,', '),v);   /* 칸 이름이 값 앞에 붙은 것 떼기 */
+    if(v) put('zoning',v.t.replace(/^\s*(용도지역|용도지구|용도구역)\s+/,'').replace(/\s+(용도지역|용도지구|용도구역)\s*$/,'').replace(/\s*,\s*/g,', '),v);   /* 칸 이름이 값 앞에 붙은 것 떼기 */
     else{var zs=[];['region','district','zone2'].forEach(function(k){var x=textRight(k,null,zonVal);if(x&&!/^[-–—]$/.test(nz(x.t)))zs.push(x.t.replace(/^\s*(용도지역|용도지구|용도구역)\s+/,'').replace(/\s*,\s*/g,', '));});if(zs.length)put('zoning',zs.join(', '),{t:zs.join(' | ')});}
     /* v6.1.14 지목 — 공간정보관리법 28개 지목 이름(여러 필지면 「답, 전」 처럼 이어 씀) */
     var JM='전|답|과수원|목장용지|임야|광천지|염전|대|공장용지|학교용지|주차장|주유소용지|창고용지|도로|철도용지|제방|하천|구거|유지|양어장|수도용지|공원|체육용지|유원지|종교용지|사적지|묘지|잡종지';
@@ -1943,12 +1986,16 @@ setTimeout(scaleA4,100);
     if(v)put('workType',nz(v.t),v); else if(r.projectName){var mw=/(신축|증축|개축|재축|대수선|용도변경)/.exec(r.projectName);if(mw)put('workType',mw[1],{t:r.projectName});}
     /* 주차: 주차 줄의 글자를 이어서 읽고, 없으면 쪽 전체에서 산출식 · 설치 대수를 찾음 */
     (function(){
-      var RE_L=[/법정\s*[:：]?\s*(\d+)\s*대/,/산정\s*주차\s*대수\s*[:：]?\s*(\d+)\s*대/,/[≒=]\s*(\d+)\s*대/,/[≒=]\s*(\d+\.\d+)\s*대/], RE_P=[/(\d+)\s*대\s*계획/,/계획\s*[:：]?\s*(\d+)\s*대/,/주차\s*0*(\d+)\s*대[^|]*설치/];
-      function scan(t){var a=null,b=null;RE_L.some(function(re){a=re.exec(t);return !!a;});RE_P.some(function(re){b=re.exec(t);return !!b;});
+      var RE_L=[/(\d+)\s*대\s*\(\s*법정\s*\)/,/법정\s*[-:：]?\s*(\d+)\s*대/,/산정\s*주차\s*대수\s*[:：]?\s*(\d+)\s*대/,/[≒=]\s*(\d+)\s*대/,/[≒=]\s*(\d+\.\d+)\s*대/], RE_P=[/(\d+)\s*대\s*\(\s*계획\s*\)/,/(\d+)\s*대\s*계획/,/(?:^|[^당\d.])\s*(\d+)\s*대\s*\(\s*법정\s*[-:：]?\s*\d/,/계획\s*[:：]?\s*(\d+)\s*대/,/주차\s*0*(\d+)\s*대[^|]*설치/];
+      function scan(t){t=String(t).replace(/(\d),(?=\d{3}(?!\d))/g,'$1').replace(/(\d) (?=\d(?: \d)*\s*대)/g,'$1');var a=null,b=null;   /* v6.1.21 「3,649대」 「4 5 5대」 */
+      RE_L.some(function(re){a=re.exec(t);return !!a;});RE_P.some(function(re){b=re.exec(t);return !!b;});
         /* v6.1.14 「= 3.31대」 처럼 소수로 끝난 산출식 — 주차장법 시행령 별표 1 비고 6(소수점 이하 0.5 이상은 1대 · 총 1대 미만은 0대)으로 법정 대수를 정하고 미리보기에 알림 */
         if(a&&/\./.test(a[1])){var q=parseFloat(a[1]),n=q<1?0:Math.floor(q)+((q-Math.floor(q))>=0.5?1:0);r._parkQ=q+'대 → '+n+'대';a=[a[0],String(n)];}
         return {a:a,b:b};}
-      var done=(by.park||[]).some(function(c){var line=rowText(c);if(!/대/.test(line))return false;var s=scan(line);if(s.a)put('parkLegal',s.a[1],{t:line});if(s.b)put('parkPlan',s.b[1],{t:line});return !!(s.a||s.b);});
+      var done=(by.park||[]).some(function(c){var line=rowText(c);if(!/대/.test(line))return false;var s=scan(line);
+        /* v6.1.21 「주차대수: 54대」 처럼 대수만 적힌 것은 계획 대수 · 「옥외9대, 옥내22대」 는 더함 */
+        if(!s.a&&!s.b){var io=0,ic=0,mm,rio=/(옥내|옥외|지하|지상|자주식|기계식)\s*(\d+)\s*대/g;while((mm=rio.exec(line))){io+=+mm[2];ic++;}
+          if(ic>=2)s.b=[line,String(io)]; else if(!/법정|계획|당|설치|산정|이상|이하/.test(line)){var m1=/^\s*(?:총\s*)?(\d{1,4})\s*대(?![가-힣])/.exec(line);if(m1)s.b=m1;}}if(s.a)put('parkLegal',s.a[1],{t:line});if(s.b)put('parkPlan',s.b[1],{t:line});return !!(s.a||s.b);});
       /* v6.1.14 주차 줄에 계획 대수만 있고 법정이 없으면 쪽 전체의 산출식(「산출근거 … = 3.31대」)에서 법정을 더 찾는다 */
       if(!done||r.parkLegal==null){var all=C.filter(function(c){return /대/.test(c.t)&&/주차|산\s*출|법정|[≒=]\s*\d/.test(c.t);}).map(function(c){return c.t;}).join(' | ');var s2=scan(all);if(s2.a&&r.parkLegal==null)put('parkLegal',s2.a[1],{t:all});if(s2.b&&r.parkPlan==null)put('parkPlan',s2.b[1],{t:all});}
     })();
@@ -1967,6 +2014,8 @@ setTimeout(scaleA4,100);
       });
       if(!got&&r.siteLoc){var ml=/((산\s*)?\d+(-\d+)?)\s*번지/.exec(r.siteLoc);if(ml)put('lotNo',ml[1].replace(/\s+/g,'')+'번지',{t:r.siteLoc});}
     })();
+    /* v6.1.21 용적률 산정용 연면적이 도면 용적률(%) 값과 같거나 대지면적의 2 % 도 안 되거나 다른 면적을 하나도 못 읽었으면 옆 칸을 읽은 것 — 버림 */
+    if(r.farArea!=null&&((r._far!=null&&+r.farArea===+r._far)||(r.siteArea!=null&&+r.farArea<+r.siteArea*0.02)||(r.siteArea==null&&r.bldArea==null&&r.totalArea==null))){delete r.farArea;delete src.farArea;}
     return {val:r,src:src};
   }
 
