@@ -752,6 +752,49 @@ footer.mm-foot{position:relative;z-index:1;border-top:1px solid #e4e9f0;backgrou
 .pic-btn:focus-visible,.pic-clr:focus-visible{outline:2px solid #785a28;outline-offset:2px;}
 .pic-btn-warn{border-color:#f1c4c4;background:#fff5f5;color:#9b1c1c;}
 .pic-ta{resize:vertical;min-height:58px;line-height:1.6;font-weight:500;}
+ /* v6.1.26 별지 제24호 겸용 — body.k24 일 때 24호 블록만, 아니면 23호 블록만 */
+body:not(.k24) .k24-only{display:none!important;}
+body.k24 .k23-only{display:none!important;}
+.kind-sw{display:inline-flex;align-items:center;gap:0;}
+.kind-sw .kind-lb{margin-right:6px;}
+.kind-sw button{border:1px solid #cbd5e1;background:#fff;color:#475569;font-size:12px;font-weight:700;padding:3px 10px;cursor:pointer;font-family:inherit;}
+.kind-sw button:first-of-type{border-radius:8px 0 0 8px;}
+.kind-sw button:last-of-type{border-radius:0 8px 8px 0;border-left:0;}
+.kind-sw button.on{background:#785a28;color:#fff;border-color:#785a28;}
+.k24-lead{margin:8px 0;padding:8px 12px;border-radius:8px;background:#f8fafd;border:1px dashed #cbd5e1;font-size:12.5px;color:#475569;}
+.k24-g{margin:10px 0;border:1px solid #e2d8c6;border-radius:10px;background:#fff;overflow:hidden;}
+.k24-gh{background:#f6ecd6;color:#785a28;font-weight:800;padding:6px 12px;font-size:13px;}
+.k24-r{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:8px 12px;border-top:1px solid #f1e9da;align-items:center;}
+.k24-r.auto{background:#fffbeb;}
+.k24-nm{font-weight:700;font-size:13px;}
+.k24-law{font-size:11.5px;color:#64748b;margin-left:6px;}
+.k24-ops{display:flex;gap:6px;flex-wrap:wrap;align-items:center;justify-content:flex-end;}
+.k24-ops label{display:inline-flex;align-items:center;gap:3px;font-size:12.5px;padding:3px 8px;border:1px solid #cbd5e1;border-radius:8px;cursor:pointer;background:#fff;}
+.k24-ops label.on{background:#785a28;color:#fff;border-color:#785a28;}
+.k24-pct{display:inline-flex;gap:5px;align-items:center;flex-wrap:wrap;font-size:12.5px;}
+.k24-pct input{width:86px;padding:4px 6px;}
+.k24-x,.k24-ok{padding:2px 8px;font-size:12px;}
+.k24-why{grid-column:1/-1;font-size:11.5px;color:#92400e;}
+.k24-hint{color:#64748b;}
+.k24-bad{color:#b91c1c;}
+@media (max-width:640px){.k24-r{grid-template-columns:1fr;}.k24-ops{justify-content:flex-start;}}
+.p24-note{display:flex;justify-content:space-between;font-size:10.5px;margin:0 0 4px;color:#1a1a1a;}
+.p24-sm{font-size:9.5px;color:#475569;line-height:1.45;}
+.p24-lb{font-size:10.5px;color:#785a28;font-weight:700;margin-right:6px;}
+.p24-tbl{width:100%;border-collapse:collapse;table-layout:fixed;font-size:10.5px;margin-top:6px;}
+.p24-tbl th,.p24-tbl td{border:1px solid #9a8a6a;padding:2px 5px;line-height:1.3;vertical-align:middle;}
+.p24-tbl th,.p24-th{background:#f6ecd6;color:#785a28;font-weight:700;text-align:center;}
+.p24-g{text-align:center;font-weight:700;background:#fbf7ee;}
+.p24-law{text-align:center;}
+.p24-res{text-align:center;white-space:nowrap;}
+.p24-o{margin:0 2px;}
+.p24-op{min-height:26px;white-space:pre-wrap;}
+.p24-op2{height:48px;vertical-align:top;}
+.p24-back{break-before:page;page-break-before:always;margin-top:26px;}
+@media print{ .p24-back{margin-top:0;} }
+.pic-pkchk{margin-top:6px;padding:6px 10px;border-radius:8px;font-size:12px;line-height:1.5;}
+.pic-pkchk.w{background:#fff7ed;border:1px solid #fdba74;color:#9a3412;font-weight:700;}
+.pic-pkchk.i{background:#f1f5f9;border:1px solid #cbd5e1;color:#64748b;}
 .pic-calc{margin-top:11px;padding:8px 11px;border-radius:8px;background:#f8fafd;border:1px dashed #cbd5e1;font-size:12px;color:#475569;}
 .fire-select{width:100%;padding:9px 12px;background:#f8fafd;border:1.5px solid #dde3ed;border-radius:8px;color:#1a2744;font-size:13px;font-weight:600;font-family:inherit;}
 
@@ -970,13 +1013,13 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
         <div class="hdr-eyebrow">Building Permit Inspection Report · 건축법 제27조</div>
         <h1 class="hdr-h1">건축허가조사 및 검사조서</h1>
         <div class="hdr-sub">
-          조서 표지(별지 제23호서식) · 한국건축규정 체크리스트(별표 2) 작성 · A4 출력
+          <span class="k23-only">조서 표지(별지 제23호서식) · 한국건축규정 체크리스트(별표 2) 작성 · A4 출력</span><span class="k24-only">사용승인조사 및 검사조서(별지 제24호서식) · 현장조사 49행 작성 · A4 출력</span>
           <span class="hdr-manmin">MANMIN · Ver-6.1</span>
         </div>
       </div>
     </div>
     <div class="hdr-right-wrap">
-      <div class="hdr-right"><strong>건축법 제27조 · 시행규칙 제21조</strong><br/>별지 제23호서식 &lt;개정 2024. 7. 1.&gt;<br/>한국건축규정 별표 2 체크리스트<br/><em>[세움터 견본 102법령 · 159항목]</em></div>
+      <div class="hdr-right"><strong>건축법 제27조 · 시행규칙 제21조</strong><br/><span class="k23-only">별지 제23호서식 &lt;개정 2024. 7. 1.&gt;<br/>한국건축규정 별표 2 체크리스트<br/><em>[세움터 견본 102법령 · 159항목]</em></span><span class="k24-only">별지 제24호서식 &lt;개정 2024. 7. 1.&gt;<br/>사용승인 현장조사 49행<br/><em>[앞쪽 19 · 뒤쪽 30]</em></span></div>
     </div>
   </div>
 </header>
@@ -992,8 +1035,9 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
 </div><!-- /.hdr-shell -->
 <div class="sum-bar-wrap no-print">
   <div class="sum-bar">
-    <span class="sum-item">📍 입지: <b id="sb-site">—</b></span>
-    <span class="sum-item">🏢 건축물: <b id="sb-bld">—</b></span>
+    <span class="sum-item kind-sw" role="group" aria-label="조서 종류"><span class="kind-lb">📑 조서:</span><button type="button" id="kind23" class="on" aria-pressed="true" onclick="setKind('23')">허가(제23호)</button><button type="button" id="kind24" aria-pressed="false" onclick="setKind('24')">사용승인(제24호)</button></span>
+    <span class="sum-item k23-only">📍 입지: <b id="sb-site">—</b></span>
+    <span class="sum-item k23-only">🏢 건축물: <b id="sb-bld">—</b></span>
     <span class="sum-item">☑ 전체: <b id="sb-all">—</b></span>
     <span class="sum-item">✍️ 실질 답: <b id="sb-real">—</b></span>
     <span class="sum-item">⬜ 미답: <b id="sb-none">—</b></span>
@@ -1006,14 +1050,18 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
   <div id="tab-input" class="tab-panel active">
     <div class="law-strip no-print">
       <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      <div class="law-strip-text">
+      <div class="law-strip-text k23-only">
         <strong>건축법 제27조제2항 · 시행규칙 제21조제1항</strong> — 현장조사 · 검사 및 확인업무를 대행하는 자는 허가권자에게 <strong>별지 제23호서식 건축허가조사 및 검사조서</strong>와 「한국건축규정」 체크리스트(별표 2)를 제출합니다. 이 도구는 초안 작성용이며 최종 확인은 조사 · 검사자가 합니다.
+      </div>
+      <div class="law-strip-text k24-only">
+        <strong>건축법 제27조 · 시행규칙 제21조제1항</strong> — 사용승인 현장조사 · 검사 및 확인업무를 대행하는 자는 허가권자에게 <strong>별지 제24호서식 사용승인조사 및 검사조서</strong>를 제출합니다. 현장조사 49행의 「일치 · 불일치」는 완공 현장에서 조사자가 고르고, 이 도구는 개요로 「해당 없음」 후보만 🟨 확인 필요로 채웁니다.
       </div>
     </div>
 
     <div class="pic-filebar no-print">
       <button class="pic-btn pic-btn-pdf" onclick="document.getElementById('pic-pdf').click()">📄 설계개요 PDF 불러오기</button>
       <input type="file" id="pic-pdf" accept="application/pdf,.pdf" hidden onchange="pdfPick(this)"/>
+      <input type="hidden" id="formKind" value="23"/>
       <button class="pic-btn" onclick="saveFile()">💾 파일로 저장</button>
       <button class="pic-btn" onclick="document.getElementById('pic-file').click()">📂 파일 불러오기</button>
       <input type="file" id="pic-file" accept="application/json,.json" hidden onchange="loadFile(this)"/>
@@ -1026,7 +1074,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
         <div class="card">
           <div class="card-header">
             <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-            <span class="card-title">조서 표지 — 별지 제23호서식</span>
+            <span class="card-title" id="cover-title">조서 표지 — 별지 제23호서식</span>
           </div>
           <label class="field-label" for="projectName">사업명 (공사명)</label>
           <input class="fire-input" type="text" id="projectName" placeholder="사업명(공사명)" oninput="recalc()" style="margin-bottom:11px;"/>
@@ -1040,6 +1088,10 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
             <div><label class="field-label" for="designDate">설계일자</label><input class="date-input" type="date" id="designDate" oninput="recalc()" onchange="recalc()"/></div>
             <div><label class="field-label" for="reportDate">조사 / 검사일자</label><input class="date-input" type="date" id="reportDate" oninput="recalc()" onchange="recalc()"/></div>
           </div>
+          <div class="grid-2 k24-only" style="margin-top:11px;">
+            <div><label class="field-label" for="permitNo">허가번호</label><input class="fire-input" type="text" id="permitNo" placeholder="예: 2026-건축과-신축허가-00" oninput="recalc()"/></div>
+            <div><label class="field-label" for="permitDate">허가일자</label><input class="date-input" type="date" id="permitDate" oninput="recalc()" onchange="recalc()"/></div>
+          </div>
         </div>
 
         <div class="card">
@@ -1049,11 +1101,11 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
           </div>
           <div class="grid-2" style="margin-bottom:11px;">
             <div><label class="field-label" for="author">성명</label><input class="fire-input" type="text" id="author" value="김만민" placeholder="성명" oninput="recalc()"/></div>
-            <div><label class="field-label" for="licNo">면허번호</label><input class="fire-input" type="text" id="licNo" placeholder="건축사 면허번호" oninput="recalc()"/></div>
+            <div><label class="field-label" for="licNo"><span class="k23-only">면허번호</span><span class="k24-only">자격번호</span></label><input class="fire-input" type="text" id="licNo" placeholder="건축사 면허번호" oninput="recalc()"/></div>
           </div>
           <div class="grid-2" style="margin-bottom:11px;">
             <div><label class="field-label" for="memNo">협회 회원번호</label><input class="fire-input" type="text" id="memNo" placeholder="협회 회원번호" oninput="recalc()"/></div>
-            <div><label class="field-label" for="regNo">등록번호</label><input class="fire-input" type="text" id="regNo" placeholder="사무소 등록번호" oninput="recalc()"/></div>
+            <div><label class="field-label" for="regNo"><span class="k23-only">등록번호</span><span class="k24-only">신고번호</span></label><input class="fire-input" type="text" id="regNo" placeholder="사무소 등록번호" oninput="recalc()"/></div>
           </div>
           <label class="field-label" for="firm">사무소명</label>
           <input class="fire-input" type="text" id="firm" value="(주)대성건축사사무소" placeholder="사무소명" oninput="recalc()"/>
@@ -1104,6 +1156,8 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
             <div><label class="field-label" for="parkLegal">주차 법정 (대)</label><input class="fire-input" type="number" min="0" step="1" id="parkLegal" oninput="recalc()"/></div>
             <div><label class="field-label" for="parkPlan">주차 계획 (대)</label><input class="fire-input" type="number" min="0" step="1" id="parkPlan" oninput="recalc()"/></div>
           </div>
+          <div class="pic-pkchk" id="pic-pkchk" role="status" hidden></div>
+          <input type="hidden" id="pdfNote"/>
           <div class="grid-2" style="margin-top:11px;">
             <div><label class="field-label" for="bcrLegal">법정 건폐율 (%)</label><input class="fire-input" type="number" min="0" step="0.01" id="bcrLegal" placeholder="조례 값" oninput="recalc()"/></div>
             <div><label class="field-label" for="farLegal">법정 용적률 (%)</label><input class="fire-input" type="number" min="0" step="0.01" id="farLegal" placeholder="조례 값" oninput="recalc()"/></div>
@@ -1130,7 +1184,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
 
   <!-- ══════════ CHECK TAB ══════════ -->
   <div id="tab-check" class="tab-panel">
-    <div class="pic-toolbar no-print">
+    <div class="pic-toolbar no-print k23-only">
       <div class="pic-prog" id="pic-prog" aria-live="polite">—</div>
       <div class="pic-tools">
         <label class="pic-lb" for="pic-filter">보기</label>
@@ -1144,7 +1198,22 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
         <button class="pic-btn pic-btn-warn" onclick="clearAns()">답 모두 지우기</button>
       </div>
     </div>
-    <div id="pic-list"></div>
+    <div id="pic-list" class="k23-only"></div>
+    <div class="k24-only">
+      <div class="pic-toolbar no-print">
+        <div class="pic-prog" id="k24-prog" aria-live="polite">—</div>
+        <div class="pic-tools">
+          <label class="pic-lb" for="k24-filter">보기</label>
+          <select id="k24-filter" class="fire-select pic-sel" onchange="render24()">
+            <option value="all">전체</option><option value="none">미답만</option><option value="auto">확인 필요만</option>
+          </select>
+          <button class="pic-btn pic-btn-pdf" onclick="judge24()">⚡ 「해당 없음」 후보 선판정</button>
+          <button class="pic-btn pic-btn-warn" onclick="clear24()">답 모두 지우기</button>
+        </div>
+      </div>
+      <div class="k24-lead no-print">별지 제24호서식 현장조사 49행 — 완공 현장에서 조사자가 「일치 · 불일치」(피난용승강기는 「적합 · 부적합」)를 고릅니다. 도구는 개요 · 23호 선판정 규칙으로 「해당 없음」 후보만 채우며 모두 🟨 확인 필요로 표시합니다. 건폐율 · 용적률은 조례 값과 개요 면적으로 미리 넣어 두며 고칠 수 있습니다.</div>
+      <div id="k24-list"></div>
+    </div>
   </div><!-- /tab-check -->
 
   <!-- ══════════ RESULT TAB ══════════ -->
@@ -1153,16 +1222,16 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
       <span class="bar-lbl">📄 A4 출력 :</span>
       <button class="mm-btn mm-btn-print" onclick="doPrint()">🖨️ 인쇄 / PDF 저장</button>
       <button class="mm-btn mm-btn-jpg" id="btn-jpg" onclick="autoGuard()&&exportA4Jpg()">🖼️ JPG 저장</button>
-      <label class="bff-figopt"><input type="checkbox" id="optSubs" checked onchange="renderResult()"> 세부 호 선택지 모두 인쇄</label>
-      <label class="bff-figopt"><input type="checkbox" id="optOnlyReal" onchange="renderResult()"> 「대상법규아님」 줄 빼고 인쇄(선별 제출용)</label>
+      <label class="bff-figopt k23-only"><input type="checkbox" id="optSubs" checked onchange="renderResult()"> 세부 호 선택지 모두 인쇄</label>
+      <label class="bff-figopt k23-only"><input type="checkbox" id="optOnlyReal" onchange="renderResult()"> 「대상법규아님」 줄 빼고 인쇄(선별 제출용)</label>
     </div>
     <div class="a4-wrap" id="a4Wrap">
       <div class="a4-scale-wrap" id="a4ScaleWrap">
         <div class="a4-page sif-a4" id="a4Page">
           <div class="a4-top-bar"></div>
-          <div class="pic-formno">■ 건축법 시행규칙 [별지 제23호서식] &lt;개정 2024. 7. 1.&gt;</div>
-          <div class="a4-title"><h2>건축허가조사 및 검사조서</h2></div>
-          <table class="a4-tbl a4-info-tbl">
+          <div class="pic-formno k23-only">■ 건축법 시행규칙 [별지 제23호서식] &lt;개정 2024. 7. 1.&gt;</div>
+          <div class="a4-title k23-only"><h2>건축허가조사 및 검사조서</h2></div>
+          <table class="a4-tbl a4-info-tbl k23-only">
             <tbody>
               <tr><td class="a4-th" style="width:110px;">건 축 주</td><td class="a4-td" colspan="3" id="r-client">-</td></tr>
               <tr><td class="a4-th">대지위치</td><td class="a4-td" colspan="3" id="r-siteLoc">-</td></tr>
@@ -1174,14 +1243,14 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
               <tr><td class="a4-th">그 밖의 사항</td><td class="a4-td pic-op" colspan="3" id="r-etcNote">-</td></tr>
             </tbody>
           </table>
-          <p class="pic-submit">「건축법」 제27조제2항 및 같은 법 시행규칙 제21조제1항에 따라 위와 같이 건축허가조사 및 검사조서를 제출합니다.</p>
-          <p class="pic-date" id="r-date2">-</p>
-          <p class="pic-signline">조사 / 검사자 <span id="r-sign-name2">-</span> (서명 또는 인)</p>
-          <p class="pic-to">특별시장ㆍ광역시장ㆍ특별자치시장ㆍ특별자치도지사, 시장ㆍ군수ㆍ구청장 귀하</p>
-          <div class="pic-attach">첨부서류: 「한국건축규정」 체크리스트(「건축기본법」 제25조제1항에 따라 국토교통부장관이 공고하는 「한국건축규정」 별표 2를 말하며, 체크리스트 항목 중 해당 건축물과 관련하여 확인이 필요한 항목만 선별하여 제출합니다)</div>
+          <p class="pic-submit k23-only">「건축법」 제27조제2항 및 같은 법 시행규칙 제21조제1항에 따라 위와 같이 건축허가조사 및 검사조서를 제출합니다.</p>
+          <p class="pic-date k23-only" id="r-date2">-</p>
+          <p class="pic-signline k23-only">조사 / 검사자 <span id="r-sign-name2">-</span> (서명 또는 인)</p>
+          <p class="pic-to k23-only">특별시장ㆍ광역시장ㆍ특별자치시장ㆍ특별자치도지사, 시장ㆍ군수ㆍ구청장 귀하</p>
+          <div class="pic-attach k23-only">첨부서류: 「한국건축규정」 체크리스트(「건축기본법」 제25조제1항에 따라 국토교통부장관이 공고하는 「한국건축규정」 별표 2를 말하며, 체크리스트 항목 중 해당 건축물과 관련하여 확인이 필요한 항목만 선별하여 제출합니다)</div>
 
-          <div class="a4-sub">▣ 참고 — 건물개요</div>
-          <table class="a4-tbl a4-info-tbl">
+          <div class="a4-sub k23-only">▣ 참고 — 건물개요</div>
+          <table class="a4-tbl a4-info-tbl k23-only">
             <tbody>
               <tr><td class="a4-th" style="width:110px;">사 업 명</td><td class="a4-td" colspan="3" id="r-projectName">-</td></tr>
               <tr><td class="a4-th">건축구분 · 주용도</td><td class="a4-td" id="r-use">-</td><td class="a4-th" style="width:90px;">지역 / 지구</td><td class="a4-td" id="r-zoning">-</td></tr>
@@ -1192,14 +1261,40 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
             </tbody>
           </table>
 
-          <div class="pic-cl-head">
+          <div class="pic-cl-head k23-only">
             <div class="pic-formno">[별표 2] <span id="r-kbc-head">&lt;국토교통부고시 제2026-360호&gt;</span></div>
             <div class="a4-title"><h2>한국건축규정 체크리스트</h2></div>
             <div class="a4-sub">1. 건축허가 시 반드시 확인해야 하는 법령 <span id="r-count" class="pic-count"></span></div>
           </div>
-          <div id="r-cl"></div>
+          <div class="k23-only" id="r-cl"></div>
 
-          <div class="a4-sign">
+                    <div class="pic-formno k24-only">■ 건축법 시행규칙 [별지 제24호서식] &lt;개정 2024. 7. 1.&gt;</div>
+          <div class="a4-title k24-only"><h2>사용승인조사 및 검사조서</h2></div>
+          <div class="p24-note k24-only"><span>• [&nbsp;&nbsp;]에는 해당하는 곳에 √ 표시를 합니다.</span><span>(앞쪽)</span></div>
+          <table class="a4-tbl a4-info-tbl k24-only">
+            <tbody>
+              <tr><td class="a4-th" style="width:110px;">건 축 주</td><td class="a4-td" colspan="3" id="r24-client"></td></tr>
+              <tr><td class="a4-th">대지위치</td><td class="a4-td" colspan="3" id="r24-siteLoc"></td></tr>
+              <tr><td class="a4-th">지 번</td><td class="a4-td" colspan="3" id="r24-lotNo"></td></tr>
+              <tr><td class="p24-sm" colspan="4">※ 「공간정보의 구축 및 관리 등에 관한 법률」에 따른 지번을 적으며, 「공유수면의 관리 및 매립에 관한 법률」 제8조에 따라 공유수면의 점용ㆍ사용 허가를 받은 경우 그 장소가 지번이 없으면 그 점용ㆍ사용 허가를 받은 장소를 적습니다.</td></tr>
+              <tr><td class="a4-th">허가번호</td><td class="a4-td" id="r24-permitNo"></td><td class="a4-th" style="width:90px;">허가일자</td><td class="a4-td-c" id="r24-permitDate"></td></tr>
+              <tr><td class="a4-th" rowspan="2">조사 / 검사자</td><td class="a4-td"><span class="p24-lb">성명</span><span id="r24-author"></span> <span class="p24-sm">(서명 또는 인)</span></td><td class="a4-td"><span class="p24-lb">자격번호</span><span id="r24-licNo"></span></td><td class="a4-td"><span class="p24-lb">협회 회원번호</span><span id="r24-memNo"></span></td></tr>
+              <tr><td class="a4-td"><span class="p24-lb">사무소 명</span><span id="r24-firm"></span></td><td class="a4-td" colspan="2"><span class="p24-lb">신고번호</span><span id="r24-regNo"></span></td></tr>
+              <tr><td class="a4-th">조사 / 검사일자</td><td class="a4-td-c" id="r24-date"></td><td class="a4-th">설계일자</td><td class="a4-td-c" id="r24-designDate"></td></tr>
+            </tbody>
+          </table>
+          <p class="pic-submit k24-only">「건축법」 제27조 및 같은 법 시행규칙 제21조에 따라 아래와 같이 사용승인조사 및 검사조서를 제출합니다.</p>
+          <p class="pic-date k24-only" id="r24-date2"></p>
+          <p class="pic-signline k24-only">제출인 <span id="r24-sign"></span> (서명 또는 인)</p>
+          <p class="pic-to k24-only">특별시장ㆍ광역시장ㆍ특별자치시장ㆍ특별자치도지사, 시장ㆍ군수ㆍ구청장 귀하</p>
+          <div class="k24-only" id="r24-front"></div>
+          <div class="p24-back k24-only">
+            <div class="pic-formno">■ 건축법 시행규칙 [별지 제24호서식]</div>
+            <div class="p24-note"><span></span><span>(뒤쪽)</span></div>
+            <div id="r24-back"></div>
+          </div>
+
+<div class="a4-sign k23-only">
             <p class="a4-sign-submit">위와 같이 한국건축규정 체크리스트를 작성하여 첨부합니다.</p>
             <p class="a4-sign-date" id="r-date3">-</p>
             <div class="a4-sign-supervisor">
@@ -1209,7 +1304,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
           </div>
           <div class="a4-footer">
             <div class="a4-bot-bar"></div>
-            <div class="a4-footer-ver">건축허가조사 및 검사조서 [MANMIN-Ver6.1] · 건축법 시행규칙 별지 제23호서식 · 한국건축규정 별표 2(<span id="r-kbc-foot">국토교통부고시 제2026-360호</span>)</div>
+            <div class="a4-footer-ver"><span class="k23-only">건축허가조사 및 검사조서 [MANMIN-Ver6.1] · 건축법 시행규칙 별지 제23호서식 · 한국건축규정 별표 2(<span id="r-kbc-foot">국토교통부고시 제2026-360호</span>)</span><span class="k24-only">사용승인조사 및 검사조서 [MANMIN-Ver6.1] · 건축법 시행규칙 별지 제24호서식 &lt;개정 2024. 7. 1.&gt; · 210㎜×297㎜</span></div>
           </div>
         </div>
       </div>
@@ -1260,6 +1355,8 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
    v6.1.9 (2026-11-13) — 지역 확대: 전남광주통합특별시(종전 전라남도) 22개 · 충청남도 15개 시 · 군의 건폐율 · 용적률과 건축 조례(조경 · 공개공지 · 분할) — 기준일 2026-11-13 · 천안시 건폐율 · 용적률은 시행 예정본만 조회되어 값을 싣지 않음 · 근거 탭 조례 목록을 도별로 묶음
    v6.1.10 (2026-11-13) — 주차장 조례 · 대지 안의 공지 안내를 전남 22 · 충남 15 시 · 군으로 넓힘(51곳 · 기준일 2026-11-13) — 계획 · 보전관리지역만 대상인 조례 · 주거지역 공장 거리 · 별표를 읽지 못한 곳 처리
    v6.1.11 (2026-11-13) — html2canvas 1.4.1 머리 태그 SRI(integrity sha384 · crossorigin) · 인쇄 공통 원본 MM-PRINT v1.0 → v1.1(지연 로더도 SRI)(정밀검토 B8 · 작업지시서 §25-6-87 제외분) — 화면 · 계산 · 인쇄 불변
+   v6.1.26 (2026-11-27) — 필수 4건(허가 출력 검증 · 교차검증_2026-11-27): P1 인쇄 · JPG 단추 앞 확인창에 미답 칸 · 답 0/159 · 주차 법정값 경고를 함께 묻는다 / P3 주차 법정 칸을 주차장법 시행령 별표 1 국가 기준(조례 없는 곳 포함 · 0대 포함)과 대조 — 작으면 주황 경고, 크면 회색 안내(값은 바꾸지 않음) · 국가 기준 용도는 별표 1 세부(데이터센터 · 학생용 기숙사 400 · 방송국 · 장례식장 150 · 정신 · 요양 · 격리병원 300 · 비고 1 시설 대조 안 함) / P4 PDF 원문의 「분할」 글자를 숨은 칸 pdfNote 에 보관(저장 · 불러오기) — 선판정 건축 15 대지분할제한 「적합」 + ④ 확인 필요(시행령 제80조 · 법 제57조제2항) / P5 녹지지역과 그 밖의 지역에 걸친 대지는 조경설치 대상 「대상」 + ④ 확인 필요(녹지만이면 지금처럼 예외대상)
+   v6.1.26 (2026-11-27) — 별지 제24호서식 사용승인조사 및 검사조서 겸용: 요약 띠 「📑 조서: 허가(제23호) / 사용승인(제24호)」 · 저장 파일 formKind(없는 옛 파일은 23) · 허가번호 · 허가일자 칸(24호, PDF 에서도 읽음) · 24호에서 면허번호 → 자격번호, 등록번호 → 신고번호(이름만) · 현장조사 49행(서식 원문, 앞쪽 19 · 뒤쪽 30) · 「해당 없음」 후보만 개요 · 23호 선판정 규칙으로 채움(🟨 확인 필요) · 「일치 · 불일치」는 고르지 않음 · 건폐율 · 용적률은 조례 값 · 개요 계산으로 미리 채움 · 조경 · 공개공지 조례 % 는 손입력 · A4 2쪽 · 23호 화면 · 인쇄 불변
    v6.1.23 (2026-11-24) — 법령 개정 반영 점검(A-09 A 등급 첫 회차 · 교차검증_2026-11-24_3): 건축법 제61조제1항 2026. 11. 12. 시행 개정 — 근거 탭 「📝 개정 메모」 · 정북일조 선판정 근거에 1 ~ 3호 거리 범위 · 체크리스트 데이터(CL) 변경 없음
    v6.1.22 (2026-11-20) — 세움터 서식 읽기(U1): 값이 칸 이름보다 조금 아래(같은 칸 안 오른쪽 아래)에 찍힌 허가서 · 허가신청서 · 사용승인신청서 · 사업계획승인신청서 · 가설건축물 신고서를 읽음(같은 줄 다음 칸 이름 앞까지 · 더 가까운 위쪽 칸 이름이 있으면 그 칸 값 · 숫자 칸은 숫자만 든 조각 · 대지위치는 주소 모양만) · 같은 글자를 겹쳐 찍은 PDF(가짜 굵게) 정리 · 단위 붙은 칸 이름 「대지면적(㎡)」 · 값과 다음 칸 이름이 붙은 조각 「26,510 건축면적 (㎡)」 떼기 · 「연면적 합계(용적률 산정용)」 칸 이름 · 전각 ％ · 괄호가 닫히지 않은 주용도는 아래 줄을 이음 — 도면자료 100건 정답 대조 맞음 437 → 492칸(재현율 68 → 77 %) · 새로 틀린 칸 0 · 화면 · 인쇄 · MM-PRINT 불변
    v6.1.21 (2026-11-19) — 도면자료 100건 검증 반영(U5): 칸 이름과 값이 한 조각으로 붙은 서식(「대지위치: …」 「◉ 대 지 면 적 : …」 「가. 위치 : …」 · 한 줄에 여럿 · 쌍점 없이 「용도지역 도시지역,…」)을 떼어 읽음 · 칸 이름 앞 글머리표 · 끝 쌍점 무시 · 건축연면적 · 건축규모 · 주차개요 · 작품명 칸 이름 · 건축주 값에서 전자우편 · 생년월일 · 연락처는 멈춤 · 주차 「54대」 만 적힌 것은 계획 대수 · 옥내 / 옥외 대수 더함 · 「455대(법정 259대)」 · 「3,649대(법정)」 · 띄어 쓴 숫자 · 넓이 「60,230.00 m」 · 건축주에 법령 문장 · 「…에 동의합니다」 받지 않음 · 값 앞 쌍점 떼기 · 용적률 산정용 연면적이 용적률(%) 값과 같거나 다른 면적이 없으면 버림. 100건 정답 대조 맞음 241 → 437칸.
@@ -1280,7 +1377,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
 const CL = [{"name":"입지 관련 법령","laws":[{"no":1,"k":1,"law":"건축법 제55조(건축물의 건폐율)","items":[{"n":"건폐율 기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"건폐율 특례","o":[{"t":"완화대상","s":[]},{"t":"강화대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":2,"k":2,"law":"건축법 제56조(건축물의 용적률)","items":[{"n":"용적률 기준","o":[{"t":"부적합","s":[]},{"t":"적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"용적률 특례","o":[{"t":"강화대상","s":[]},{"t":"완화대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":3,"k":3,"law":"공항시설법 제10조(행위 등의 제한)","items":[{"n":"행위제한","o":[{"t":"허가대상","s":[]},{"t":"변경허가대상","s":[]},{"t":"허가제외대상","s":["2항 2호","2항 1호"]},{"t":"신고대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":4,"k":4,"law":"공항시설법 제34조(장애물의 제한 등)","items":[{"n":"장애물 제한표면높이제한","o":[{"t":"대상","s":[]},{"t":"비대상","s":["1항 4호","1항 5호","1항 3호","1항 1호","1항 2호"]},{"t":"대상법규아님","s":[]},{"t":"예외대상","s":["2항 2호","2항 1호"]}]}]},{"no":5,"k":5,"law":"국토의 계획 및 이용에 관한 법률 제58조(개발행위허가의 기준)","items":[{"n":"개발행위허가","o":[{"t":"허가대상","s":["1항 2호","1항 5호","1항 4호","1항 3호","1항 1호"]},{"t":"변경허가대상 (1항 준용)","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"허가기준","o":[{"t":"적합","s":["3항 3호","3항 2호","3항 1호"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":6,"k":6,"law":"국토의 계획 및 이용에 관한 법률 제63조(개발행위허가의 제한)","items":[{"n":"개발행위허가제한","o":[{"t":"제한대상(심의대상)","s":["3년이내, 1항 1호","3년이내, 1항 5호","3년이내, 1항 4호","3년이내, 1항 3호","3년이내, 1항 2호"]},{"t":"제한연장 대상(심의제외)","s":["2년이내, 1항 3호","2년이내, 1항 4호","2년이내, 1항 5호"]},{"t":"대상법규아님","s":[]}]}]},{"no":7,"k":7,"law":"국토의 계획 및 이용에 관한 법률 제64조(도시ㆍ군계획시설 부지에서의 개발행위)","items":[{"n":"개발행위허가","o":[{"t":"허가대상","s":["2항 1호","2항 2호","2항 3호"]},{"t":"허가제외대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":8,"k":8,"law":"국토의 계획 및 이용에 관한 법률 제76조(용도지역 및 용도지구에서의 건축물의 건축 제한 등)","items":[{"n":"용도지역제한","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"용도지구제한","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"개별제한규정","o":[{"t":"해당있음","s":["6항","5항 5호","5항 4호","5항 3호","5항 2호","5항 1의 3호","5항 1의 2호","5항 1호"]},{"t":"해당없음","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":9,"k":9,"law":"국토의 계획 및 이용에 관한 법률 제77조(용도지역의 건폐율)","items":[{"n":"국토계획법에 따른 건폐율","o":[{"t":"적합","s":["1항 4호","1항 3호","2항","1항 1호 가목","1항 1호 나목","1항 2호 다목","1항 2호 나목","1항 2호 가목","1항 1호 라목","1항 1호 다목"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"조례에 따른 건폐율 필수적용","o":[{"t":"적합","s":["3항 1호","3항 2호","3항 3호","3항 4호","3항 5호","3항 6호"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"조례에 따른 건폐율 적용","o":[{"t":"해당있음","s":["4항 1호","4항 2호","4항 3호","4항 4호"]},{"t":"해당없음","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":10,"k":10,"law":"국토의 계획 및 이용에 관한 법률 제78조(용도지역에서의 용적률)","items":[{"n":"국토계획법에 따른 용적률","o":[{"t":"적합","s":["1항 4호","1항 2호 나목","1항 2호 가목","1항 1호 라목","1항 1호 다목","1항 1호 나목","2항","1항 2호 다목","1항 3호","1항 1호 가목"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"조례에 따른 용적률 필수적용","o":[{"t":"적합","s":["77조 3항 2호","77조 3항 3호","77조 3항 4호","77조 3항 5호"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"조례에 따른 용적률 적용","o":[{"t":"해당있음","s":["6항","4항"]},{"t":"해당없음","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"조례에 따른 높이로 규모 등 제한","o":[{"t":"해당있음 (적합)","s":[]},{"t":"해당없음","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"용적률 완화 중첩 적용","o":[{"t":"대상","s":["7항 2호","7항 1호"]},{"t":"심의대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":11,"k":11,"law":"국토의 계획 및 이용에 관한 법률 제79조(용도지역 미지정 또는 미세분 지역에서의 행위 제한 등)","items":[{"n":"용도 미지정 지역의 적용","o":[{"t":"해당있음(자연환경보전지역에 관한 규정 적용)","s":[]},{"t":"해당없음","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"세부 용도 미지정 지역의 적용","o":[{"t":"해당있음","s":["2항 도시지역","2항 관리지역"]},{"t":"해당없음","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":12,"k":12,"law":"국토의 계획 및 이용에 관한 법률 제84조(둘 이상의 용도지역ㆍ용도지구ㆍ용도구역에 걸치는 대지에 대한 적용 기준)","items":[{"n":"둘이상 용도 지역 지구 구역에 걸치는 대지","o":[{"t":"일반대상 (적합)","s":[]},{"t":"특수대상","s":["2항","1항","3항 단서","3항"]},{"t":"대상법규아님","s":[]}]}]},{"no":13,"k":13,"law":"국토의 계획 및 이용에 관한 법률 제80조의4(도시혁신구역에서의 행위 제한)","items":[{"n":"도시혁신구역에서의 행위 제한","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":14,"k":14,"law":"국토의 계획 및 이용에 관한 법률 제80조의5(복합용도구역에서의 행위 제한)","items":[{"n":"복합용도구역에서의 행위제한","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":15,"k":15,"law":"군사기지 및 군사시설 보호법 제13조(행정기관의 처분에 관한 협의 등)","items":[{"n":"보호 구역의 행위","o":[{"t":"협의대상","s":["1항 1호","1항 2호","1항 3호","1항 4호","1항 5호","1항 6호","1항 7호","1항 8호","1항 9호","1항 10호","1항 11호","1항 12호","1항 13호","2항 1호","2항 2호"]},{"t":"협의제외대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":16,"k":16,"law":"노후계획도시 정비 및 지원에 관한 특별법 제16조(행위 등의 제한)","items":[{"n":"노후계획도시특별정비구역 행위제한","o":[{"t":"해당없음","s":[]},{"t":"적합","s":[]},{"t":"변경허가대상","s":[]},{"t":"허가제외대상","s":["2항 3호","2항 1호","2항 2호"]},{"t":"허가대상","s":["1항 2호","1항 3호","1항 4호","1항 7호","1항 1호","1항 6호","1항 5호"]},{"t":"신고대상","s":[]},{"t":"부적합","s":[]}]}]},{"no":17,"k":17,"law":"농어촌마을 주거환경 개선 및 리모델링 촉진을 위한 특별법 제10조(행위제한 등)","items":[{"n":"농어촌 정비 구역 행위 제한","o":[{"t":"허가대상","s":[]},{"t":"변경허가대상","s":[]},{"t":"허가제외대상","s":["2항 1호","2항 2호"]},{"t":"대상법규아님","s":[]}]}]},{"no":18,"k":18,"law":"농어촌마을 주거환경 개선 및 리모델링 촉진을 위한 특별법 제29조(대지의 용도)","items":[{"n":"대지실시계획","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":19,"k":19,"law":"농어촌정비법 제69조(조성용지의 용도)","items":[{"n":"조성용지승인용도","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":20,"k":20,"law":"농어촌정비법 제111조(마을정비구역 등에서의 행위 등의 제한)","items":[{"n":"마을정비구역행위제한","o":[{"t":"허가대상","s":[]},{"t":"변경허가대상","s":[]},{"t":"허가제외대상","s":["2항 1호","2항 2호"]},{"t":"대상법규아님","s":[]}]}]},{"no":21,"k":21,"law":"농지법 제37조(농지전용허가 등의 제한)","items":[{"n":"농지전용허가","o":[{"t":"허가대상","s":[]},{"t":"허가제한대상","s":["1항 2호","1항 1호","1항 3호"]},{"t":"대상법규아님","s":[]}]},{"n":"농지전용 및 타용도 일시사용제한","o":[{"t":"대상","s":["2항 1호","2항 4호","2항 3호","2항 2호","2항 5호"]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":22,"k":22,"law":"댐 주변지역 친환경 보전 및 활용에 관한 특별법 제8조(행위 등의 제한)","items":[{"n":"댐친환경활용구역행위제한","o":[{"t":"허가대상","s":[]},{"t":"변경허가대상","s":[]},{"t":"신고대상","s":[]},{"t":"허가제외대상","s":["3항 2호","3항 1호"]},{"t":"대상법규아님","s":[]}]}]},{"no":23,"k":23,"law":"도로법 제27조(행위제한 등)","items":[{"n":"도로구역행위제한","o":[{"t":"허가대상","s":[]},{"t":"변경허가대상","s":[]},{"t":"신고대상","s":["3항 3호","3항 1호","3항 2호"]},{"t":"허가제외대상","s":["2항 2호","2항 1호"]},{"t":"대상법규아님","s":[]}]}]},{"no":24,"k":24,"law":"도시공원 및 녹지 등에 관한 법률 제38조(녹지의 점용허가 등)","items":[{"n":"녹지점용허가","o":[{"t":"허가대상","s":["1항 3호","1항 1호","1항 2호","1항 4호","1항 5호"]},{"t":"변경허가대상(1항 준용)","s":[]},{"t":"허가제외대상","s":["5항","1항 단서"]},{"t":"대상법규아님","s":[]}]},{"n":"점용대상 및 기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":25,"k":25,"law":"도시공원 및 녹지 등에 관한 법률 제16조(공원조성계획의 입안)","items":[{"n":"공원조성계획입안여부","o":[{"t":"해당있음","s":[]},{"t":"해당없음","s":[]}]}]},{"no":26,"k":26,"law":"동ㆍ서ㆍ남해안 및 내륙권 발전 특별법 제10조(행위 등의 제한)","items":[{"n":"개발구역행위제한","o":[{"t":"허가대상","s":[]},{"t":"변경허가대상","s":[]},{"t":"신고대상","s":[]},{"t":"허가제외대상","s":["2항 2호","2항 1호"]},{"t":"대상법규아님","s":[]}]}]},{"no":27,"k":27,"law":"물류시설의 개발 및 운영에 관한 법률 제25조(행위제한 등)","items":[{"n":"물류단지행위제한","o":[{"t":"허가대상","s":[]},{"t":"변경허가대상","s":[]},{"t":"신고대상","s":[]},{"t":"허가제외대상","s":["2항 2호","2항 1호"]},{"t":"대상법규아님","s":[]}]}]},{"no":28,"k":28,"law":"산림자원의 조성 및 관리에 관한 법률 제36조(입목벌채등의 허가 및 신고 등)","items":[{"n":"입목벌채등","o":[{"t":"허가대상","s":["2항 단서","1항"]},{"t":"변경허가대상","s":[]},{"t":"허가제외대상","s":[]},{"t":"신고대상","s":[]},{"t":"허가·신고 제외대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":29,"k":29,"law":"세계유산의 보존ㆍ관리 및 활용에 관한 특별법 제11조(세계유산지구의 보호)","items":[{"n":"세계유산지구 지정","o":[{"t":"해당있음","s":[]},{"t":"해당없음","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":30,"k":30,"law":"어촌특화발전 지원 특별법 제18조(행위제한 등)","items":[{"n":"어촌특화발전구역행위제한","o":[{"t":"허가대상","s":[]},{"t":"변경허가대상","s":[]},{"t":"신고대상","s":[]},{"t":"허가제외대상","s":["2항 2호","2항 1호"]},{"t":"대상법규아님","s":[]}]}]},{"no":31,"k":31,"law":"자연공원법 제20조(공원관리청이 아닌 자의 공원사업의 시행 및 공원시설의 관리)","items":[{"n":"공원사업 및 공원시설관리","o":[{"t":"허가대상","s":[]},{"t":"변경허가대상","s":[]},{"t":"허가제외대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":32,"k":32,"law":"자연공원법 제71조(허가에 관한 협의 등)","items":[{"n":"공원관리청 허가협의","o":[{"t":"협의대상","s":["2항 11호","2항 12호","2항 2호","2항 14호","2항 15호","2항 16호","2항 10호","2항 9호","2항 8호","2항 7호","2항 13호","2항 1호","2항 4호","2항 6호","2항 5호"]},{"t":"심의대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":33,"k":33,"law":"택지개발촉진법 제6조(행위제한 등)","items":[{"n":"택지개발지구 행위제한","o":[{"t":"허가대상","s":[]},{"t":"변경허가대상","s":[]},{"t":"신고대상","s":[]},{"t":"허가제외대상","s":["2항 1호","2항 2호"]},{"t":"대상법규아님","s":[]}]}]},{"no":34,"k":34,"law":"항만법 제97조(행위 제한 등)","items":[{"n":"항만배후단지로 지정ㆍ고시된 지역의 행위 제한","o":[{"t":"허가대상","s":[]},{"t":"변경허가 대상","s":[]},{"t":"신고대상","s":[]},{"t":"허가제외","s":["2항 2호","2항 1호"]},{"t":"대상법규아님","s":[]}]}]}]},{"name":"건축물 관련 법령","laws":[{"no":1,"k":1,"law":"건축법 제23조(건축물의 설계)","items":[{"n":"설계자","o":[{"t":"대상","s":[]},{"t":"비대상","s":["4항","1항 1호","1항 3호","1항 2호"]},{"t":"대상법규아님","s":[]}]},{"n":"설계도서 작성기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"예외대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"설계도서 서명날인","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":2,"k":2,"law":"건축법 제42조(대지의 조경)","items":[{"n":"조경설치 대상","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"예외대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":3,"k":3,"law":"건축법 제43조(공개 공지 등의 확보)","items":[{"n":"공개공지설치","o":[{"t":"대상","s":["1항 2호","1항 4호","1항 3호","1항 1호"]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"완화적용대상","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":4,"k":4,"law":"건축법 제44조(대지와 도로의 관계)","items":[{"n":"접도준수대상","o":[{"t":"대상","s":[]},{"t":"비대상","s":["1항 1호","1항 2호","1항 3호"]},{"t":"대상법규아님","s":[]}]},{"n":"접도기준준수","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":5,"k":5,"law":"건축법 제46조(건축선의 지정)","items":[{"n":"건축선 지정","o":[{"t":"일반대상","s":[]},{"t":"특수대상","s":["2항","1항 단서"]},{"t":"대상법규아님","s":[]}]}]},{"no":6,"k":6,"law":"건축법 제47조(건축선에 따른 건축제한)","items":[{"n":"건축선 준수","o":[{"t":"적합","s":["1항","2항"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":7,"k":7,"law":"건축법 제48조의4(부속구조물의 설치 및 관리)","items":[{"n":"부속구조물 설치관리","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":8,"k":8,"law":"건축법 제49조(건축물의 피난시설 및 용도제한 등)","items":[{"n":"피난시설설치 및 용도제한","o":[{"t":"적합","s":["2항","5항 1호","1항","5항 2호","3항","4항"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":9,"k":9,"law":"건축법 제50조(건축물의 내화구조와 방화벽)","items":[{"n":"내화구조대상","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"예외대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"방화벽대상","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":10,"k":10,"law":"건축법 제50조의2(고층건축물의 피난 및 안전관리)","items":[{"n":"고층건축물의 피난 및 안전기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"기준강화대상","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":11,"k":11,"law":"건축법 제52조(건축물의 마감재료 등)","items":[{"n":"외벽마감재료","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"창호방화성능","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":12,"k":12,"law":"건축법 제52조의2(실내건축)","items":[{"n":"실내건축의 구조","o":[{"t":"적합(모두 충족)","s":["2항","1항"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":13,"k":65,"law":"건축법 제53조의2(건축물의 범죄예방)","items":[{"n":"범죄예방기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":14,"k":13,"law":"건축법 제54조(건축물의 대지가 지역ㆍ지구 또는 구역에 걸치는 경우의 조치)","items":[{"n":"용도 지역 지구 구역에 걸치는 대지","o":[{"t":"일반대상(적합)","s":[]},{"t":"특수대상(적합)","s":["3항 단서","4항","2항","3항"]},{"t":"대상법규아님","s":[]}]}]},{"no":15,"k":14,"law":"건축법 제57조(대지의 분할 제한)","items":[{"n":"대지분할제한","o":[{"t":"적합","s":["2항","1항"]},{"t":"부적합","s":[]},{"t":"예외대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":16,"k":15,"law":"건축법 제58조(대지 안의 공지)","items":[{"n":"대지안의 공지","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":17,"k":16,"law":"건축법 제59조(맞벽 건축과 연결복도)","items":[{"n":"맞벽 건축 연결복도","o":[{"t":"대상","s":["1항 2호","1항 1호"]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":18,"k":17,"law":"건축법 제60조(건축물의 높이 제한)","items":[{"n":"가로구역 높이제한","o":[{"t":"적합","s":["2항","1항"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"가로구역높이제한 완화","o":[{"t":"해당있음","s":[]},{"t":"해당없음","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":19,"k":66,"law":"건축법 제61조(일조 등의 확보를 위한 건축물의 높이 제한)","items":[{"n":"정북일조","o":[{"t":"대상(적합)","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"정남일조","o":[{"t":"대상(적합)","s":["3항 6호","3항 5호","3항 4호","3항 3호","3항 2호","3항 1호","3항 7호","3항 8호"]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"공동주택채광 확보","o":[{"t":"대상(적합)","s":["2항 1호","2항 2호"]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"적용제외","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":20,"k":18,"law":"건축법 제62조(건축설비기준 등)","items":[{"n":"건축설비기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":21,"k":19,"law":"건축법 제64조(승강기)","items":[{"n":"승강기 설치","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"비상용 승강기 설치","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"피난용 승강기 설치","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":22,"k":20,"law":"건축법 제68조(기술적 기준)","items":[{"n":"기술적 기준 적용","o":[{"t":"대상(적합)","s":["1항","4항"]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":23,"k":21,"law":"건축법 제84조(면적ㆍ높이 및 층수의 산정)","items":[{"n":"면적 높이 층수기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":24,"k":22,"law":"건축법 제48조(구조내력 등)","items":[{"n":"건축물 구조안전","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"구조안전확인","o":[{"t":"대상(내진성능 확인)","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":25,"k":23,"law":"건축법 제19조의2(복수 용도의 인정)","items":[{"n":"복수용도허가","o":[{"t":"해당있음","s":[]},{"t":"해당없음","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"복수용도기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":26,"k":24,"law":"건축법 제40조(대지의 안전 등)","items":[{"n":"대지높이","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"예외대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"안전위험토지","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"오수처리시설","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"손궤우려토지","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":27,"k":25,"law":"공중화장실 등에 관한 법률 제7조(공중화장실등의 설치기준)","items":[{"n":"공중화장실 설치기준","o":[{"t":"적합","s":["2항","1항","5항","3항"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":28,"k":26,"law":"공중화장실 등에 관한 법률 제7조의2(어린이용 대ㆍ소변기의 설치 등)","items":[{"n":"어린이영유아 설치기준","o":[{"t":"적합","s":["2항","1항"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":29,"k":27,"law":"교통약자의 이동편의 증진법 제10조(이동편의시설의 설치기준)","items":[{"n":"설치시설","o":[{"t":"해당있음","s":[]},{"t":"해당없음","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"설치기준","o":[{"t":"적합","s":["2항","3항"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":30,"k":28,"law":"녹색건축물 조성 지원법 제14조(에너지 절약계획서 제출)","items":[{"n":"에너지 절약계획서 제출","o":[{"t":"대상","s":["1항 2호","1항 1호","1항 3호"]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"검토제외","o":[{"t":"해당있음","s":[]},{"t":"해당없음","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":31,"k":29,"law":"녹색건축물 조성 지원법 제14조의2(건축물의 에너지 소비 절감을 위한 차양 등의 설치)","items":[{"n":"일사조절장치","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"에너지 절감관리설비","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"설비 설치기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":32,"k":30,"law":"녹색건축물 조성 지원법 제15조(건축물에 대한 효율적인 에너지 관리와 녹색건축물 조성의 활성화)","items":[{"n":"녹색건축 활성화 기준","o":[{"t":"해당있음(적합)","s":[]},{"t":"해당없음","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"완화 적용","o":[{"t":"해당있음","s":["1항","2항 2호","2항 1호"]},{"t":"해당없음","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":33,"k":31,"law":"다중이용업소의 안전관리에 관한 특별법 제9조(다중이용업소의 안전관리기준 등)","items":[{"n":"설치기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"간이스프링클러 설치","o":[{"t":"대상","s":["1항 1호","1항 2호"]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"신고대상","o":[{"t":"대상","s":["3항 2호 가목","3항 2호 다목","3항 3호","3항 1호","3항 2호 나목"]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"설계도서 기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":34,"k":68,"law":"문화예술진흥법 제9조(건축물에 대한 미술작품의 설치 등)","items":[{"n":"미술작품설치대상","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"미술작품설치기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"예외대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":35,"k":32,"law":"문화유산의 보존 및 활용에 관한 법률 제35조(허가사항)","items":[{"n":"국가지정문화유산 등에 대한 행위","o":[{"t":"허가대상(지자체)","s":[]},{"t":"변경허가대상(지자체)","s":["3항","1항 단서"]},{"t":"허가갈음대상","s":[]},{"t":"허가대상(국가유산청장)","s":["1항 1호","1항 2호","1항 3호"]},{"t":"변경허가대상(국가유산청장)","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":36,"k":33,"law":"물의 재이용 촉진 및 지원에 관한 법률 제8조(빗물이용시설의 설치ㆍ관리)","items":[{"n":"빗물처리용량 등 신고","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"시설기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"빗물이용시설 설치 대상","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":37,"k":34,"law":"물의 재이용 촉진 및 지원에 관한 법률 제9조(중수도의 설치ㆍ관리)","items":[{"n":"중수도 설치 대상","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"예외대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"시설기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"중수처리용량 등 신고","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":38,"k":35,"law":"부동산개발업의 관리 및 육성에 관한 법률 제4조(부동산개발업의 등록 등)","items":[{"n":"부동산개발업 등록","o":[{"t":"해당있음","s":[]},{"t":"해당없음","s":["1항 1호","1항 2호","1항 3호","1항 4호","1항 5호"]},{"t":"대상법규아님","s":[]}]}]},{"no":39,"k":36,"law":"소방시설 설치 및 관리에 관한 법률 제6조(건축허가등의 동의 등)","items":[{"n":"건축허가등의 소방 동의","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":40,"k":67,"law":"소방시설 설치 및 관리에 관한 법률 제8조(성능위주설계)","items":[{"n":"특정소방대상물의 설계기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":41,"k":37,"law":"소방시설 설치 및 관리에 관한 법률 제12조(특정소방대상물에 설치하는 소방시설의 관리 등)","items":[{"n":"소방시설","o":[{"t":"대상(설치기준 적합)","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":42,"k":38,"law":"소음ㆍ진동관리법 제7조(공장 소음ㆍ진동배출허용기준)","items":[{"n":"배출허용기준","o":[{"t":"적합","s":["3항","1항"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":43,"k":39,"law":"소음ㆍ진동관리법 제9조(방지시설의 설치)","items":[{"n":"방지시설설치대상","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"예외대상","s":["2호","1호"]},{"t":"대상법규아님","s":[]}]}]},{"no":44,"k":40,"law":"소음ㆍ진동관리법 제12조(공동 방지시설의 설치 등)","items":[{"n":"공동방지시설설치대상","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"공동방지시설기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":45,"k":41,"law":"소음ㆍ진동관리법 제40조(방음시설의 성능과 설치 기준 등)","items":[{"n":"방음시설기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":46,"k":42,"law":"수도법 제15조(절수설비 등의 설치)","items":[{"n":"절수설비 설치","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"절수설비기기설치","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":47,"k":43,"law":"수도법 제18조(시설 기준 등)","items":[{"n":"수도시설 설치","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"저수조 설치","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":48,"k":44,"law":"야생생물 보호 및 관리에 관한 법률 제8조의2(인공구조물로 인한 야생동물의 피해방지)","items":[{"n":"인공구조물 설치","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"설치기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":49,"k":45,"law":"위험물안전관리법 제5조(위험물의 저장 및 취급의 제한)","items":[{"n":"위험물 저장ㆍ제조시설기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"위험물 임시저장ㆍ취급시설기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":50,"k":46,"law":"자연유산의 보존 및 활용에 관한 법률 제17조(허가)","items":[{"n":"천연기념물 또는 명승에 대한행위","o":[{"t":"허가대상(국가유산청장)","s":["1항 1호 나목","1항 4호","1항 1호 다목","1항 1호 가목","1항 5호","1항 3호","1항 2호","1항 1호 라목"]},{"t":"변경허가대상(국가유산청장)","s":[]},{"t":"허가대상(지자체)","s":[]},{"t":"허가갈음대상","s":[]},{"t":"변경허가대상(지자체)","s":["1항 단서","4항"]},{"t":"대상법규아님","s":[]}]}]},{"no":51,"k":47,"law":"자전거 이용 활성화에 관한 법률 제11조(자전거 주차장의 설치ㆍ운영)","items":[{"n":"자전거 주차장 설치","o":[{"t":"대상","s":["1항","3항","2항"]},{"t":"비대상","s":[]},{"t":"예외대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":52,"k":48,"law":"장애인ㆍ노인ㆍ임산부 등의 편의증진 보장에 관한 법률 제8조(편의시설의 설치기준)","items":[{"n":"편의시설설치","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"편의시설기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":53,"k":49,"law":"장애인ㆍ노인ㆍ임산부 등의 편의증진 보장에 관한 법률 제17조(장애인전용주차구역 등)","items":[{"n":"장애인 전용주차구역","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":54,"k":50,"law":"재생에너지 개발ㆍ이용ㆍ보급 촉진법 제12조(재생에너지사업에의 투자권고 및 재생에너지 이용의무화 등)","items":[{"n":"재생에너지설비 설치의무","o":[{"t":"대상","s":["2항 4호","2항 5호","2항 1호","2항 2호","2항 3호","2항 6호"]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"재생에너지설비 설치권고","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":55,"k":51,"law":"재생에너지 개발ㆍ이용ㆍ보급 촉진법 제12조의13(공영주차장의 재생에너지 설비 설치 의무화)","items":[{"n":"공영주차장설비설치의무","o":[{"t":"적합","s":["1항 5호","1항 6호","1항 2호","1항 4호","1항 1호","1항 3호"]},{"t":"대상법규아님","s":[]},{"t":"부적합","s":[]}]},{"n":"공영주차장설비설치기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":56,"k":52,"law":"전기통신사업법 제69조(구내용 전기통신선로설비 등의 설치)","items":[{"n":"전기통신선로설비","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":57,"k":53,"law":"전력기술관리법 제10조(기술기준의 준수)","items":[{"n":"설계기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":58,"k":54,"law":"주차장법 제6조(주차장설비기준 등)","items":[{"n":"주차장 구조설비기준","o":[{"t":"적합","s":["2항","1항"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":59,"k":55,"law":"주차장법 제12조의2(다른 법률과의 관계)","items":[{"n":"주차전용건축물 기준","o":[{"t":"적합","s":["2호","3호","1호"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":60,"k":56,"law":"주차장법 제19조의5(기계식주차장의 설치기준 등)","items":[{"n":"기계식 주차장 설치기준","o":[{"t":"적합","s":[]},{"t":"2항(해당 시)","s":["1항"]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":61,"k":57,"law":"주차장법 제19조(부설주차장의 설치ㆍ지정)","items":[{"n":"부설주차장설치","o":[{"t":"설치대상","s":[]},{"t":"비대상","s":[]},{"t":"설치제한대상","s":[]},{"t":"설치권고대상","s":[]},{"t":"예외대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"설치기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"개방주차장 지정","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"영유아동반주차구역 지정","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"해당없음","s":[]}]}]},{"no":62,"k":58,"law":"주차장법 제19조의2(부설주차장 설치계획서)","items":[{"n":"부설주차장 설치계획서 제출","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":63,"k":59,"law":"주차장법 제19조의4(부설주차장의 용도변경 금지 등)","items":[{"n":"부설주차장 용도변경","o":[{"t":"허용대상","s":[]},{"t":"제한대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":64,"k":60,"law":"주차장법 제12조(노외주차장의 설치 등)","items":[{"n":"노외주차장 기준","o":[{"t":"대상","s":[]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":65,"k":61,"law":"초고층 및 지하연계 복합건축물 재난관리에 관한 특별법 제16조(종합방재실의 설치ㆍ운영)","items":[{"n":"종합방재실 설치기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":66,"k":62,"law":"초고층 및 지하연계 복합건축물 재난관리에 관한 특별법 제18조(피난안전구역 설치)","items":[{"n":"피난안전구역 설치기준","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":67,"k":63,"law":"초고층 및 지하연계 복합건축물 재난관리에 관한 특별법 제6조(사전재난영향평가)","items":[{"n":"사전재난영향평가 신청","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]},{"no":68,"k":64,"law":"환경친화적 자동차의 개발 및 보급 촉진에 관한 법률 제11조의2(환경친화적 자동차의 전용주차구역 등)","items":[{"n":"충전시설 설치","o":[{"t":"대상","s":["1항 1호","1항 2호","1항 3호","1항 4호"]},{"t":"비대상","s":[]},{"t":"대상법규아님","s":[]}]},{"n":"충전시설","o":[{"t":"적합","s":[]},{"t":"부적합","s":[]},{"t":"대상법규아님","s":[]}]}]}]}];
 const NA = '대상법규아님';
 const FIELDS = ['projectName','client','lotNo','siteLoc','designDate','reportDate','author','licNo','memNo','regNo','firm',
-  'workType','mainUse','zoning','landCat','pubOwner','landForm','roadWidth','landNote','siteArea','bldArea','totalArea','farArea','floorsAbove','floorsBelow','bldHeight','structure','parkLegal','parkPlan','bcrLegal','farLegal','opinion','etcNote'];
+  'workType','mainUse','zoning','landCat','pubOwner','landForm','roadWidth','landNote','siteArea','bldArea','totalArea','farArea','floorsAbove','floorsBelow','bldHeight','structure','parkLegal','parkPlan','bcrLegal','farLegal','opinion','etcNote','pdfNote','formKind','permitNo','permitDate'];
 /* 답: ANS['구역.법령번호.항목순번'] = {o:선택지 순번, s:[세부 호 순번…], m:'비고'} */
 let ANS = {};
 
@@ -1350,7 +1447,13 @@ function pick(k,oi){const a=ANS[k]||(ANS[k]={});if(a.o!==oi){a.o=oi;a.s=[];}dele
 /* v6.1.19 선판정 ③ · ④ 답을 사람이 확인 — 「확인 필요」 표시만 지운다(답은 그대로) */
 function autoOk(k){const a=ANS[k];if(a)delete a.c;syncItem(k);progress();applyFilter(true);}
 function autoLeft(){let n=0;eachItem((S,si,L,I,ii,k)=>{if(answered(k)&&ANS[k].c)n++;});return n;}
-function autoGuard(){const n=autoLeft();return !n||confirm('「확인 필요」 답이 '+n+'칸 남아 있습니다(③ 지역지구 글자 · ④ 일반 선판정).\n토지이용계획확인원 · 도면으로 확인하지 않은 답이 그대로 인쇄됩니다. 계속할까요?\n\n(체크리스트 탭 「보기 → 확인 필요만」에서 확인할 수 있습니다)');}
+/* v6.1.26 미답 · 0/159 · 주차 법정값 경고도 함께 묻는다(단추 경로만 — Ctrl+P 는 막을 수 없음) */
+function autoGuard(){if(document.body.classList.contains('k24'))return guard24();const n=autoLeft(),c=counts(),un=c.all-c.done,pk=parkChk(),L=[];
+  if(!c.done)L.push('답한 항목 0/'+c.all+' — 빈 체크리스트를 인쇄합니다.');
+  else if(un)L.push('미답 '+un+'칸이 □ 빈칸으로 인쇄됩니다(답한 항목 '+c.done+'/'+c.all+').');
+  if(n)L.push('「확인 필요」 답이 '+n+'칸 남아 있습니다(③ 지역지구 글자 · ④ 일반 선판정).\n토지이용계획확인원 · 도면으로 확인하지 않은 답이 그대로 인쇄됩니다.');
+  if(pk&&pk.lv==='w')L.push(pk.t);
+  return !L.length||confirm(L.join('\n\n')+'\n\n계속할까요?\n\n(체크리스트 탭 「보기」에서 미답 · 확인 필요만 골라 볼 수 있습니다)');}
 function unpick(k){if(ANS[k]){const m=ANS[k].m;delete ANS[k].c;ANS[k]=m?{m:m}:undefined;if(!ANS[k])delete ANS[k];}syncItem(k);progress();applyFilter(true);}
 function pickSub(k,sx,on){const a=ANS[k];if(!a)return;if(a.c){delete a.c;syncItem(k);progress();}a.s=a.s||[];const i=a.s.indexOf(sx);if(on&&i<0)a.s.push(sx);if(!on&&i>=0)a.s.splice(i,1);a.s.sort((x,y)=>x-y);}
 function memo(k,v){v=v.trim();const a=ANS[k]||(ANS[k]={});if(v)a.m=v;else{delete a.m;if(a.o==null)delete ANS[k];}}
@@ -1362,6 +1465,7 @@ function counts(){
   return c;
 }
 function progress(){
+  if(document.body.classList.contains('k24')){progress24();return;}   /* v6.1.26 24호일 때는 요약 띠를 24호 수로 */
   const c=counts(), set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
   CL.forEach((S,si)=>set('pic-secn-'+si,c.sec[si].d+'/'+c.sec[si].n));
   set('sb-site',c.sec[0]?c.sec[0].d+'/'+c.sec[0].n:'—'); set('sb-bld',c.sec[1]?c.sec[1].d+'/'+c.sec[1].n:'—');
@@ -1561,6 +1665,29 @@ function parkRef(){ /* 선판정 경고에도 쓴다 */
   const has=o.r[c.c]!=null, per=has?o.r[c.c]:o.r['기타']; const k=parkCount(tot,per); if(!k) return null;
   return {o:o,cat:has?c.c:'기타',fb:!has||!!c.fb,per:per,q:k.q,n:k.n};
 }
+/* v6.1.26 국가 기준(주차장법 시행령 별표 1 제1 ~ 11호 · 비고 6) — 조례가 없는 곳도 법정 칸을 대조한다. 값은 바꾸지 않는다 */
+const PKNAT={'위락':100,'문화집회':150,'종교':150,'판매':150,'운수':150,'의료':150,'운동':150,'업무':150,'근린생활':200,'숙박':200,'수련':350,'공장':350,'발전':350,'창고':400,'기타':300};
+const PKNM={'위락':'위락시설','문화집회':'문화 및 집회시설','종교':'종교시설','판매':'판매시설','운수':'운수시설','의료':'의료시설','운동':'운동시설','업무':'업무시설','근린생활':'근린생활시설','숙박':'숙박시설','수련':'수련시설','공장':'공장','발전':'발전시설','창고':'창고시설','기타':'그 밖의 건축물'};
+/* v6.1.26 교차검증 반영 — 국가 기준 대조만 별표 1 세부 용도로 나눈다(제2 · 7 · 9 · 10 · 11호 · 비고 1). 조례 참고(parkRef · parkCat)는 그대로 */
+function parkNatCat(use){const u=(use||'').replace(/\s+/g,'');if(!u)return null;
+  if(u.split(/[()\[\],·\/]+/).some(t=>/^(변전소|양수장|정수장|대피소|공중화장실|수도원|수녀원|제실|사당|전통한옥)$/.test(t)))return null;   /* 비고 1 — 설치하지 않을 수 있는 시설: 대조하지 않음(괄호 · 쉼표로 나눈 낱말이 시설명 그대로일 때만 — 「사당역」 「국제실내체육관」 오인 방지) */
+  if(/데이터센터/.test(u))return {nm:'방송통신시설 중 데이터센터',per:400};
+  if(/기숙사/.test(u))return /학생/.test(u)?{nm:'학생용 기숙사',per:400}:null;   /* 일반 기숙사는 공동주택 기준 — 대조하지 않음 */
+  if(/아파트형공장/.test(u))return {nm:'그 밖의 건축물(아파트형 공장)',per:300};
+  if(/정신병원|요양병원|격리병원/.test(u))return {nm:'그 밖의 건축물(정신병원 · 요양병원 · 격리병원)',per:300};
+  if(/방송국/.test(u))return {nm:'방송통신시설 중 방송국',per:150};
+  if(/장례식장/.test(u))return {nm:'장례식장',per:150};
+  const c=parkCat(use);if(!c.c)return null;return {nm:PKNM[c.c],per:PKNAT[c.c]};}
+function parkNat(){const tot=numOf('totalArea'),c=parkNatCat(valOf('mainUse'));if(!c)return null;const k=parkCount(tot,c.per);if(!k)return null;return {nm:c.nm,per:c.per,q:k.q,n:k.n,tot:tot};}
+function parkChk(){
+  const pl=numOf('parkLegal'); if(pl==null) return null; const nt=parkNat(), r=parkRef(); if(!nt) return null;
+  const ns='국가 기준 '+nt.n+'대('+nt.nm+' '+f2(nt.tot)+' ㎡ ÷ '+nt.per+' ㎡ = '+f2(nt.q)+' · 주차장법 시행령 별표 1 · 연면적 어림)';
+  if(r&&pl<r.n) return {lv:'w',t:'⚠ 법정 주차 '+pl+'대 — '+r.o.pn+' 기준 참고 '+r.n+'대(연면적 ÷ '+r.per+' ㎡ · 어림)보다 작습니다. '+ns+'. 시설면적 · 용도별 산정을 확인하십시오.',s:'조례 참고 '+r.n+'대 · 국가 기준 '+nt.n+'대보다 작음 — 산정 확인'};
+  if(pl<nt.n) return {lv:'w',t:'⚠ 법정 주차 '+pl+'대 — '+ns+'보다 작습니다. 조례 완화 근거가 없으면 산정을 확인하십시오.',s:'국가 기준 '+nt.n+'대보다 작음 — 조례 완화 근거 확인'};
+  if(pl>nt.n) return {lv:'i',t:'법정 주차 '+pl+'대 > '+ns+' — 조례로 강화된 기준이면 맞습니다(값은 바꾸지 않음).',s:''};
+  return {lv:'i',t:'법정 주차 '+pl+'대 = '+ns+'.',s:''};
+}
+function pkRender(){const e=document.getElementById('pic-pkchk');if(!e)return;const k=parkChk();if(!k){e.hidden=true;e.textContent='';return;}e.hidden=false;e.className='pic-pkchk '+k.lv;e.textContent=k.t;}
 function gjFmt(v){return v==null?'원문 확인':f2(v)+' m 이상';}
 function pgRender(){
   const e=document.getElementById('pic-pg'); if(!e) return; const d=pgFind();
@@ -1614,7 +1741,7 @@ function recalc(){
   if(e) e.textContent=(r.bcr==null&&r.far==null)?'건폐율 · 용적률은 면적을 넣으면 계산해 보여 줍니다.'
     :'건폐율 '+(r.bcr==null?'—':f2x(r.bcr,numOf('bcrLegal'))+' %')+' · 용적률 '+(r.far==null?'—':f2x(r.far,numOf('farLegal'))+' % ('+r.farBy+' 기준)')+lim(r);
   {const g=docGap(); if(e&&g.length) e.textContent+=' ⚠ 불러온 PDF 의 비율과 다름: '+g.join(' · ')+' — 면적을 다시 확인하십시오.';}   /* v6.1.20 */
-  ordRender(); bordRender(); pgRender(); kbcRender();
+  ordRender(); bordRender(); pgRender(); kbcRender(); pkRender();
 }
 
 /* ── A4 ── */
@@ -1631,7 +1758,7 @@ function optLine(I,k,withSubs){
 }
 function renderResult(){
   const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=(v===''||v==null)?'-':v;};
-  kbcRender();
+  kbcRender(); renderResult24();
   const dKR=formatDateKR(valOf('reportDate')), who=[valOf('firm'),valOf('author')].filter(Boolean).join(' ');
   set('r-client',valOf('client')); set('r-siteLoc',valOf('siteLoc')); set('r-lotNo',valOf('lotNo'));
   set('r-author','성명 : '+(valOf('author')||'-')); set('r-licNo','면허번호 : '+(valOf('licNo')||'-')); set('r-memNo','협회 회원번호 : '+(valOf('memNo')||'-'));
@@ -1673,7 +1800,7 @@ function renderResult(){
 }
 
 /* ── 파일 저장 · 불러오기 · 초기화 ── */
-function snapshot(){const info={};FIELDS.forEach(id=>{info[id]=valOf(id);});return {tool:'MANMIN-건축허가조사및검사조서',ver:'6.1.0',data:'세움터견본-102법령-159항목',saved:new Date().toISOString(),info:info,ans:ANS};}
+function snapshot(){const info={};FIELDS.forEach(id=>{info[id]=valOf(id);});return {tool:'MANMIN-건축허가조사및검사조서',ver:'6.1.0',data:'세움터견본-102법령-159항목',saved:new Date().toISOString(),info:info,ans:ANS,ans24:ANS24};}
 function saveFile(){
   const nm='허가검사조서_'+(valOf('projectName')||'무제').replace(/[\\/:*?"<>|]/g,'_')+'_'+getTodayISO()+'.json';
   const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(snapshot(),null,1)],{type:'application/json'})); a.download=nm;
@@ -1685,6 +1812,17 @@ function loadFile(inp){
     try{
       const o=JSON.parse(rd.result); if(!o||o.tool!=='MANMIN-건축허가조사및검사조서'||typeof o.ans!=='object') throw new Error('이 도구의 저장 파일이 아닙니다');
       FIELDS.forEach(id=>{const e=document.getElementById(id);if(e&&o.info&&typeof o.info[id]==='string')e.value=o.info[id];});
+      if(!o.info||typeof o.info.pdfNote!=='string'){const e=document.getElementById('pdfNote');if(e)e.value='';}   /* v6.1.26 옛 파일 */
+      document.getElementById('formKind').value=(o.info&&o.info.formKind==='24')?'24':'23';   /* v6.1.26 kind 없는 옛 파일은 23호 */
+      const B={}; let d24=0;
+      if(o.ans24&&typeof o.ans24==='object')Object.keys(o.ans24).forEach(id=>{
+        const R=f24(id), a=o.ans24[id]; if(!R||!a||typeof a!=='object'){d24++;return;}
+        const n={}; if(typeof a.o==='string'&&opts24(R).indexOf(a.o)>=0) n.o=a.o;
+        if(R.k==='pct'||R.k==='le')['lv','v'].forEach(f=>{if(typeof a[f]==='string'&&/^\d+(\.\d+)?$/.test(a[f].trim())) n[f]=a[f].trim();});
+        if(n.o!=null&&a.c===4){n.c=4; if(typeof a.w==='string') n.w=a.w.slice(0,300);}
+        if(n.o!=null||n.lv||n.v) B[id]=n; else d24++;
+      });
+      ANS24=B;
       const A={}; let drop=0; window._ppDoc=null;
       Object.keys(o.ans||{}).forEach(k=>{
         let I=null; try{I=findItem(k);}catch(e){} const a=o.ans[k];
@@ -1694,7 +1832,7 @@ function loadFile(inp){
         if(n.o!=null&&(a.c===3||a.c===4)) n.c=a.c;   /* v6.1.19 확인 필요 표시 */
         if(n.o!=null||n.m) A[k]=n; else drop++;
       });
-      ANS=A; recalc(); syncAll(); mmToast('불러왔습니다'+(drop?' · 맞지 않는 '+drop+'칸은 버림':''));
+      ANS=A; recalc(); syncAll(); applyKind(); mmToast('불러왔습니다'+((drop+d24)?' · 맞지 않는 '+(drop+d24)+'칸은 버림':''));
     }catch(e){ mmToast('불러오지 못했습니다 — '+e.message); }
     inp.value='';
   };
@@ -1702,9 +1840,11 @@ function loadFile(inp){
 }
 function resetAll(){
   if(!confirm('입력한 개요와 체크리스트 답을 모두 지웁니다. 계속할까요?')) return;
+  const kd=kindOf();
   FIELDS.forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  document.getElementById('formKind').value=kd; ANS24={};   /* v6.1.26 조서 종류는 그대로 */
   document.getElementById('author').value='김만민'; document.getElementById('firm').value='(주)대성건축사사무소'; document.getElementById('reportDate').value=getTodayISO();
-  ANS={}; window._ppDoc=null; recalc(); syncAll(); mmToast('초기화했습니다');
+  ANS={}; window._ppDoc=null; recalc(); syncAll(); applyKind(); mmToast('초기화했습니다');
 }
 
 /* ── 탭 · 인쇄 · 모달 ── */
@@ -1713,7 +1853,184 @@ function switchTab(id){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+id));
   if(id==='result') renderResult();
   if(id==='check') applyFilter();
+  if(id==='check'&&kindOf()==='24') render24();
 }
+/* ══ v6.1.26 별지 제24호서식 사용승인조사 및 검사조서 겸용 ══
+   서식 원문: 「건축법 시행규칙」 별지 제24호서식 <개정 2024. 7. 1.> (lawmcp 서식 · 받은 서식 PDF 2쪽 대조, 2026-11-27). 제출 근거 건축법 제27조 · 시행규칙 제21조제1항.
+   현장조사 49행 = 앞쪽 19 · 뒤쪽 30. k: 없음 = 일치 · 불일치 · 해당 없음 / fit = 적합 · 부적합 · 해당 없음(피난용승강기 2행) / pct = 조례 ( )% 이상 · ( )% · 해당 없음(조경 · 공개공지) / le = 조례 ( )% 이하 · ( )%(건폐율 · 용적률).
+   도구는 「해당 없음」 후보만 개요 · 23호 선판정 규칙으로 채우고(모두 🟨 확인 필요), 「일치 · 불일치」는 고르지 않는다(완공 현장 확인은 조사자 몫). 23호 답은 24호로 옮기지 않는다. */
+const F24=[
+ {id:'d1',g:'대지\n및\n도로',t:'대지의 안전 등',l:'「건축법」 제40조'},
+ {id:'d2',g:'대지\n및\n도로',t:'토지 굴착 부분에 대한 조치 등',l:'「건축법」 제41조'},
+ {id:'d3',g:'대지\n및\n도로',t:'대지의 조경',l:'「건축법」 제42조,',lp:['조례 ','% 이상'],k:'pct'},
+ {id:'d4',g:'대지\n및\n도로',t:'건축선 지정',l:'「건축법」 제46조'},
+ {id:'d5',g:'대지\n및\n도로',t:'건축선에 따른 건축제한',l:'「건축법」 제47조'},
+ {id:'p1',g:'피난시설',t:'직통계단의 설치',l:'「건축법」 제49조'},
+ {id:'p2',g:'피난시설',t:'피난ㆍ특별피난ㆍ옥외피난계단의 설치',l:'「건축법」 제49조'},
+ {id:'p3',g:'피난시설',t:'관람석 등으로부터의 출구설치',l:'「건축법」 제49조'},
+ {id:'p4',g:'피난시설',t:'건축물 바깥쪽으로의 출구설치',l:'「건축법」 제49조'},
+ {id:'p5',g:'피난시설',t:'옥상광장 등의 설치',l:'「건축법」 제49조'},
+ {id:'p6',g:'피난시설',t:'방화구획 등의 설치',l:'「건축법」 제49조'},
+ {id:'p7',g:'피난시설',t:'계단설치기준 및 구조',l:'「건축법」 제49조'},
+ {id:'p8',g:'피난시설',t:'거실의 반자ㆍ채광ㆍ환기',l:'「건축법」 제49조'},
+ {id:'p9',g:'피난시설',t:'층간 바닥 구조',l:'「건축법」 제49조'},
+ {id:'p10',g:'피난시설',t:'경계 및 칸막이벽 구조',l:'「건축법」 제49조'},
+ {id:'p11',g:'피난시설',t:'건축물에 설치하는 굴뚝',l:'「건축법 시행령」 제54조'},
+ {id:'p12',g:'피난시설',t:'고층건축물의 피난 ․ 안전',l:'「건축법」 제50조의2'},
+ {id:'f1',g:'내화구조',t:'건축물의 내화구조',l:'「건축법」 제50조'},
+ {id:'f2',g:'내화구조',t:'대규모 건축물의 방화벽 등',l:'「건축법」 제50조'},
+ {id:'m1',g:'건축재료',t:'건축물의 내부 마감재료',l:'「건축법」 제52조'},
+ {id:'m2',g:'건축재료',t:'건축물의 외벽 마감재료',l:'「건축법」 제52조'},
+ {id:'m3',g:'건축재료',t:'건축자재의 품질관리',l:'「건축법」 제52조의4'},
+ {id:'i1',g:'실내건축',t:'실내건축의 구조ㆍ시공',l:'「건축법」 제52조의2'},
+ {id:'b1',g:'지하층',t:'지하층 구조',l:'「건축법」 제53조'},
+ {id:'c1',g:'범죄예방',t:'건축물의 범죄예방',l:'「건축법」 제53조의2'},
+ {id:'u1',g:'용도제한',t:'용도지역 및 용도지구에서의 건축물의 건축 제한 등',l:'「국토의 계획 및 이용에 관한 법률」 제76조'},
+ {id:'r1',g:'건폐율\n용적률',t:'건축물의 건폐율',l:'도시ㆍ군계획조례',lp:['','% 이하'],k:'le'},
+ {id:'r2',g:'건폐율\n용적률',t:'건축물의 용적률',l:'도시ㆍ군계획조례',lp:['','% 이하'],k:'le'},
+ {id:'s1',g:'대지안의\n공지',t:'건축선으로부터 이격거리',l:'「건축법」 제58조'},
+ {id:'s2',g:'대지안의\n공지',t:'인접 대지경계선으로부터 이격거리',l:'「건축법」 제58조'},
+ {id:'h1',g:'높이제한',t:'건축물의 높이제한',l:'「건축법」 제60조'},
+ {id:'h2',g:'높이제한',t:'일조 등의 확보를 위한 건축물의 높이제한',l:'「건축법」 제61조'},
+ {id:'e1',g:'건축설비',t:'승용승강기의 설치',l:'「건축법」 제64조'},
+ {id:'e2',g:'건축설비',t:'승용승강기의 구조',l:'「건축법」 제64조'},
+ {id:'e3',g:'건축설비',t:'비상용승강기의 설치',l:'「건축법」 제64조'},
+ {id:'e4',g:'건축설비',t:'비상용승강기의 승강장 및 구조',l:'「건축법」 제64조'},
+ {id:'e5',g:'건축설비',t:'피난용승강기의 설치',l:'「건축법」 제64조',k:'fit'},
+ {id:'e6',g:'건축설비',t:'피난용승강기의 승강장 및 구조',l:'「건축법」 제64조',k:'fit'},
+ {id:'e7',g:'건축설비',t:'배연설비의 설치',l:'「건축법」 제49조'},
+ {id:'e8',g:'건축설비',t:'강제배수시설의 설치',l:'「건축법」 제62조'},
+ {id:'e9',g:'건축설비',t:'급수시설',l:'「건축법」 제62조'},
+ {id:'e10',g:'건축설비',t:'온돌 및 난방설비의 설치',l:'「건축법」 제62조'},
+ {id:'e11',g:'건축설비',t:'열손실방지 조치',l:'「녹색건축물 조성 지원법」 제15조'},
+ {id:'e12',g:'건축설비',t:'에너지 절약계획서 이행 여부',l:'「녹색건축물 조성 지원법」 제14조'},
+ {id:'t1',g:'도시설계',t:'지구단위계획에의 적합여부',l:'「국토의 계획 및 이용에 관한 법률」 제49조부터 제54조까지'},
+ {id:'t2',g:'도시설계',t:'공개 공지의 확보',l:'「건축법」 제43조,',lp:['조례','％이상'],k:'pct'},
+ {id:'a1',g:'장애인\n편의시설',t:'관계 법령에 따라 의무적으로 설치하는 시설',l:''},
+ {id:'g1',g:'동별\n표시확인',t:'집합건축물의 동별 표시가 공사완료도서와 일치하는지 여부',l:''},
+ {id:'g2',g:'전유부\n표시확인',t:'집합건축물의 전유부 호별 표시가 공사완료도서와 일치 여부',l:''}
+];
+const F24_FRONT=19;
+let ANS24={};   // ANS24[id]={o:'일치'|'불일치'|'적합'|'부적합'|'해당 없음', c:4(확인 필요), w:근거, lv:조례 %, v:완공 %}
+function kindOf(){return valOf('formKind')==='24'?'24':'23';}
+function f24(id){return F24.find(R=>R.id===id);}
+function opts24(R){return R.k==='fit'?['적합','부적합','해당 없음']:R.k==='pct'?['해당 없음']:R.k==='le'?[]:['일치','불일치','해당 없음'];}
+function auto24(R){   /* 건폐율 · 용적률 행 — 조례 % 는 51곳 조례 값(용도지역 하나일 때) → 없으면 법정 칸, 완공 % 는 개요 면적 계산 */
+  if(R.k!=='le') return {lv:null,lvs:'',v:null};
+  const d=ordFind(), r=ratios(), b=R.id==='r1', dv=b?d.b:d.f, fv=numOf(b?'bcrLegal':'farLegal');
+  return {lv:dv!=null?dv:fv, lvs:dv!=null?d.o.n:(fv!=null?'개요의 법정 칸':''), v:b?r.bcr:r.far};
+}
+function eff24(R){const a=ANS24[R.id]||{}, au=auto24(R);
+  return {lv:a.lv?a.lv:(au.lv!=null?String(+au.lv):''), v:a.v?a.v:(au.v!=null?au.v.toFixed(2):''), au:au};}
+function done24(R){const a=ANS24[R.id]||{}; if(R.k==='le') return eff24(R).v!==''; if(R.k==='pct') return a.o==='해당 없음'||!!a.v; return a.o!=null;}
+function counts24(){const c={all:F24.length,done:0,na:0,auto:0,f:0,b:0};
+  F24.forEach((R,i)=>{const a=ANS24[R.id]||{}; if(done24(R)){c.done++; if(i<F24_FRONT)c.f++; else c.b++; if(a.o==='해당 없음')c.na++;} if(a.c)c.auto++;}); return c;}
+function progress24(){const c=counts24(), set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  set('sb-all',c.done+'/'+c.all); set('sb-real',(c.done-c.na)+'칸'); set('sb-none',(c.all-c.done)+'칸'); set('sb-auto',c.auto+'칸');
+  set('k24-prog','사용승인 현장조사 ('+c.done+'/'+c.all+') — 앞쪽 '+c.f+'/'+F24_FRONT+' · 뒤쪽 '+c.b+'/'+(c.all-F24_FRONT)+(c.auto?' · 🟨 확인 필요 '+c.auto+'칸':''));
+  window._s={c:c,FL:true};}
+function render24(){
+  const box=document.getElementById('k24-list'); if(!box) return;
+  const f=valOf('k24-filter')||'all'; let h='', g='', open=false;
+  F24.forEach((R,i)=>{
+    const a=ANS24[R.id]||{}, dn=done24(R), gn=(i<F24_FRONT?'앞쪽':'뒤쪽')+' · '+R.g.replace(/\n/g,' ');
+    if(f==='none'&&dn) return; if(f==='auto'&&!a.c) return;
+    if(gn!==g){ if(open)h+='</div>'; h+='<div class="k24-g"><div class="k24-gh">'+esc(gn)+'</div>'; g=gn; open=true; }
+    const lawT=(R.l+(R.lp?' '+R.lp[0]+'( )'+R.lp[1]:'')).trim();
+    h+='<div class="k24-r'+(a.c?' auto':'')+'" id="k24r-'+R.id+'"><div><span class="k24-nm">'+esc(R.t)+'</span><span class="k24-law">'+esc(lawT||'관계 법령')+'</span></div><div class="k24-ops">';
+    if(R.k==='pct'||R.k==='le'){ const e=eff24(R);
+      h+='<span class="k24-pct">조례 <input class="fire-input" type="number" min="0" step="0.01" value="'+esc(a.lv||'')+'" placeholder="'+esc(e.au.lv!=null?String(+e.au.lv):'%')+'" aria-label="'+esc(R.t)+' 조례 %" oninput="set24(\''+R.id+'\',\'lv\',this.value)"> % '+(R.k==='le'?'이하':'이상')
+        +' · 완공 <input class="fire-input" type="number" min="0" step="0.01" value="'+esc(a.v||'')+'" placeholder="'+esc(e.au.v!=null?e.au.v.toFixed(2):'%')+'" aria-label="'+esc(R.t)+' 완공 후 %" oninput="set24(\''+R.id+'\',\'v\',this.value)"> %</span>';
+      if(R.k==='pct') h+='<label class="'+(a.o==='해당 없음'?'on':'')+'"><input type="checkbox" '+(a.o==='해당 없음'?'checked':'')+' onchange="pick24(\''+R.id+'\',this.checked?\'해당 없음\':null)"> 해당 없음</label>';
+    } else opts24(R).forEach(o=>{ h+='<label class="'+(a.o===o?'on':'')+'"><input type="radio" name="k24-'+R.id+'" value="'+o+'" '+(a.o===o?'checked':'')+' onchange="pick24(\''+R.id+'\',\''+o+'\')"> '+o+'</label>'; });
+    if(a.o!=null||a.lv||a.v) h+='<button type="button" class="pic-btn k24-x" onclick="unpick24(\''+R.id+'\')" aria-label="'+esc(R.t)+' 답 지우기" title="답 지우기">×</button>';
+    h+='</div>';
+    if(a.c) h+='<div class="k24-why">🟨 확인 필요 — '+esc(a.w||'선판정')+' <button type="button" class="pic-btn k24-ok" onclick="ok24(\''+R.id+'\')">확인함</button></div>';
+    else if(R.k==='le'){ const e=eff24(R), over=e.lv!==''&&e.v!==''&&+e.v>+e.lv+1e-9;
+      h+='<div class="k24-why k24-hint">조례 % — '+(e.au.lvs?esc(e.au.lvs)+' '+f2(+e.au.lv)+' %':'들어 있는 값 없음(직접 넣기)')+' · 완공 % — '+(e.au.v!=null?'개요 면적 계산 '+e.au.v.toFixed(2)+' %':'개요 면적 없음')+'(완공 면적과 다르면 고치십시오)'+(over?' <b class="k24-bad">⚠ 완공 % 가 조례 % 보다 큽니다</b>':'')+'</div>'; }
+    else if(R.k==='pct') h+='<div class="k24-why k24-hint">조례 '+(R.id==='d3'?'조경':'공개공지')+' 비율은 도구에 들어 있지 않습니다 — 건축 조례 원문으로 넣으십시오(확인 필요).</div>';
+    h+='</div>';
+  });
+  if(open) h+='</div>';
+  box.innerHTML=h||'<p class="pic-empty">보여 줄 행이 없습니다.</p>'; progress24();
+}
+function clean24(id){const a=ANS24[id]; if(a&&a.o==null&&!a.lv&&!a.v) delete ANS24[id];}
+function set24(id,f,v){v=String(v).trim(); const a=ANS24[id]||(ANS24[id]={}); if(/^\d+(\.\d+)?$/.test(v)) a[f]=v; else delete a[f]; delete a.c; clean24(id); progress24();}
+function pick24(id,o){const a=ANS24[id]||(ANS24[id]={}); if(o==null) delete a.o; else a.o=o; delete a.c; delete a.w; clean24(id); render24();
+  const e=document.querySelector('#k24r-'+id+' input[type=radio]:checked, #k24r-'+id+' input[type=checkbox]'); if(e) e.focus();}
+function unpick24(id){delete ANS24[id]; render24();}
+function ok24(id){const a=ANS24[id]; if(a){delete a.c; delete a.w;} render24();}
+function clear24(){if(!confirm('사용승인 현장조사 답 '+counts24().done+'행을 모두 지웁니다. 계속할까요?')) return; ANS24={}; render24();}
+function judge24(){
+  if(typeof window.judgeRules!=='function'){mmToast('선판정 규칙을 불러오지 못했습니다');return;}
+  const J=window.judgeRules(), u=J.u, by={}; J.R.forEach(x=>{by[x.k]=x;});
+  if(!u.use&&u.tot==null&&u.site==null){mmToast('개요(주용도 · 면적)를 먼저 넣으십시오');return;}
+  const nat=t=>t===NA||t==='비대상', cand={};
+  [['1.2.0',['d3'],1],['1.10.0',['p12']],['1.9.0',['f1']],['1.9.1',['f2']],['1.11.0',['m2']],['1.12.0',['i1']],['1.65.0',['c1']],['1.15.0',['s1','s2']],['1.17.0',['h1']],
+   ['1.19.0',['e1','e2']],['1.19.1',['e3','e4']],['1.19.2',['e5','e6']],['1.28.0',['e12']],['1.3.0',['t2']],['1.48.0',['a1']]].forEach(m=>{
+    const x=by[m[0]]; if(!x||!(nat(x.t)||(m[2]&&x.t==='예외대상'))) return; const pk=m[0].split('.'), Lw=CL[+pk[0]].laws.find(l=>lkOf(l)===+pk[1]), L=Lw?Lw.law.replace(/\(.*$/,''):'';
+    m[1].forEach(id=>{cand[id]='23호 규칙 '+L+' 「'+x.t+'」 — '+x.why;}); });
+  if(['1.66.0','1.66.1','1.66.2','1.66.3'].every(k=>by[k]&&nat(by[k].t))) cand.h2='23호 규칙 건축법 제61조 모두 「'+by['1.66.0'].t+'」 — '+by['1.66.0'].why;
+  if(u.fb===0) cand.b1='개요 지하 0층 — 지하층 없음';
+  const tx=(u.zon+' '+u.use+' '+u.ln).replace(/\s+/g,'');
+  if(u.zon&&!/지구단위/.test(tx)) cand.t1='개요 「지역 / 지구 / 구역」에 지구단위계획구역 글자 없음 — 토지이용계획확인원으로 확인';
+  if(u.use&&!/공동주택|아파트|연립|다세대|오피스텔|집합|구분소유/.test(tx)){cand.g1=cand.g2='개요에 공동주택 · 집합건축물 글자 없음 — 구분소유(집합건축물대장)이면 해당';}
+  const ids=F24.map(R=>R.id).filter(id=>cand[id]&&!(ANS24[id]&&(ANS24[id].o!=null||ANS24[id].v)));
+  if(!ids.length){mmToast('새로 채울 「해당 없음」 후보가 없습니다');return;}
+  if(!confirm('「해당 없음」 후보 '+ids.length+'행을 채웁니다 — 모두 🟨 확인 필요로 표시합니다(완공 현장에서 확인한 뒤 「확인함」).\n「일치 · 불일치」는 도구가 고르지 않습니다.\n\n'+ids.map(id=>'· '+f24(id).t).join('\n')+'\n\n계속할까요?')) return;
+  ids.forEach(id=>{const a=ANS24[id]||(ANS24[id]={}); a.o='해당 없음'; a.c=4; a.w=cand[id].slice(0,300);});
+  render24(); mmToast(ids.length+'행 채움 — 🟨 확인 필요');
+}
+function guard24(){const c=counts24(), L=[];
+  if(!c.done)L.push('현장조사 답 0/'+c.all+' — 빈 서식을 인쇄합니다.');
+  else if(c.all-c.done)L.push('미답 '+(c.all-c.done)+'행이 빈 [  ]로 인쇄됩니다(답한 행 '+c.done+'/'+c.all+').');
+  if(c.auto)L.push('「확인 필요」 답이 '+c.auto+'행 남아 있습니다(개요 · 23호 규칙으로 고른 「해당 없음」 후보) — 완공 현장에서 확인하지 않은 답이 그대로 인쇄됩니다.');
+  if(!valOf('permitNo')||!valOf('permitDate'))L.push('허가번호 · 허가일자가 비어 있습니다.');
+  return !L.length||confirm(L.join('\n\n')+'\n\n계속할까요?\n\n(현장조사 탭 「보기」에서 미답 · 확인 필요만 골라 볼 수 있습니다)');}
+function slot24(v,w){return '( <span class="p24-v">'+(v!==''&&v!=null?esc(v):'&nbsp;'.repeat(w||8))+'</span> )';}
+function mark24(opts,sel){return opts.map(o=>'<span class="p24-o">['+(sel===o?'√':'&nbsp;&nbsp;')+']'+esc(o)+'</span>').join(' ');}
+function rows24(list){
+  let h='';
+  list.forEach((R,i)=>{
+    const a=ANS24[R.id]||{}, gS=i===0||list[i-1].g!==R.g; let gs=0; if(gS){for(let j=i;j<list.length&&list[j].g===R.g;j++)gs++;}
+    h+='<tr>'+(i===0?'<td class="p24-g p24-g0" rowspan="'+list.length+'">현장<br>조사</td>':'')+(gS?'<td class="p24-g" rowspan="'+gs+'">'+esc(R.g).replace(/\n/g,'<br>')+'</td>':'');
+    if(!R.l&&!R.lp) h+='<td colspan="2">'+esc(R.t)+'</td>';
+    else{ let law=esc(R.l); if(R.lp){const e=eff24(R); law+=(law?'<br>':'')+esc(R.lp[0])+slot24(e.lv,8)+esc(R.lp[1]);} h+='<td>'+esc(R.t)+'</td><td class="p24-law">'+law+'</td>'; }
+    let res;
+    if(R.k==='le') res=slot24(eff24(R).v,16)+'%';
+    else if(R.k==='pct') res=slot24(a.v||'',10)+'% &nbsp; '+mark24(['해당 없음'],a.o);
+    else res=mark24(opts24(R),a.o);
+    h+='<td class="p24-res">'+res+'</td></tr>';
+  });
+  return h;
+}
+function renderResult24(){
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=(v===''||v==null)?'':v;}, dKR=formatDateKR(valOf('reportDate'));
+  set('r24-client',valOf('client')); set('r24-siteLoc',valOf('siteLoc')); set('r24-lotNo',valOf('lotNo'));
+  set('r24-permitNo',valOf('permitNo')); set('r24-permitDate',valOf('permitDate')?formatDateKR(valOf('permitDate')):'');
+  set('r24-author',valOf('author')); set('r24-licNo',valOf('licNo')); set('r24-memNo',valOf('memNo')); set('r24-firm',valOf('firm')); set('r24-regNo',valOf('regNo'));
+  set('r24-date',valOf('reportDate')?dKR:''); set('r24-designDate',valOf('designDate')?formatDateKR(valOf('designDate')):''); set('r24-date2',valOf('reportDate')?dKR:'년      월      일'); set('r24-sign',valOf('author'));
+  const head='<colgroup><col style="width:34px"><col style="width:62px"><col><col style="width:142px"><col style="width:196px"></colgroup><thead><tr><th colspan="2">구 분</th><th>조사내용</th><th>관련규정</th><th>완공 후 현황</th></tr></thead>';
+  const fr=document.getElementById('r24-front'), bk=document.getElementById('r24-back'); if(!fr||!bk) return;
+  fr.innerHTML='<table class="p24-tbl">'+head+'<tbody>'+rows24(F24.slice(0,F24_FRONT))+'</tbody></table>';
+  bk.innerHTML='<table class="p24-tbl">'+head+'<tbody>'+rows24(F24.slice(F24_FRONT))
+    +'<tr><td class="p24-th" colspan="2">그 밖의 사항</td><td class="p24-op" colspan="3">'+esc(valOf('etcNote'))+'</td></tr>'
+    +'<tr><td class="p24-th" colspan="2">종합의견</td><td class="p24-op p24-op2" colspan="3">'+esc(valOf('opinion'))+'</td></tr></tbody></table>';
+}
+function applyKind(){
+  const k=kindOf(), b=document.body; b.classList.toggle('k24',k==='24'); b.classList.toggle('k23',k!=='24');
+  [['kind23','23'],['kind24','24']].forEach(x=>{const e=document.getElementById(x[0]); if(e){e.classList.toggle('on',k===x[1]); e.setAttribute('aria-pressed',k===x[1]?'true':'false');}});
+  const t=(s,v)=>{const e=document.querySelector(s); if(e) e.textContent=v;};
+  t('.hdr-h1',k==='24'?'사용승인조사 및 검사조서':'건축허가조사 및 검사조서');
+  t('.tab-btn[data-tab="check"]',k==='24'?'☑ 현장조사(제24호)':'☑ 체크리스트');
+  t('.tab-btn[data-tab="result"]',k==='24'?'📄 사용승인조서':'📄 조서 · 체크리스트');
+  t('#cover-title',k==='24'?'조서 표지 — 별지 제24호서식':'조서 표지 — 별지 제23호서식');
+  if(k==='24'){render24();} else progress();
+  if(document.getElementById('tab-result')&&document.getElementById('tab-result').classList.contains('active')) renderResult();
+}
+function setKind(k){const e=document.getElementById('formKind'); if(!e||kindOf()===k) return; e.value=k; applyKind(); mmToast(k==='24'?'사용승인조사 및 검사조서(별지 제24호서식)로 바꿨습니다 — 개요 · 조사자 값은 그대로':'건축허가조사 및 검사조서(별지 제23호서식)로 바꿨습니다');}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',applyKind); else applyKind();
+
 function doPrint(){
   if(!autoGuard()) return;
   renderResult();
@@ -1788,6 +2105,7 @@ setTimeout(scaleA4,100);
     farArea:/^(용적[률율]산정(용)?연면적(합계)?|용적[률율]산정용|연면적합계?\(용적[률율]산정용\))$/, totalArea:/^(연면적|연면적합계|건축연면적)$/, sum:/^(계|합계|소계)$/,
     mainUse:/^(주용도|건축물용도)$/, use:/^(용도|세부용도)$/, structure:/^(구조|구조형식|주구조|주구조[\/]지붕구조)$/, scale:/^(규모|층수|건축규모)$/, bldHeight:/^(최고높이|건축물높이|높이)$/,
     workType:/^(공종|건축구분|공사종별|공사구분)$/, landForm:/^(형질변경의?필요성|토지형질변경)$/, roadW:/^(대지에접한도로의?너비|접한도로너비|전면도로너비|도로너비)$/, landNote:/^(대지안의조경\(법정%?\)|조경\(법정%?\))$/, xLand:/^(대지안의조경\(설계\)|대지조성필요성|대지의안전상태|대지에접한도로개소|대지에접한도로의?길이|대지와도로의고저차|통과도로\/막다른도로|지상,지하장애물|보,차통행가능여부)$/, park:/^(주차장|주차대수|주차|총주차대수|주차개요)$/, land:/^(조경|조경면적)$/,
+    permitNo:/^(허가번호|건축허가번호)$/, permitDate:/^(허가일자|허가일|건축허가일자|허가일시)$/,   /* v6.1.26 허가서 · 사용승인신청서 */
     xSsn:/^(주민등록번호|법인등록번호|사업자등록번호)$/, xAddr:/^주소$/, landCat:/^지목$/, xMisc:/^(비고|구분|형식|동별|층별|면적\(?(㎡|m²|M²)?\)?|바닥면적|지적면적|제외면적|사용면적|공부상면적|도로|도로현황|접도길이|용량|주건축물수|부속건축물|호\(?가구\)?수|전자우편|전자|우편|생년월일|전화번호|연락처|팩스)$/
   };
   var SCORE_KEYS=['siteArea','bldArea','bcr','far','totalArea','zoning','region','bldHeight','park','structure','scale','siteLoc','mainUse'];
@@ -1969,6 +2287,9 @@ setTimeout(scaleA4,100);
     if(!r.projectName){var big=null;C.forEach(function(c){if(/(신축|증축|개축|재축|대수선|용도변경|리모델링|이전)\s*공사$/.test(c.t)&&nz(c.t).length<=40&&(!big||c.h>big.h))big=c;});if(big)put('projectName',tidy(big.t),big);}
     /* 건축주: 바로 오른쪽이 「성명」이면 그 오른쪽 */
     v=textRight('client',['name'],function(t){return plain(t)&&nz(t).length<=30&&!/「|제\d+조|따라|위하여|동의|송달|합니다|니다\.?$/.test(t);}); if(v)put('client',tidy(v.t),v);   /* v6.1.21 법령 문장은 받지 않음 */
+    /* v6.1.26 허가번호 · 허가일자(24호 머리 칸) — 숫자가 든 짧은 글자 · 날짜는 YYYY-MM-DD 로 */
+    v=textRight('permitNo',null,function(t){var n=nz(t);return n.length>=4&&n.length<=40&&/\d{2,}/.test(n)&&!/「|제\d+조|따라|합니다/.test(t)&&!/^\d{4}[.\-\/년]\d{1,2}[.\-\/월]\d{1,2}일?\.?$/.test(n);}); if(v)put('permitNo',tidy(v.t),v);
+    v=textRight('permitDate',null,function(t){return /\d{4}\s*[.\-\/년]\s*\d{1,2}\s*[.\-\/월]\s*\d{1,2}/.test(t);}); if(v){var pdm=/(\d{4})\s*[.\-\/년]\s*(\d{1,2})\s*[.\-\/월]\s*(\d{1,2})/.exec(v.t); if(pdm)put('permitDate',pdm[1]+'-'+('0'+pdm[2]).slice(-2)+'-'+('0'+pdm[3]).slice(-2),v);}
     if(!r.client&&by.client&&by.name){   /* 「건축주」가 성명 · 주소 두 줄에 걸쳐 가운데 놓인 서식 */
       by.client.some(function(c){var nm=by.name.filter(function(d){return d.x>c.x&&Math.abs(cyOf(d)-cyOf(c))<=c.h*3.2;})[0]; if(!nm) return false; var x=firstVal(rightOf(nm,C),plain); if(x)put('client',tidy(x.t),x); return !!x;});
     }
@@ -2054,15 +2375,17 @@ setTimeout(scaleA4,100);
   }
 
   var NAMES={projectName:'사업명',client:'건축주',siteLoc:'대지위치',lotNo:'지번',workType:'건축구분',mainUse:'주용도',zoning:'지역 / 지구 / 구역',landCat:'지목',landForm:'토지 형질변경',roadWidth:'접한 도로 너비 (m)',landNote:'조경 (법정)',siteArea:'대지면적 (㎡)',bldArea:'건축면적 (㎡)',
-    totalArea:'연면적 (㎡)',farArea:'용적률 산정용 연면적 (㎡)',floorsAbove:'지상 층수',floorsBelow:'지하 층수',bldHeight:'최고높이 (m)',structure:'구조',parkLegal:'주차 법정 (대)',parkPlan:'주차 계획 (대)',bcrLegal:'법정 건폐율 (%)',farLegal:'법정 용적률 (%)'};
+    totalArea:'연면적 (㎡)',farArea:'용적률 산정용 연면적 (㎡)',floorsAbove:'지상 층수',floorsBelow:'지하 층수',bldHeight:'최고높이 (m)',structure:'구조',parkLegal:'주차 법정 (대)',parkPlan:'주차 계획 (대)',bcrLegal:'법정 건폐율 (%)',farLegal:'법정 용적률 (%)',permitNo:'허가번호',permitDate:'허가일자'};
   var ORDER=Object.keys(NAMES);
 
   function readPdf(file){
     return loadLib().then(function(lib){return file.arrayBuffer().then(function(buf){return lib.getDocument({data:buf,cMapUrl:CMAP,cMapPacked:true}).promise;});}).then(function(pdf){
-      var n=pdf.numPages, best=null, chars=0, i=1;
+      var n=pdf.numPages, best=null, chars=0, i=1, notes=[];
       function step(){
-        if(i>n) return {pdf:pdf,best:best,chars:chars,pages:n};
+        if(i>n) return {pdf:pdf,best:best,chars:chars,pages:n,notes:notes};
         return pdf.getPage(i).then(cellsOf).then(function(pg){
+          /* v6.1.26 「분할」 글자(대지분할 등)는 개요 쪽이 아니어도 앞뒤 글자와 함께 보관 — 선판정 건축 15 */
+          (function(){var t=pg.cells.map(function(c){return c.t;}).join(' '), re=/분할/g, m; while((m=re.exec(t))&&notes.length<4){ if(t.charAt(m.index-1)==='구') continue; var x=t.slice(Math.max(0,m.index-20),m.index+22).replace(/\s+/g,' ').trim(); if(notes.indexOf(x)<0) notes.push(x); }})();
           var seen={}; pg.cells.forEach(function(c){chars+=c.n.length;var k=labelOf(c.t);if(k&&SCORE_KEYS.indexOf(k)>=0)seen[k]=1;});
           var sc=Object.keys(seen).length+(pg.cells.some(function(c){return /^(■|▣)?(건축|설계|공사)개요$/.test(c.n);})?1.5:0);
           if(!best||sc>best.score) best={score:sc,page:i,pg:pg};
@@ -2083,7 +2406,7 @@ setTimeout(scaleA4,100);
       rows+='<tr><td><input type="checkbox" id="pp-c-'+id+'" '+(on?'checked':'')+' aria-label="'+esc2(NAMES[id])+' 채우기"></td><td class="pp-nm"><label for="pp-v-'+id+'">'+esc2(NAMES[id])+'</label></td>'
         +'<td><input class="pp-in" type="text" id="pp-v-'+id+'" value="'+esc2(V[id])+'"></td><td class="pp-cur">'+(cur?(same?'같음':'지금 값: '+esc2(cur)):'빈 칸')+'</td></tr>';
     });
-    var ref=[]; if(V._bcr)ref.push('도면의 건폐율 '+V._bcr+' %'+(V._bcrLegal?' (법정 '+V._bcrLegal+' %)':'')); if(V._far)ref.push('도면의 용적률 '+V._far+' %'+(V._farLegal?' (법정 '+V._farLegal+' %)':'')); if(V._relLot)ref.push('관련 지번 '+V._relLot+'(지번 칸에는 넣지 않음)'); if(V._parkQ&&V.parkLegal!=null)ref.push('주차 산출식 '+V._parkQ+'(주차장법 시행령 별표 1 비고 6 — 0.5 이상 1대)');
+    var ref=[]; if(V._bcr)ref.push('도면의 건폐율 '+V._bcr+' %'+(V._bcrLegal?' (법정 '+V._bcrLegal+' %)':'')); if(V._far)ref.push('도면의 용적률 '+V._far+' %'+(V._farLegal?' (법정 '+V._farLegal+' %)':'')); if(V._relLot)ref.push('관련 지번 '+V._relLot+'(지번 칸에는 넣지 않음)'); if(V._parkQ&&V.parkLegal!=null)ref.push('주차 산출식 '+V._parkQ+'(주차장법 시행령 별표 1 비고 6 — 0.5 이상 1대)'); if(res.notes&&res.notes.length)ref.push('「분할」 글자: '+res.notes.join(' / ')+'(채우면 보관 — 선판정 건축 15 대지분할제한)');
     var miss=ORDER.filter(function(id){return V[id]==null;}).map(function(id){return NAMES[id];});
     /* v6.1.20 도면에 적힌 건폐율 · 용적률과 읽은 면적으로 계산한 값이 1 %p 넘게 다르면 경고 */
     var chk=[];(function(){var s=+V.siteArea||0,b=+V.bldArea||0,t=+V.totalArea||0,fa=V.farArea!=null?+V.farArea:0,db=V._bcr!=null?+V._bcr:null,df=V._far!=null?+V._far:null;
@@ -2098,7 +2421,7 @@ setTimeout(scaleA4,100);
       +(ref.length?'<div class="pp-ref">참고 — '+esc2(ref.join(' · '))+' (채운 뒤 체크리스트 탭 「⚡ 개요로 자동 선판정」으로 대조)</div>':'')
       +(miss.length?'<div class="pp-miss">못 읽은 칸: '+esc2(miss.join(', '))+'</div>':'')
       +'</div><div class="pp-ft"><button type="button" class="pic-btn" onclick="ppClose()">닫기</button>'+(n?'<button type="button" class="pic-btn pp-go" onclick="ppFill()">채우기</button>':'')+'</div></div>';
-    ov.hidden=false; document.body.style.overflow='hidden'; window._ppLast={val:V,src:ex.src,page:res.best.page,score:res.best.score,pages:res.pages,chars:res.chars};
+    ov.hidden=false; document.body.style.overflow='hidden'; window._ppLast={val:V,src:ex.src,page:res.best.page,score:res.best.score,pages:res.pages,chars:res.chars,notes:res.notes||[]};
     var f=ov.querySelector('.pp-go')||ov.querySelector('.pp-x'); if(f)f.focus();
   }
   window.ppClose=function(){var ov=document.getElementById('pp-ov');if(ov)ov.hidden=true;document.body.style.overflow='';};
@@ -2111,6 +2434,7 @@ setTimeout(scaleA4,100);
       else e.value=val;
       n++;
     });
+    (function(){var e=document.getElementById('pdfNote'); if(e) e.value=((window._ppLast&&window._ppLast.notes)||[]).join(' / ').slice(0,300);})();   /* v6.1.26 PDF 「분할」 글자 — 새 PDF 를 채우면 바뀐다 */
     var LV=(window._ppLast&&window._ppLast.val)||{}; window._ppDoc=(LV._bcr!=null||LV._far!=null)?{bcr:LV._bcr!=null?+LV._bcr:null,far:LV._far!=null?+LV._far:null}:null;   /* v6.1.20 도면 비율 기억(대조용) */
     window.ppClose(); if(typeof recalc==='function') recalc(); mmToast(n+'칸 채움 — 다음: ⚡ 자동 선판정'+(typeof docGap==='function'&&docGap().length?' · ⚠ 도면 비율과 다름(개요 탭 확인)':''));
   };
@@ -2184,7 +2508,7 @@ setTimeout(scaleA4,100);
   function U(){
     return {use:valOf('mainUse'),zon:valOf('zoning'),lc:valOf('landCat'),pub:valOf('pubOwner'),work:valOf('workType'),str:valOf('structure'),
       site:numOf('siteArea'),bld:numOf('bldArea'),tot:numOf('totalArea'),far:numOf('farArea'),fa:numOf('floorsAbove'),fb:numOf('floorsBelow'),
-      h:numOf('bldHeight'),pl:numOf('parkLegal'),pp:numOf('parkPlan'),bL:numOf('bcrLegal'),fL:numOf('farLegal'),lf:valOf('landForm'),rw:numOf('roadWidth'),ln:valOf('landNote')};
+      h:numOf('bldHeight'),pl:numOf('parkLegal'),pp:numOf('parkPlan'),bL:numOf('bcrLegal'),fL:numOf('farLegal'),lf:valOf('landForm'),rw:numOf('roadWidth'),ln:valOf('landNote'),pn:valOf('pdfNote')};
   }
   function rules(u){
     var R=[],need={},warn=[];
@@ -2252,7 +2576,8 @@ setTimeout(scaleA4,100);
         var exZ=function(z){return /녹지지역$/.test(z)||(/^(자연환경보전|농림|보전관리|생산관리|계획관리)지역$/.test(z)&&!/지구단위계획/.test(zq));};
         var zOnly=le.length&&le.every(function(x){return /^(녹지지역|자연환경보전)/.test(x);}), zMix=zsA.some(exZ)&&zsA.some(function(z){return !exZ(z);});
         var lnN=u.ln?' · 공사개요 조경(법정) 「'+u.ln+'」':'';
-        if(le.length&&zOnly&&zMix)add('1.2.0','예외대상',4,'대지가 '+zsA.join(' · ')+'에 걸침 — 시행령 제27조제1항 예외('+le.join(' · ')+')는 그 지역 부분만, 나머지 지역은 조경 기준 적용(건축법 제54조제3항 · 국토계획법 제84조제3항) — 건물 · 조경이 놓인 부분과 조례 조경 비율 확인'+(bo&&bo.l?'('+bo.n+' '+bo.lj+')':'')+lnN,'시행령 제27조제1항 — 일부 지역');
+        /* v6.1.26 녹지 걸침 대지는 「대상」 + ④ 확인 필요 — 예외는 녹지 부분만이고 나머지 지역 부분은 조경 기준을 따른다 */
+        if(le.length&&zOnly&&zMix)add('1.2.0','대상',4,'대지가 '+zsA.join(' · ')+'에 걸침 — 녹지 부분만 시행령 제27조제1항 예외('+le.join(' · ')+'), 나머지 지역 부분은 조례 조경 기준 적용(국토계획법 제84조제3항 · 건축법 제54조제3항) — 건물 · 조경이 놓인 부분과 조례 조경 비율 확인'+(bo&&bo.l?'('+bo.n+' '+bo.lj+')':'')+lnN,'녹지 걸침 — 나머지 지역 부분 조경 기준 확인');
         else if(le.length)add('1.2.0','예외대상',2,le.join(' · ')+' — 건축법 시행령 제27조제1항'+lnN,'시행령 제27조제1항 — '+le.map(function(x){return x.replace(/\(.*$/,'');}).join(' · '));
         /* v0.7 예외 글자가 없고 그 시 · 군 건축 조례 값이 있으면 「대상」 을 ④ 묶음(기본 꺼짐)으로 제안 — 산업단지 공장 · 조례 예외 등은 개요로 알 수 없어 기본 체크하지 않는다 */
         /* v0.9 공업지역 · 공장 · 창고 · 물류시설은 공장 예외(시행령 제27조제1항제2~4호) · 완화 비율(제2항제1호 · 조례) · 기업활동 규제완화 특별조치법 제26조가 겹쳐 본문 비율이 그대로 적용되지 않는 일이 많아 제안하지 않는다 */
@@ -2282,10 +2607,12 @@ setTimeout(scaleA4,100);
     if(wf2.length)add('1.36.0','대상',2,wf2.join(' · ')+' — 소방시설법 시행령 제7조제1항(같은 조 제2항 제외 확인)',wf2.map(function(x){return x.replace(/\(.*$/,'');}).join(' · '));
     if(u.pp!=null&&u.pp<50){var we='총주차대수 '+u.pp+'대 < 50대 — 친환경자동차법 시행령 제18조의5';add('1.64.0',NA,2,we);add('1.64.1',NA,2,we);}
     /* v0.9 주차장법 제19조제1항 대상 지역 · 조례 설치기준으로 어림한 참고 대수 — 경고만 한다 */
-    if(u.pl!=null&&u.pl>0){var pz=parkZone(pgFind().o), pr9=parkRef();
-      if(pz.st==='out')warn.push('부설주차장 — '+pz.t+' 법정 주차 대수를 넣은 근거를 확인하십시오.');
-      if(pr9&&u.pl<pr9.n)warn.push('넣은 법정 주차 '+u.pl+'대가 '+pr9.o.pn+' '+((/시행령 별표 1 값$/.test(pr9.o.x[pr9.cat]||''))?'(별표에 줄이 없어 주차장법 시행령 별표 1)':pr9.o.pa)+' 기준 참고 대수 '+pr9.n+'대(연면적 ÷ '+pr9.per+' ㎡ · 어림값)보다 작습니다. 시설면적 · 용도별 산정을 확인하십시오.');}
-    if(u.pl!=null&&u.pl>0){add('1.57.0','설치대상',2,'법정 주차 '+u.pl+'대 — 주차장법 제19조','법정 '+u.pl+'대');
+    /* v6.1.26 법정 0대도 국가 기준(시행령 별표 1)과 대조 */
+    var pk9=null;
+    if(u.pl!=null){var pz=parkZone(pgFind().o); pk9=parkChk();
+      if(u.pl>0&&pz.st==='out')warn.push('부설주차장 — '+pz.t+' 법정 주차 대수를 넣은 근거를 확인하십시오.');
+      if(pk9&&pk9.lv==='w')warn.push(pk9.t.replace(/^⚠ /,''));}
+    if(u.pl!=null&&u.pl>0){add('1.57.0','설치대상',2,'법정 주차 '+u.pl+'대 — 주차장법 제19조'+(pk9&&pk9.lv==='w'?' · ⚠ '+pk9.s:''),'법정 '+u.pl+'대');
       if(u.pp!=null)add('1.57.1',u.pp>=u.pl?'적합':'부적합',2,'계획 '+u.pp+'대 '+(u.pp>=u.pl?'≥':'<')+' 법정 '+u.pl+'대 — 주차장법 제19조','계획 '+u.pp+'대 '+(u.pp>=u.pl?'≥':'<')+' 법정 '+u.pl+'대');}
     else if(u.pl==null)miss('주차 법정 · 계획');
     /* v6.1.4 「제2종 일반주거지역」 처럼 띄어 써도 읽도록 빈칸을 뺀 글자로 찾는다 */
@@ -2337,7 +2664,9 @@ setTimeout(scaleA4,100);
       else if(u.use&&!/창고/.test(uq))add('0.10.3',NA,3,UQ+' — 녹지 · 관리지역의 창고 등 조례 높이 제한(국토계획법 제78조제5항) 대상 용도 아님');
     }
     if(u.use){
-      if(!/분할/.test(tx))add('1.14.0',NA,3,'개요에 대지 분할 글자 없음 — 분할하면 건축법 제57조 확인');
+      /* v6.1.26 PDF 원문의 「분할」 글자도 본다 — 있으면 「적합」 + ④ 확인 필요 */
+      if(!/분할/.test(tx)&&!/분할/.test(u.pn||''))add('1.14.0',NA,3,'개요에 대지 분할 글자 없음 — 분할하면 건축법 제57조 확인');
+      else add('1.14.0','적합',4,(u.pn&&/분할/.test(u.pn)?'PDF 에 「'+u.pn.split(' / ')[0]+'」':'개요에 「분할」 글자')+' — 분할 뒤 각 대지가 건축법 시행령 제80조 면적(주거지역 60 · 상업지역 150 · 공업지역 150 · 녹지지역 200 · 그 밖 60 ㎡, 조례로 정하는 면적) 이상인지, 건축법 제57조제2항 기준 확인','분할 — 법 제57조 · 시행령 제80조 확인');
       if(!/기계식/.test(tx))add('1.56.0',NA,3,'개요에 기계식 주차장 글자 없음 — 주차장법 제19조의5');
       if(!/복수용도/.test(tx))na(['1.23.0','1.23.1'],3,'개요에 복수 용도 글자 없음 — 건축법 제19조의2');
     }
@@ -2475,6 +2804,8 @@ setTimeout(scaleA4,100);
     (typeof docGap==='function'?docGap():[]).forEach(function(g){warn.push('불러온 PDF 의 비율과 다릅니다: '+g+'. 면적을 다시 확인하십시오.');});
     return {rows:rows,done:done,bad:bad,need:need,warn:warn,off4:off4};
   }
+  /* v6.1.26 24호 「해당 없음」 선판정이 같은 규칙을 쓴다(③ 은 용도지역 글자가 있을 때만 — plan() 과 같음) */
+  window.judgeRules=function(){var u=U(),r=rules(u),zOK=(znNorm(u.zon).match(ZONE_RE)||[]).length>0;return {u:u,R:r.R.filter(function(x){return !(x.tier===3&&!zOK);})};};
   window.judgeOpen=function(){
     var P=plan(); window._jdLast=P;
     var ov=document.getElementById('jd-ov'); if(!ov){ov=document.createElement('div');ov.id='jd-ov';ov.className='pp-ov no-print';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-labelledby','jd-ttl');document.body.appendChild(ov);}
