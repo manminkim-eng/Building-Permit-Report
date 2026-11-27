@@ -35,6 +35,7 @@ chk('v6.1.17 본문', '(v6.1.17)' in h and 'v6.1.17 (2026-11-13)' in h and '세�
 chk('v6.1.22 본문', '(v6.1.22)' in h and 'v6.1.22 (2026-11-20)' in h and 'v6.1.18 (2026-11-14)' in h and 'id="fig-s29_auto"' in h and '확인 필요만' in h and '기본 체크 — 채운 뒤 「확인 필요 ③」' in h and '세움터 서식(v6.1.22)' in h and '도면 비율 대조' in h and '2026. 7. 8. 이후는 국토교통부고시 제2026-360호' in h)
 chk('v6.1.23 본문', '(v6.1.23)' in h and 'v6.1.23 (2026-11-24)' in h and '📝 개정 메모' in h and '1 ~ 3호 거리 범위' in h)
 chk('v6.1.26 본문', '(v6.1.26)' in h and 'v6.1.26 (2026-11-27)' in h and 'id="s3-17"' in h and all('id="fig-'+k+'"' in h for k in ['s30_pkchk','s31_k24','s32_cover24','s33_a4_24']) and ex['k24']['prog'] in h and ex['pages24'] == 2 and '국가 기준' in h and '별지 제24호서식' in h)
+chk('v6.1.27 본문', '(v6.1.27)' in h and 'v6.1.27 (2026-11-27)' in h and 'id="fig-s34_ab"' in h and ex['ab']['prog'] in h and '준공 설계개요 선판정' in h and '별표 5' in h and '선판정(해당 없음 · 준공 대조)' in h)
 chk('선판정 답 = 세움터 견본(①~③ 묶음 — ④ 다른 답은 확인 필요에서 고침)', [d for d in ex['judgeCmp']['diff'] if not d.endswith('(묶음 4)')]==[] and ex['judgeCmp']['same']+len(ex['judgeCmp']['blank'])+len(ex['judgeCmp']['diff'])==ex['judge']['n'])
 chk('PDF 있음', os.path.exists(os.path.join(M, 'BPR_사용자매뉴얼_Ver-6.1.pdf')))
 sys.exit(0 if ok else 1)

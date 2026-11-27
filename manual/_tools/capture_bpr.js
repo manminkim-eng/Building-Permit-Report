@@ -2,6 +2,7 @@
 // 편의시설 매뉴얼과 같은 규격: 1440×900 · DSF 1.25 · _marks.json(번호 배지 % 좌표) · _example.json(예제 검증값)
 /* 예제 A(가상 사업 「만민 연구동 신축공사」) — 면적 · 층수 · 체크리스트 답은 세움터 견본(특장차 연구동) 출력물 그대로, 사업명 · 건축주 · 위치만 가상
    ① 설계개요 PDF(가상 견본) 불러오기 → ② 종합의견 입력 → ③ 자동 선판정(v6.1.19 — ① ~ ④ 네 묶음 기본 체크 그대로 채움) → ④ 「확인 필요」(③ · ④) 답을 확인: 견본 답과 다른 ④ 답은 견본 답으로 고치고(도면을 보고 고친 것으로 봄) 나머지는 「확인」 → ⑤ 나머지 답은 세움터 견본 답으로 채움 → 조서 출력
+   v6.1.27(2026-11-27): 준공 설계개요 그림 s34_ab(허가 개요에 높이 +0.15 m · 건축면적 +6 ㎡) · 준공 예제 기록(ab) · s31 표시점 「준공 설계개요」
    v6.1.26(2026-11-27): 주차 국가 기준 대조 그림 s30_pkchk · 별지 제24호 겸용 그림 s31_k24 · s32_cover24 · s33_a4_24 · 24호 예제 기록(k24) · 24호 A4 쪽수
    v6.1.22(2026-11-20): 선판정 기본 체크 ① ~ ④ · 「확인 필요」 그림 s29_auto 추가 · 진행 스트립 「확인 필요」 표시점 · 확인 과정 기록(autoN · autoFix)
    v6.1.15(2026-11-13): 개요 그림에 지목 · 건축주 구분 표시점 · 예제 건축주 구분 「민간」(견본 답 기준) · 세부 호 예제 법령을 고정 키(lkOf)로 찾음
@@ -42,9 +43,10 @@ const SHOTS=[
  {id:'s28_pg',tab:'input',pre:"window.__sv2=['siteLoc','zoning','mainUse'].map(i=>document.getElementById(i).value);__set('siteLoc','충청남도 서산시 (예시)');__set('zoning','제2종일반주거지역');__set('mainUse','공장');recalc()",clip:'#pic-bord',union:'#pic-pg',m:[['#pic-bord','건축 조례 상자'],['#pic-pg','주차장 조례 · 대지 안의 공지 상자']],post:"['siteLoc','zoning','mainUse'].forEach((i,j)=>__set(i,window.__sv2[j]));recalc()"},
  {id:'s27_ord',tab:'input',pre:"window.__sv=['siteLoc','bcrLegal','farLegal'].map(i=>document.getElementById(i).value);__set('siteLoc','전북특별자치도 익산시 (예시)');__set('bcrLegal','');__set('farLegal','');recalc()",clip:'#pic-calc',union:'#pic-ord',m:[['#pic-calc','계산 줄'],['#pic-ord','조례 값 상자'],['#pic-ord .pic-ord-btn','조례 값 채우기']],post:"['siteLoc','bcrLegal','farLegal'].forEach((i,j)=>__set(i,window.__sv[j]));recalc()"},
  {id:'s30_pkchk',tab:'input',pre:"window.__pk=document.getElementById('parkLegal').value;__set('parkLegal','1');recalc()",clip:'up2:parkLegal',union:'#pic-pkchk',m:[['#parkLegal','주차 법정 (대)'],['#pic-pkchk','국가 기준 대조 — 작으면 주황 경고']],post:"__set('parkLegal',window.__pk);recalc()"},
- {id:'s31_k24',tab:null,pre:"setKind('24');switchTab('check');judge24();document.getElementById('k24-filter').value='auto';render24();window.scrollTo(0,0)",wait:900,clip:'viewport',m:[['.kind-sw','조서 종류 전환'],['#k24-prog','진행 표시'],['#k24-filter','보기'],['.k24-only .pic-btn-pdf','「해당 없음」 후보 선판정'],['.k24-lead','안내'],['.k24-r.auto','「해당 없음」 후보 — 확인 필요']],post:"document.getElementById('k24-filter').value='all';render24()"},
+ {id:'s31_k24',tab:null,pre:"setKind('24');switchTab('check');judge24();document.getElementById('k24-filter').value='auto';render24();window.scrollTo(0,0)",wait:900,clip:'viewport',m:[['.kind-sw','조서 종류 전환'],['#k24-prog','진행 표시'],['#k24-filter','보기'],['.k24-only .pic-btn-pdf','「⚡ 선판정(해당 없음 · 준공 대조)」'],['#k24-ab','준공 설계개요 — 비우면 허가 개요 기준'],['.k24-lead','안내'],['.k24-r.auto','「해당 없음」 후보 — 확인 필요']],post:"document.getElementById('k24-filter').value='all';render24()"},
  {id:'s32_cover24',tab:'input',pre:"__set('permitNo','2026-건축과-신축허가-12');__set('permitDate','2026-03-02');recalc()",clip:'card:조서 표지',m:[['#permitNo','허가번호'],['#permitDate','허가일자']]},
  {id:'s33_a4_24',tab:'result',clip:'#a4Page',maxH:1180,m:[['#r24-permitNo','허가번호 · 허가일자'],['#r24-front','현장조사 앞쪽 19행']]},
+ {id:'s34_ab',tab:null,pre:"ANS24={};AB={};AB_KEYS.forEach(k=>{const v=valOf(k);if(v!=='')AB[k]=String(v);});AB.bldHeight=String(Math.round((+AB.bldHeight+0.15)*100)/100);AB.bldArea=(+AB.bldArea+6).toFixed(2);renderAB();judge24();render24()",wait:900,clip:'#k24-ab',m:[['#k24-ab .k24-ab-hd .pic-btn','준공 설계개요 PDF 불러오기'],['#k24-ab-g','준공 값 10칸 — 허가 값과 다르면 표시'],['#k24-diff','허가 → 준공 차이 표(인쇄 안 됨)'],['#k24-diff td.f','⚠ 확인할 차이']]},
  {id:'s08_opinion',tab:'input',clip:'card:종합의견',m:[['#opinion','종합의견'],['#etcNote','그 밖의 사항']]},
  {id:'s09_check_top',tab:'check',clip:'viewport',m:[['#pic-prog','진행 표시'],['#pic-filter','보기'],['#pic-q','찾기'],['.pic-toolbar .pic-btn-pdf','자동 선판정'],['.pic-toolbar .pic-btn:nth-of-type(2)','미답 → 대상법규아님'],['.pic-toolbar .pic-btn-warn','답 모두 지우기'],['.pic-sec-h','입지 관련 법령']]},
  {id:'s10_judge',tab:null,pre:"judgeOpen();document.querySelector('#jd-ov .pp-bd').scrollTop=0",wait:700,fixed:true,clip:'#jd-ov .pp-box',m:[['#jd-ov .pp-info','안내 · 항목 수'],['jdtier:0','① 계산'],['jdtier:1','② 규모 문턱']]},
@@ -156,6 +158,11 @@ const SHOTS=[
  {await pg.evaluate(()=>switchTab('result'));await pg.emulateMedia({media:'print'});await pg.evaluate(()=>dispatchEvent(new Event('beforeprint')));await pg.waitForTimeout(300);
   const f=path.join(out,'_a4_24.pdf');await pg.pdf({path:f,preferCSSPageSize:true,printBackground:true});await pg.evaluate(()=>dispatchEvent(new Event('afterprint')));await pg.emulateMedia({media:'screen'});
   ex.pages24=(fs.readFileSync(f,'latin1').match(/\/Type\s*\/Page[^s]/g)||[]).length;}
+ /* v6.1.27 준공 설계개요 — 허가 개요에 높이 +0.15 m · 건축면적 +6 ㎡ → 선판정 · 차이 표 */
+ await pg.evaluate(()=>{switchTab('check');});await pg.waitForTimeout(500);
+ await run(SHOTS.find(x=>x.id==='s34_ab'));
+ ex.ab=await pg.evaluate(()=>{const c=counts24();const g=id=>ANS24[id]?ANS24[id].o+' | '+ANS24[id].w:'';const d=diffAB();return {ab:AB,prog:document.getElementById('k24-prog').textContent,auto:c.auto,u1:g('u1'),h1:g('h1'),flags:d.filter(x=>x.f).map(x=>x.nm+' — '+x.f),rows:d.map(x=>({k:x.k,nm:x.nm,p:x.p,a:x.a,d:x.d,f:x.f||''})),r1:(()=>{const e=eff24(f24('r1'));return {lv:e.lv,v:e.v,vs:e.au.vs,pv:e.au.pv};})(),r2:(()=>{const e=eff24(f24('r2'));return {lv:e.lv,v:e.v,vs:e.au.vs,pv:e.au.pv};})()};});
+ await pg.evaluate(()=>{AB={};ANS24={};renderAB();render24();});
  await pg.evaluate(()=>{setKind('23');switchTab('result');window.scrollTo(0,0);});await pg.waitForTimeout(500);
  for(const id of ['s20_reference','s21_help_howto','s22_help_method','s23_help_caution'])await run(SHOTS.find(x=>x.id===id));
  /* 모바일 */
@@ -168,10 +175,10 @@ const SHOTS=[
  await mp.screenshot({path:path.join(out,'s25_mobile_check.png')});meta['s25_mobile_check']={w:390,h:844,marks:[]};
  await mp.evaluate(()=>{switchTab('result');window.scrollTo(0,0);});await mp.waitForTimeout(900);
  await mp.screenshot({path:path.join(out,'s26_mobile_a4.png')});meta['s26_mobile_a4']={w:390,h:844,marks:[]};
- const order=['s01_overview','s02_tabs','s03_filebar','s04_pdf_preview','s05_cover','s06_inspector','s07_bldinfo','s08_opinion','s09_check_top','s10_judge','s11_judge_tail','s29_auto','s12_law_done','s13_subs','s14_sumbar','s15_result','s16_a4_cover','s17_a4_cl','s18_a4_sign','s19_onlyreal','s20_reference','s21_help_howto','s22_help_method','s23_help_caution','s24_mobile_main','s25_mobile_check','s26_mobile_a4','s27_ord','s28_pg','s30_pkchk','s31_k24','s32_cover24','s33_a4_24'];
+ const order=['s01_overview','s02_tabs','s03_filebar','s04_pdf_preview','s05_cover','s06_inspector','s07_bldinfo','s08_opinion','s09_check_top','s10_judge','s11_judge_tail','s29_auto','s12_law_done','s13_subs','s14_sumbar','s15_result','s16_a4_cover','s17_a4_cl','s18_a4_sign','s19_onlyreal','s20_reference','s21_help_howto','s22_help_method','s23_help_caution','s24_mobile_main','s25_mobile_check','s26_mobile_a4','s27_ord','s28_pg','s30_pkchk','s31_k24','s32_cover24','s33_a4_24','s34_ab'];
  const M2={};order.forEach(k=>{if(meta[k])M2[k]=meta[k];});
  fs.writeFileSync(path.join(out,'_marks.json'),JSON.stringify(M2,null,1));fs.writeFileSync(path.join(out,'_example.json'),JSON.stringify(ex,null,1));
  const miss=[];Object.entries(M2).forEach(([k,v])=>v.marks.forEach(m=>{if(m.miss)miss.push(k+':'+m.miss);else if(m.x<0||m.y<0||m.x+m.w>100.5||m.y+m.h>100.5)miss.push(k+':OUT '+m.label+' '+m.x+','+m.y+','+m.w+','+m.h);}));
- console.log(JSON.stringify({pdf:ex.pdf,judge:ex.judge,cmp:ex.judgeCmp,ordNone:ex.ordNone,ordBox:ex.ordBox,calc:ex.calc,calc2:ex.calc2,after:ex.afterJudge,autoN:ex.autoN,autoFix:ex.autoFix,full:ex.full,sub:ex.subItem,pages:[ex.pagesAll,ex.pagesSel,ex.pages24],pkchk:[ex.pkchk,ex.pkchk1],k24:ex.k24,sizes:Object.fromEntries(Object.entries(M2).map(([k,v])=>[k,v.w+'x'+v.h])),miss,errs:errs.slice(0,15)},null,1));
+ console.log(JSON.stringify({pdf:ex.pdf,judge:ex.judge,cmp:ex.judgeCmp,ordNone:ex.ordNone,ordBox:ex.ordBox,calc:ex.calc,calc2:ex.calc2,after:ex.afterJudge,autoN:ex.autoN,autoFix:ex.autoFix,full:ex.full,sub:ex.subItem,pages:[ex.pagesAll,ex.pagesSel,ex.pages24],pkchk:[ex.pkchk,ex.pkchk1],k24:ex.k24,ab:ex.ab,sizes:Object.fromEntries(Object.entries(M2).map(([k,v])=>[k,v.w+'x'+v.h])),miss,errs:errs.slice(0,15)},null,1));
  await b.close();s.close();
 })();
