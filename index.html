@@ -2038,10 +2038,10 @@ function judge24(){
   const pr={};
   if(AM){
     const ph=numOf('bldHeight'), ah=abNum('bldHeight');
-    if(!cand.h1&&ph!=null&&ah!=null){const dd=Math.abs(ah-ph), t=tolH(ph), ok=dd<=t+1e-9;
+    if(!cand.h1&&ph!=null&&ph>0&&ah!=null){   /* 교차검증 반영 — 허가 높이 0 은 대조 기준이 아님 */const dd=Math.abs(ah-ph), t=tolH(ph), ok=dd<=t+1e-9;
       pr.h1=[ok?'일치':'불일치','준공 개요 · 높이 허가 '+f2(ph)+' m → 준공 '+f2(ah)+' m(차이 '+f2(dd)+' m, 별표 5 허용오차 2 % · 1 m 이내 = '+f2(t)+' m '+(ok?'안':'넘음')+') — 높이제한 기준은 현장 · 도면으로 확인'];}
     const pu=valOf('mainUse'), au=AB.mainUse, pz=valOf('zoning'), az=AB.zoning;
-    if(pu&&au){const same=nsp(pu)===nsp(au)&&(!az||!pz||nsp(az)===nsp(pz));
+    if(pu&&au&&!(az&&!pz)){const same=nsp(pu)===nsp(au)&&(!az||nsp(az)===nsp(pz));   /* 교차검증 반영 — 준공 지역만 있고 허가 지역이 비면 후보 없음(준공 지역 빈칸은 허가 값) */
       pr.u1=[same?'일치':'불일치','준공 개요 · 주용도 허가 「'+pu+'」 → 준공 「'+au+'」'+(az&&pz?' · 용도지역 「'+pz+'」 → 「'+az+'」':'')+(same?'':' — 용도변경 · 설계변경 여부 확인')];}
   }
   const free=id=>!(ANS24[id]&&(ANS24[id].o!=null||ANS24[id].v));
