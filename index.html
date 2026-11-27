@@ -788,6 +788,18 @@ body.k24 .k23-only{display:none!important;}
 .k24-diff th,.k24-diff td{border:1px solid #fed7aa;padding:3px 6px;text-align:left;vertical-align:top;}
 .k24-diff th{background:#ffedd5;}
 .k24-diff .f{color:#b91c1c;font-weight:600;}
+/* v6.1.28 변경 유형 · 법규 변동 · 실측 */
+.k24-chg{background:#fefce8;border-color:#facc15;color:#713f12;}
+.k24-lawchg{background:#eff6ff;border-color:#93c5fd;color:#1e3a8a;}
+.k24-ms{background:#f0fdf4;border-color:#86efac;color:#14532d;}
+.k24-more{margin:6px 0;font-size:12.5px;}
+.k24-more summary{cursor:pointer;font-weight:600;color:#3730a3;}
+.k24-ms-g{display:grid;gap:4px;margin:6px 0;}
+.k24-ms-r{display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;gap:6px;align-items:center;font-size:12px;}
+.k24-ms-r small{color:#64748b;}
+.k24-ms-r input{width:100%;box-sizing:border-box;}
+.ab-bad{outline:2px solid #dc2626;background:#fef2f2;}
+@media (max-width:560px){.k24-ms-r{grid-template-columns:1fr 1fr;}.k24-ms-r span{grid-column:1/-1;}}
 @media (max-width:640px){.k24-r{grid-template-columns:1fr;}.k24-ops{justify-content:flex-start;}}
 .p24-note{display:flex;justify-content:space-between;font-size:10.5px;margin:0 0 4px;color:#1a1a1a;}
 .p24-sm{font-size:9.5px;color:#475569;line-height:1.45;}
@@ -1226,7 +1238,12 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
         <div class="k24-ab-hd"><b>🏁 준공 설계개요</b><span class="pic-tools"><button type="button" class="pic-btn" onclick="document.getElementById('ab-pdf').click()">📄 준공 설계개요 PDF 불러오기</button><button type="button" class="pic-btn pic-btn-warn" onclick="clearAB()">준공 개요 지우기</button></span></div>
         <input type="file" id="ab-pdf" accept="application/pdf,.pdf" hidden onchange="window._abMode=true;pdfPick(this)"/>
         <div class="k24-ab-g" id="k24-ab-g"></div>
-        <div class="k24-why k24-hint">허가 개요 칸은 그대로 두고 준공 값을 따로 넣습니다(빈 칸은 허가 값으로 봄). 넣으면 「⚡ 선판정」이 준공 개요로 「해당 없음」 후보와 높이 · 용도의 「일치 · 불일치」 후보를 내고, 건폐율 · 용적률 완공 % 를 준공 면적으로 계산합니다 — 모두 🟨 확인 필요.</div>
+        <div class="k24-why k24-hint">허가 개요 칸은 그대로 두고 준공 값을 따로 넣습니다(빈 칸은 허가 값으로 봄). 넣으면 「⚡ 선판정」이 준공 개요로 「해당 없음」 후보와 높이 · 용도의 「일치 · 불일치」 후보를 내고, 건폐율 · 용적률 완공 % 를 준공 면적으로 계산합니다 — 모두 🟨 확인 필요. 아래에 변경 유형 후보 · 적용 법규 변동 · 현장 실측 대조가 함께 나옵니다(인쇄 안 함).</div>
+        <details class="k24-more"><summary>변경 유형 입력 · 현장 실측(건축법 시행규칙 별표 5) — 선택</summary>
+          <div class="k24-ab-g" id="k24-ab-x"></div>
+          <div class="k24-ms-g" id="k24-ms-g"></div>
+          <div class="k24-why k24-hint">변경 입력 2칸은 일괄신고 요건(시행령 제12조제3항) 확인에 씁니다. 실측은 도면값과 실측값(m)을 넣으면 별표 5 허용오차와 견주고, 건축선 후퇴거리 · 인접대지 경계선 거리는 「⚡ 선판정」 때 해당 행 후보가 됩니다.</div>
+        </details>
         <div id="k24-diff"></div>
       </div>
       <div class="k24-lead no-print">별지 제24호서식 현장조사 49행 — 완공 현장에서 조사자가 「일치 · 불일치」(피난용승강기는 「적합 · 부적합」)를 고릅니다. 도구는 「해당 없음」 후보와, 준공 설계개요가 있으면 높이 · 용도의 「일치 · 불일치」 후보만 채우며 모두 🟨 확인 필요로 표시합니다. 대지 · 피난시설 · 마감재료 · 설비 등 현장을 봐야 하는 행은 채우지 않습니다. 건폐율 · 용적률은 조례 값과 개요(준공 개요가 있으면 준공) 면적으로 미리 넣어 두며 고칠 수 있습니다.</div>
@@ -1373,6 +1390,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
    v6.1.9 (2026-11-13) — 지역 확대: 전남광주통합특별시(종전 전라남도) 22개 · 충청남도 15개 시 · 군의 건폐율 · 용적률과 건축 조례(조경 · 공개공지 · 분할) — 기준일 2026-11-13 · 천안시 건폐율 · 용적률은 시행 예정본만 조회되어 값을 싣지 않음 · 근거 탭 조례 목록을 도별로 묶음
    v6.1.10 (2026-11-13) — 주차장 조례 · 대지 안의 공지 안내를 전남 22 · 충남 15 시 · 군으로 넓힘(51곳 · 기준일 2026-11-13) — 계획 · 보전관리지역만 대상인 조례 · 주거지역 공장 거리 · 별표를 읽지 못한 곳 처리
    v6.1.11 (2026-11-13) — html2canvas 1.4.1 머리 태그 SRI(integrity sha384 · crossorigin) · 인쇄 공통 원본 MM-PRINT v1.0 → v1.1(지연 로더도 SRI)(정밀검토 B8 · 작업지시서 §25-6-87 제외분) — 화면 · 계산 · 인쇄 불변
+   v6.1.28 (2026-11-27) — 준공 선판정 정밀화(MIN 「결함+개선 모두 A등급」): 별표 5 건폐율 0.5 % · 용적률 1 % 본 기준 ⚠(%p · 비율) · 산정용 연면적 대체 순서(준공 → 허가 산정용 → 연면적) · 대지면적만 바뀌어도 비율 재계산 · 준공 지역이 다르면 조례 % 를 준공 지역으로 · 다시 돌릴 때 확인 안 된 후보 재판정(바뀜 · 비움) · 개요 바뀐 뒤 안 돌린 후보 인쇄 전 알림 · 변경 유형 후보(건축법 제16조 · 시행령 제12조) · 적용 법규 변동표 · 현장 실측 대조(별표 5, s1 · s2 후보) · 층수 정수 · 「.5」 입력
    v6.1.27 (2026-11-27) — 별지 제24호 준공 설계개요 선판정(기획검토_24호_준공개요_선판정 · MIN 「계획 승인」): 24호 현장조사 탭에 준공 설계개요 칸(대지 · 건축 · 연 · 용적률 산정용 면적 · 층수 · 높이 · 주용도 · 지역 · 구조, 허가 개요는 그대로) · 「준공 설계개요 PDF 불러오기」 · 「⚡ 선판정」이 준공 개요로 「해당 없음」 후보와 높이(별표 5 허용오차 2 % · 1 m) · 용도 「일치 · 불일치」 후보(모두 ④ 확인 필요) · 건폐율 · 용적률 완공 % 준공 면적 · 허가 → 준공 차이 표(층수 · 용도 · 구조 · 면적 · 높이 ⚠ — 건축법 제16조 · 시행령 제12조제3항 확인 안내, 판정 안 함) · 저장 파일 asBuilt(없는 옛 파일은 빈 값) · 인쇄 전 물음에 준공 개요 없음 · 차이 ⚠ — 23호 화면 · 선판정 · A4 불변
    v6.1.26 (2026-11-27) — 필수 4건(허가 출력 검증 · 교차검증_2026-11-27): P1 인쇄 · JPG 단추 앞 확인창에 미답 칸 · 답 0/159 · 주차 법정값 경고를 함께 묻는다 / P3 주차 법정 칸을 주차장법 시행령 별표 1 국가 기준(조례 없는 곳 포함 · 0대 포함)과 대조 — 작으면 주황 경고, 크면 회색 안내(값은 바꾸지 않음) · 국가 기준 용도는 별표 1 세부(데이터센터 · 학생용 기숙사 400 · 방송국 · 장례식장 150 · 정신 · 요양 · 격리병원 300 · 비고 1 시설 대조 안 함) / P4 PDF 원문의 「분할」 글자를 숨은 칸 pdfNote 에 보관(저장 · 불러오기) — 선판정 건축 15 대지분할제한 「적합」 + ④ 확인 필요(시행령 제80조 · 법 제57조제2항) / P5 녹지지역과 그 밖의 지역에 걸친 대지는 조경설치 대상 「대상」 + ④ 확인 필요(녹지만이면 지금처럼 예외대상)
    v6.1.26 (2026-11-27) — 별지 제24호서식 사용승인조사 및 검사조서 겸용: 요약 띠 「📑 조서: 허가(제23호) / 사용승인(제24호)」 · 저장 파일 formKind(없는 옛 파일은 23) · 허가번호 · 허가일자 칸(24호, PDF 에서도 읽음) · 24호에서 면허번호 → 자격번호, 등록번호 → 신고번호(이름만) · 현장조사 49행(서식 원문, 앞쪽 19 · 뒤쪽 30) · 「해당 없음」 후보만 개요 · 23호 선판정 규칙으로 채움(🟨 확인 필요) · 「일치 · 불일치」는 고르지 않음 · 건폐율 · 용적률은 조례 값 · 개요 계산으로 미리 채움 · 조경 · 공개공지 조례 % 는 손입력 · A4 2쪽 · 23호 화면 · 인쇄 불변
@@ -1532,8 +1550,8 @@ const ORD={"date":"2026-11-12","area":"전북특별자치도 14개 · 전남광�
 /* v6.1.13 「1종 일반주거지역」 · 「2종전용주거지역」 처럼 「제」 를 빼고 써도 읽도록 빈칸을 빼고 「제」 를 붙인 글자로 찾는다(입력 칸 글자는 그대로 둠) */
 function znNorm(s){return String(s||'').replace(/\s+/g,'').replace(/(^|[^제\d])([123])종(전용주거|일반주거)/g,'$1제$2종$3');}
 function ordGroup(k){return (ORD.G||[]).find(g=>g.k.indexOf(k)>=0)||{n:'',d:ORD.date,k:[]};}
-function ordFind(){
-  const loc=valOf('siteLoc').replace(/\s+/g,''), zn=znNorm(valOf('zoning'));
+function ordFind(zz){   /* v6.1.28 zz — 24호 준공 개요 지역(없으면 허가 개요 칸) */
+  const loc=valOf('siteLoc').replace(/\s+/g,''), zn=znNorm(zz!=null?zz:valOf('zoning'));
   const key=Object.keys(ORD.L).find(k=>loc.indexOf(k)>=0)||'';
   const zs=ORD_ZONES.filter(z=>zn.indexOf(z)>=0);
   const o=key?ORD.L[key]:null, zi=(o&&zs.length===1)?ORD_ZONES.indexOf(zs[0]):-1;
@@ -1838,12 +1856,12 @@ function loadFile(inp){
         const R=f24(id), a=o.ans24[id]; if(!R||!a||typeof a!=='object'){d24++;return;}
         const n={}; if(typeof a.o==='string'&&opts24(R).indexOf(a.o)>=0) n.o=a.o;
         if(R.k==='pct'||R.k==='le')['lv','v'].forEach(f=>{if(typeof a[f]==='string'&&/^\d+(\.\d+)?$/.test(a[f].trim())) n[f]=a[f].trim();});
-        if(n.o!=null&&a.c===4){n.c=4; if(typeof a.w==='string') n.w=a.w.slice(0,300);}
+        if(n.o!=null&&a.c===4){n.c=4; if(typeof a.w==='string') n.w=a.w.slice(0,300); if(typeof a.s==='string'&&/^[0-9a-f]{1,8}$/.test(a.s)) n.s=a.s;}   /* v6.1.28 개요 서명 */
         if(n.o!=null||n.lv||n.v) B[id]=n; else d24++;
       });
       ANS24=B;
-      AB={}; if(o.asBuilt&&typeof o.asBuilt==='object')AB_KEYS.forEach(k=>{const v=o.asBuilt[k]; if(typeof v!=='string'||!v.trim()) return; const t=v.trim();   /* v6.1.27 준공 개요 — 없는 옛 파일은 빈 값 */
-        if(AB_NUM.indexOf(k)>=0){ if(/^\d+(\.\d+)?$/.test(t)) AB[k]=t; } else AB[k]=t.slice(0,120); });
+      AB={}; if(o.asBuilt&&typeof o.asBuilt==='object')abAll().forEach(k=>{const v=o.asBuilt[k]; if(typeof v!=='string'||!v.trim()) return; const t=v.trim();   /* v6.1.27 준공 개요 — 없는 옛 파일은 빈 값 */
+        if(abIsNum(k)){ if(abValid(k,t)) AB[k]=t; } else AB[k]=t.slice(0,120); });   /* v6.1.28 변경 입력 · 현장 실측 칸도 */
       const A={}; let drop=0; window._ppDoc=null;
       Object.keys(o.ans||{}).forEach(k=>{
         let I=null; try{I=findItem(k);}catch(e){} const a=o.ans[k];
@@ -1934,24 +1952,51 @@ const F24=[
 const F24_FRONT=19;
 let ANS24={};   // ANS24[id]={o:'일치'|'불일치'|'적합'|'부적합'|'해당 없음', c:4(확인 필요), w:근거, lv:조례 %, v:완공 %}
 function kindOf(){return valOf('formKind')==='24'?'24':'23';}
-/* v6.1.27 준공 설계개요 — 허가 개요 칸은 그대로 두고 준공 값을 따로 둔다(빈 칸은 허가 값으로 봄). 허용오차는 건축법 제26조 · 시행규칙 제20조 · 별표 5 */
+/* v6.1.27 준공 설계개요 — 허가 개요 칸은 그대로 두고 준공 값을 따로 둔다(빈 칸은 허가 값으로 봄). 허용오차는 건축법 제26조 · 시행규칙 제20조 · 별표 5
+   v6.1.28 준공 선판정 정밀화(MIN 「결함+개선 모두 A등급」): 별표 5 건폐율 0.5 % · 용적률 1 % 본 기준 검사 · 산정용 연면적 대체 순서 · 대지면적만 바뀐 경우 재계산 ·
+   변경 유형 후보(건축법 제16조 · 시행령 제12조) · 적용 법규 변동표 · 현장 실측 대조(별표 5) · 다시 돌릴 때 확인 안 된 후보 재판정 */
 const AB_KEYS=['siteArea','bldArea','totalArea','farArea','floorsAbove','floorsBelow','bldHeight','mainUse','zoning','structure'];
 const AB_NUM=['siteArea','bldArea','totalArea','farArea','floorsAbove','floorsBelow','bldHeight'];
+const AB_INT=['floorsAbove','floorsBelow'];
 const AB_NM={siteArea:'대지면적 (㎡)',bldArea:'건축면적 (㎡)',totalArea:'연면적 (㎡)',farArea:'용적률 산정용 연면적 (㎡)',floorsAbove:'지상 층수',floorsBelow:'지하 층수',bldHeight:'최고높이 (m)',mainUse:'주용도',zoning:'지역 / 지구 / 구역',structure:'구조'};
 const AB_U={siteArea:'site',bldArea:'bld',totalArea:'tot',farArea:'far',floorsAbove:'fa',floorsBelow:'fb',bldHeight:'h',mainUse:'use',zoning:'zon',structure:'str'};
+/* v6.1.28 변경 유형 입력 2칸 · 현장 실측(별표 5 항목, 도면값 d · 실측값 a) — 같은 AB 에 저장하되 hasAB(준공 개요 모드)에는 넣지 않는다 */
+const AB_X={chgArea:'변경되는 부분의 바닥면적 합계 (㎡)',chgPos:'건축 중인 부분의 위치 변경 최대 (m)'};
+const MS_IT=[{k:'sb',nm:'건축선의 후퇴거리',t:3,row:'s1'},{k:'nb',nm:'인접대지 경계선과의 거리',t:3,row:'s2'},{k:'nh',nm:'인접건축물과의 거리',t:3},
+  {k:'pl',nm:'평면길이 — 건축물 전체',t:2,cap:1},{k:'pr',nm:'평면길이 — 벽으로 구획된 각 실',t:2,cap:0.1},{k:'ex',nm:'출구너비',t:2},{k:'ch',nm:'반자높이',t:2},{k:'wt',nm:'벽체두께',t:3},{k:'ft',nm:'바닥판두께',t:3}];
+function abAll(){const L=AB_KEYS.concat(Object.keys(AB_X)); MS_IT.forEach(m=>{L.push('m_'+m.k+'_d','m_'+m.k+'_a');}); return L;}
+function abIsNum(k){return AB_NUM.indexOf(k)>=0||k in AB_X||/^m_/.test(k);}
+function abValid(k,t){return AB_INT.indexOf(k)>=0?/^\d+$/.test(t):/^(\d+(\.\d*)?|\.\d+)$/.test(t);}
 let AB={};
 function hasAB(){return AB_KEYS.some(k=>AB[k]!=null&&AB[k]!=='');}
+function anyAB(){return Object.keys(AB).some(k=>AB[k]!=null&&AB[k]!=='');}
 function abNum(k){const v=AB[k]; if(v==null||v==='') return null; const n=parseFloat(String(v).replace(/,/g,'')); return isFinite(n)?n:null;}
 function abOver(){const o={}; AB_KEYS.forEach(k=>{if(AB[k]==null||AB[k]==='') return; o[AB_U[k]]=AB_NUM.indexOf(k)>=0?abNum(k):AB[k];}); return o;}
 function nsp(t){return String(t||'').replace(/\s+/g,'');}
 function tolH(p){return Math.min(p*0.02,1);}   /* 별표 5 건축물 높이 2 % 이내(1 m 초과 불가) */
-function abRatios(){const s=abNum('siteArea')!=null?abNum('siteArea'):numOf('siteArea'), b=abNum('bldArea'), f=abNum('farArea')!=null?abNum('farArea'):abNum('totalArea');
-  return {bcr:(s&&b!=null)?b/s*100:null, far:(s&&f!=null)?f/s*100:null};}
-function setAB(k,v){v=String(v).trim().replace(/,/g,AB_NUM.indexOf(k)>=0?'':','); if(v==='') delete AB[k]; else if(AB_NUM.indexOf(k)>=0){ if(!/^\d+(\.\d+)?$/.test(v)) return; AB[k]=v; } else AB[k]=v.slice(0,120); render24();}
-function clearAB(){if(!hasAB()) return; if(!confirm('준공 설계개요 값을 모두 지웁니다(허가 개요 · 현장조사 답은 그대로). 계속할까요?')) return; AB={}; renderAB(); render24();}
+function abHas(k){return abNum(k)!=null;}
+function abG(k){return abHas(k)?abNum(k):numOf(k);}   /* 준공 값 → 없으면 허가 값 */
+/* v6.1.28 B1 · B4 — 준공 면적 칸이 하나라도 있으면 비율을 다시 계산한다. 산정용 연면적은 준공 → 허가 산정용 → 연면적 차례(허가 ratios() 와 같은 기준) */
+function abRatios(){const s=abG('siteArea'), b=abG('bldArea'), pf=numOf('farArea');
+  const f=abHas('farArea')?abNum('farArea'):(pf!=null?pf:abG('totalArea'));
+  const bOK=abHas('siteArea')||abHas('bldArea'), fOK=abHas('siteArea')||abHas('farArea')||abHas('totalArea');
+  return {bcr:(bOK&&s&&b!=null)?b/s*100:null, far:(fOK&&s&&f!=null)?f/s*100:null};}
+function setAB(k,v,el){v=String(v).trim().replace(/,/g,abIsNum(k)?'':',');
+  let bad=false; if(v==='') delete AB[k]; else if(abIsNum(k)){ if(abValid(k,v)) AB[k]=v; else {delete AB[k]; bad=true;} } else AB[k]=v.slice(0,120);
+  if(el){el.classList.toggle('ab-bad',bad); if(bad){el.setAttribute('aria-invalid','true'); el.title=(AB_INT.indexOf(k)>=0?'정수만':'숫자만')+' — 반영 안 됨(빈 칸으로 봄)';} else {el.removeAttribute('aria-invalid'); el.title='';}}
+  render24();}
+function clearAB(){if(!anyAB()) return; if(!confirm('준공 설계개요 · 변경 입력 · 현장 실측 값을 모두 지웁니다(허가 개요 · 현장조사 답은 그대로). 계속할까요?')) return; AB={}; renderAB(); render24();}
+function abInp(k,nm,ph){return '<div><label for="ab-'+k+'">'+esc(nm)+'</label><input class="fire-input" type="text" id="ab-'+k+'"'+(abIsNum(k)?' inputmode="decimal"':'')+' value="'+esc(AB[k]||'')+'" placeholder="'+esc(ph)+'" oninput="setAB(\''+k+'\',this.value,this)"></div>';}
 function renderAB(){const g=document.getElementById('k24-ab-g'); if(!g) return;
-  g.innerHTML=AB_KEYS.map(k=>'<div><label for="ab-'+k+'">'+esc(AB_NM[k])+'</label><input class="fire-input" type="text" id="ab-'+k+'"'+(AB_NUM.indexOf(k)>=0?' inputmode="decimal"':'')+' value="'+esc(AB[k]||'')+'" placeholder="허가: '+esc(valOf(k)||'—')+'" oninput="setAB(\''+k+'\',this.value)"></div>').join('');
+  g.innerHTML=AB_KEYS.map(k=>abInp(k,AB_NM[k],'허가: '+(valOf(k)||'—'))).join('');
+  const x=document.getElementById('k24-ab-x'); if(x) x.innerHTML=Object.keys(AB_X).map(k=>abInp(k,AB_X[k],'모르면 빈 칸')).join('');
+  const m=document.getElementById('k24-ms-g'); if(m) m.innerHTML=MS_IT.map(it=>'<div class="k24-ms-r"><span>'+esc(it.nm)+' <small>(별표 5 '+it.t+' %'+(it.cap?(' · '+(it.cap<1?(it.cap*100)+' cm':it.cap+' m')+' 이하'):'')+(it.row?' · '+esc(f24(it.row)?f24(it.row).t:it.row):'')+')</small></span>'
+    +'<input class="fire-input" type="text" inputmode="decimal" id="ab-m_'+it.k+'_d" value="'+esc(AB['m_'+it.k+'_d']||'')+'" placeholder="도면 m" aria-label="'+esc(it.nm)+' 도면값 m" oninput="setAB(\'m_'+it.k+'_d\',this.value,this)">'
+    +'<input class="fire-input" type="text" inputmode="decimal" id="ab-m_'+it.k+'_a" value="'+esc(AB['m_'+it.k+'_a']||'')+'" placeholder="실측 m" aria-label="'+esc(it.nm)+' 실측값 m" oninput="setAB(\'m_'+it.k+'_a\',this.value,this)"></div>').join('');
   renderDiff();}
+/* v6.1.28 B5 — 별표 5 건폐율 0.5 % · 용적률 1 % 본 기준. 「%」 의 뜻(%p · 비율)이 확인 필요라 둘 중 하나라도 넘으면 ⚠ 를 붙이고 어느 쪽인지 적는다 */
+function tolPct(nm,lim,A,P){const dp=A-P, rr=P?(A/P-1)*100:0, ep=Math.abs(dp)>lim+1e-9, er=Math.abs(rr)>lim+1e-9;
+  return ep&&er?nm+' '+lim+' % 넘음(%p · 비율 모두)':ep?nm+' '+lim+' % 넘음(%p 기준 · 비율 기준 안)':er?nm+' '+lim+' % 넘음(비율 기준 · %p 기준 안)':'';}
 function diffAB(){if(!hasAB()) return []; const L=[];
   AB_KEYS.forEach(k=>{const a=AB[k]; if(a==null||a==='') return; const p=valOf(k); let d='', f='';
     if(AB_NUM.indexOf(k)>=0){const pn=numOf(k), an=abNum(k); if(pn==null){d='허가 값 없음';} else {const x=an-pn; d=(x>0?'+':'')+f2(x);
@@ -1959,24 +2004,79 @@ function diffAB(){if(!hasAB()) return []; const L=[];
       else if(k==='bldHeight'&&Math.abs(x)>tolH(pn)+1e-9) f='높이 허용오차 '+f2(tolH(pn))+' m(2 % · 1 m) 넘음';
       else if(k==='bldArea'&&Math.abs(x)>5+1e-9) f='건축면적 5 ㎡ 넘게 다름';
       else if((k==='farArea'||k==='totalArea')&&Math.abs(x)>30+1e-9) f='30 ㎡ 넘게 다름';
-      else if(k==='siteArea'&&Math.abs(x)>1e-9) f='대지면적 다름 — 지적 확인';}}
+      else if(k==='siteArea'&&Math.abs(x)>1e-9) f='대지면적 다름 — 지적 확인';
+      if(k==='totalArea'&&Math.abs(x)>1e-9&&!abHas('farArea')&&numOf('farArea')!=null) f=(f?f+' · ':'')+'용적률 산정용 연면적 준공 칸이 비어 허가 산정용 값으로 용적률 계산 — 넣으십시오';}}
     else { if(!p) d='허가 값 없음'; else if(nsp(a)!==nsp(p)){d='다름'; f=k==='mainUse'?'용도 변경':k==='zoning'?'지역 · 지구 다름':'구조 변경';} else d='같음'; }
     L.push({k:k,nm:AB_NM[k],p:p,a:a,d:d,f:f}); });
   const P=ratios(), A=abRatios();
-  if(A.bcr!=null&&P.bcr!=null) L.push({k:'bcr',nm:'건폐율 (%)',p:P.bcr.toFixed(2),a:A.bcr.toFixed(2),d:(A.bcr-P.bcr>0?'+':'')+(A.bcr-P.bcr).toFixed(2)+' %p · 비율 '+((A.bcr/P.bcr-1)*100).toFixed(2)+' %',f:''});
-  if(A.far!=null&&P.far!=null) L.push({k:'far',nm:'용적률 (%)',p:P.far.toFixed(2),a:A.far.toFixed(2),d:(A.far-P.far>0?'+':'')+(A.far-P.far).toFixed(2)+' %p · 비율 '+((A.far/P.far-1)*100).toFixed(2)+' %',f:''});
+  if(A.bcr!=null&&P.bcr!=null) L.push({k:'bcr',nm:'건폐율 (%)',p:P.bcr.toFixed(2),a:A.bcr.toFixed(2),d:(A.bcr-P.bcr>0?'+':'')+(A.bcr-P.bcr).toFixed(2)+' %p · 비율 '+((A.bcr/P.bcr-1)*100).toFixed(2)+' %',f:tolPct('건폐율',0.5,A.bcr,P.bcr)});
+  if(A.far!=null&&P.far!=null) L.push({k:'far',nm:'용적률 (%)',p:P.far.toFixed(2),a:A.far.toFixed(2),d:(A.far-P.far>0?'+':'')+(A.far-P.far).toFixed(2)+' %p · 비율 '+((A.far/P.far-1)*100).toFixed(2)+' %',f:tolPct('용적률',1,A.far,P.far)});
   return L;}
-function renderDiff(){const box=document.getElementById('k24-diff'); if(!box) return; const L=diffAB(); if(!L.length){box.innerHTML=''; return;}
-  const fl=L.filter(x=>x.f).length;
-  box.innerHTML='<div class="k24-diff"><b>허가 → 준공 차이'+(fl?' — ⚠ '+fl+'건 확인':' — 표시할 큰 차이 없음')+'</b><table><thead><tr><th>항목</th><th>허가</th><th>준공</th><th>차이</th><th>확인</th></tr></thead><tbody>'
+/* v6.1.28 I3 변경 유형 후보 — 건축법 제16조제1항 · 제2항, 시행령 제12조제1항 · 제2항 · 제3항, 제26조 · 별표 5. 도구는 판정하지 않고 요건별 ✓ · ✗ · ? 만 보인다 */
+function chgType(){if(!hasAB()) return null;
+  const D=diffAB(), fl=D.filter(x=>x.f), num=k=>abNum(k), pn=k=>numOf(k);
+  const flc=['floorsAbove','floorsBelow'].some(k=>num(k)!=null&&pn(k)!=null&&Math.abs(num(k)-pn(k))>1e-9);
+  const ph=pn('bldHeight'), ah=num('bldHeight'), dh=(ph!=null&&ah!=null)?Math.abs(ah-ph):(ah==null?0:null), H=Math.max(ph||0,ah||0);
+  const hOk=dh==null?null:(dh<=1+1e-9||(H>0&&dh<=H/10+1e-9));
+  const tot=abG('totalArea'), dt=(num('totalArea')!=null&&pn('totalArea')!=null)?num('totalArea')-pn('totalArea'):null;
+  const ca=num('chgArea'), cp=num('chgPos'), aOk=ca==null?null:(ca<=50+1e-9?true:(tot!=null&&tot>=5000)?null:(tot!=null&&ca<=tot/10+1e-9)), pOk=cp==null?null:cp<=1+1e-9;
+  const useC=D.some(x=>x.k==='mainUse'&&x.f), strC=D.some(x=>x.k==='structure'&&x.f);
+  const ck=v=>v===true?'✓':v===false?'✗':'?';
+  const R=[
+    ['동수 · 층수를 바꾸지 않음',!flc,'시행령 제12조제3항제1호 · 제2호 · 제4호 (동수는 개요에 없음 — 확인)'],
+    ['변경되는 부분의 바닥면적 합계 50 ㎡ 이하, 또는 연면적 합계의 10분의 1 이하'+(tot!=null&&tot>=5000?' (연면적 5,000 ㎡ 이상 — 각 층 50 ㎡ 이하만, 확인)':''),aOk,'시행령 제12조제3항제1호 · 제2호'+(ca==null?' — 「변경되는 부분의 바닥면적 합계」를 넣으십시오'+(dt!=null?'(연면적 증감 '+f2(dt)+' ㎡ 는 증감의 합이라 대신 쓰지 않음)':''):'')],
+    ['변경되는 부분의 높이 1 m 이하, 또는 전체 높이의 10분의 1 이하',hOk,'시행령 제12조제3항제1호가목 · 제4호'+(dh!=null?' — 최고높이 차 '+f2(dh)+' m 로 봄(변경 부분 높이는 도면 확인)':'')],
+    ['건축 중인 부분의 위치 변경 1 m 이내',pOk,'시행령 제12조제3항제1호나목 · 제5호'+(cp==null?' — 「위치 변경 최대」를 넣으십시오':'')],
+    ['신고 규모에서 허가 규모로 바뀌지 않음',null,'시행령 제12조제3항제1호다목 — 건축법 제14조 신고 대상인지 확인']];
+  let s, lw;
+  const big=(ca!=null&&ca>85+1e-9)||(dt!=null&&dt>85+1e-9);
+  if(!fl.length&&!(ca>0)&&!(cp>0)){s='허용오차 안 후보 — 차이 표에 ⚠ 없음(오차가 「부득이하게 발생한」 것인지는 확인)'; lw='건축법 제26조 · 시행규칙 제20조 · 별표 5';}
+  else if(big){s='변경허가 후보 — 바닥면적 합계 85 ㎡ 를 넘는 부분의 신축 · 증축 · 개축에 해당하는 변경이면 허가'+(ca==null?' (변경 면적 칸이 비어 연면적 증가 '+f2(dt)+' ㎡ 로 봄 — 증축된 부분은 적어도 이만큼)':!(ca>85+1e-9)?' (넣은 변경 면적 '+f2(ca)+' ㎡ 보다 연면적 증가 '+f2(dt)+' ㎡ 가 큼 — 변경 면적을 다시 확인)':''); lw='건축법 제16조제1항 · 시행령 제12조제1항제1호';}
+  else if(useC){s='변경신고(또는 변경허가) 후보 — 용도 변경은 일괄신고 요건(시행령 제12조제3항 각 호)에 들지 않음'; lw='건축법 제16조제1항 · 시행령 제12조제1항 · 제2항';}
+  else if(!flc&&R.slice(1,4).every(r=>r[1]!==false)){const q=R.some(r=>r[1]==null); s='사용승인 신청 때 일괄신고 후보'+(q?' — 「?」 요건을 확인한 뒤':''); lw='건축법 제16조제2항 · 시행령 제12조제3항';}
+  else {s='변경신고(또는 변경허가) 후보 — 일괄신고 요건 '+R.filter(r=>r[1]===false).length+'개 안 맞음'; lw='건축법 제16조제1항 · 시행령 제12조제1항';}
+  const note=[]; if(useC) note.push('용도 변경은 경미한 변경이 아님(시행령 제12조제2항) — 변경하려는 용도의 건축기준에 맞아야 함(건축법 제19조제1항, 아래 「적용 법규 변동」 참고)');
+  if(strC) note.push('구조 변경 — 대수선에 해당하면 일괄신고 대상(시행령 제12조제3항제3호)일 수 있음, 확인');
+  return {s:s,lw:lw,R:R.map(r=>({c:r[0],v:ck(r[1]),law:r[2]})),note:note};}
+/* v6.1.28 I2 적용 법규 변동 — 23호 선판정 규칙을 허가 개요 · 준공 개요로 두 번 돌려 대상 여부가 바뀐 법규를 보인다 */
+const M24=[['1.2.0',['d3']],['1.10.0',['p12']],['1.9.0',['f1']],['1.9.1',['f2']],['1.11.0',['m2']],['1.12.0',['i1']],['1.65.0',['c1']],['1.15.0',['s1','s2']],['1.17.0',['h1']],
+   ['1.19.0',['e1','e2']],['1.19.1',['e3','e4']],['1.19.2',['e5','e6']],['1.28.0',['e12']],['1.3.0',['t2']],['1.48.0',['a1']],['1.66.0',['h2']],['1.66.1',['h2']],['1.66.2',['h2']],['1.66.3',['h2']]];
+function lawNm(k){try{const p=k.split('.'), S=CL[+p[0]], Lw=S.laws.find(l=>lkOf(l)===+p[1]), I=Lw.items[+p[2]]; return Lw.law.replace(/\(.*$/,'')+(I&&I.n?' — '+I.n:'');}catch(e){return k;}}
+function lawChg(){if(!hasAB()||typeof window.judgeRules!=='function') return [];
+  const m0={}, m1={}; window.judgeRules(null).R.forEach(x=>{m0[x.k]=x;}); window.judgeRules(abOver()).R.forEach(x=>{m1[x.k]=x;});
+  const L=[]; Object.keys(Object.assign({},m0,m1)).forEach(k=>{const a=m0[k], b=m1[k], ta=a?a.t:'(자동 판정 없음 — 직접 확인)', tb=b?b.t:'(자동 판정 없음 — 직접 확인)'; if(ta===tb) return;
+    const r=M24.filter(m=>m[0]===k).map(m=>m[1].join('·')).join('·');
+    L.push({k:k,nm:lawNm(k),p:ta,a:tb,why:b?b.why:(a?'(허가 개요 근거) '+a.why:''),r:r});});
+  return L.sort((x,y)=>x.k.localeCompare(y.k,undefined,{numeric:true}));}
+/* v6.1.28 I4 현장 실측 대조 — 별표 5 항목. 도면값 대비 |실측 − 도면| ≤ 허용오차 */
+function f3(n){return (Math.round(n*1000)/1000).toLocaleString('ko-KR',{maximumFractionDigits:3});}   /* 실측 허용오차는 mm 까지 */
+function msList(){return MS_IT.map(it=>{const d=abNum('m_'+it.k+'_d'), a=abNum('m_'+it.k+'_a'); if(d==null||a==null) return null;
+  const t=Math.min(d*it.t/100,it.cap||Infinity), x=a-d, ok=Math.abs(x)<=t+1e-9; return {it:it,d:d,a:a,x:x,t:t,ok:ok};}).filter(Boolean);}
+function msHalf(){return MS_IT.filter(it=>(abNum('m_'+it.k+'_d')==null)!==(abNum('m_'+it.k+'_a')==null)).map(it=>it.nm);}   /* 교차검증 반영 — 한쪽만 넣은 실측 */
+function renderDiff(){const box=document.getElementById('k24-diff'); if(!box) return; const L=diffAB(), C=chgType(), G=lawChg(), M=msList(), MH=msHalf(); if(!L.length&&!M.length&&!MH.length){box.innerHTML=''; return;}
+  let h='';
+  if(L.length){const fl=L.filter(x=>x.f).length;
+  h+='<div class="k24-diff"><b>허가 → 준공 차이'+(fl?' — ⚠ '+fl+'건 확인':' — 표시할 큰 차이 없음')+'</b><table><thead><tr><th>항목</th><th>허가</th><th>준공</th><th>차이</th><th>확인</th></tr></thead><tbody>'
     +L.map(x=>'<tr><td>'+esc(x.nm)+'</td><td>'+esc(x.p||'—')+'</td><td>'+esc(x.a)+'</td><td>'+esc(x.d)+'</td><td class="'+(x.f?'f':'')+'">'+(x.f?'⚠ '+esc(x.f):'')+'</td></tr>').join('')
-    +'</tbody></table>⚠ 표시는 설계변경 허가 · 신고(건축법 제16조제1항) 또는 사용승인 신청 때 일괄 신고(제16조제2항 · 시행령 제12조제3항) 대상인지 확인할 거리입니다. 허용오차는 건축법 제26조 · 시행규칙 별표 5(건폐율 0.5 % 이내 · 건축면적 5 ㎡, 용적률 1 % 이내 · 연면적 30 ㎡, 높이 2 % 이내 · 1 m) — 건폐율 · 용적률 「%」 의 뜻(%p · 비율)은 확인 필요라 두 값을 함께 보입니다. 도구는 판정하지 않으며 이 표는 인쇄되지 않습니다.</div>';}
+    +'</tbody></table>⚠ 표시는 설계변경 허가 · 신고(건축법 제16조제1항) 또는 사용승인 신청 때 일괄 신고(제16조제2항 · 시행령 제12조제3항) 대상인지 확인할 거리입니다. 허용오차는 건축법 제26조 · 시행규칙 별표 5(건폐율 0.5 % 이내 · 건축면적 5 ㎡, 용적률 1 % 이내 · 연면적 30 ㎡, 높이 2 % 이내 · 1 m) — 건폐율 · 용적률 「%」 의 뜻(%p · 비율)은 확인 필요라 두 값을 함께 보이고 어느 쪽이든 넘으면 ⚠ 를 붙입니다. 도구는 판정하지 않으며 이 표는 인쇄되지 않습니다.</div>';}
+  if(C) h+='<div class="k24-diff k24-chg"><b>변경 유형 후보 — 🟨 '+esc(C.s)+'</b> <span class="k24-law">('+esc(C.lw)+')</span><table><thead><tr><th>일괄신고 요건(시행령 제12조제3항)</th><th>값</th><th>근거 · 메모</th></tr></thead><tbody>'
+    +C.R.map(r=>'<tr><td>'+esc(r.c)+'</td><td class="'+(r.v==='✗'?'f':'')+'">'+r.v+'</td><td>'+esc(r.law)+'</td></tr>').join('')+'</tbody></table>'
+    +C.note.map(n=>'· '+esc(n)+'<br>').join('')
+    +'경미한 사항(신축 · 증축 · 개축 · 재축 · 이전 · 대수선 · 용도변경이 아닌 변경)은 변경 허가 · 신고를 하지 않습니다(건축법 제16조제1항 단서 · 시행령 제12조제2항). 도구는 판정하지 않으며 허가권자 협의 · 도면으로 확인합니다.</div>';
+  if(G.length) h+='<div class="k24-diff k24-lawchg"><b>적용 법규 변동 — 준공 개요로 23호 선판정 규칙이 바뀐 '+G.length+'건</b><table><thead><tr><th>법규 · 항목</th><th>허가 개요</th><th>준공 개요</th><th>24호 행</th><th>준공 기준 근거</th></tr></thead><tbody>'
+    +G.map(x=>'<tr><td>'+esc(x.nm)+'</td><td>'+esc(x.p)+'</td><td class="f">'+esc(x.a)+'</td><td>'+esc(x.r||'—')+'</td><td>'+esc(String(x.why).slice(0,160))+'</td></tr>').join('')+'</tbody></table>새로 대상이 된 법규는 허가 도서에 없던 기준일 수 있습니다 — 설계변경 도서 · 현장으로 확인하십시오.</div>';
+  else if(hasAB()) h+='<div class="k24-diff k24-lawchg"><b>적용 법규 변동 — 없음</b> (준공 개요로 돌려도 23호 선판정 규칙 결과가 같음)</div>';
+  if(M.length) h+='<div class="k24-diff k24-ms"><b>현장 실측 대조(별표 5) — '+M.filter(m=>!m.ok).length+'건 허용오차 넘음</b><table><thead><tr><th>항목</th><th>도면</th><th>실측</th><th>차이</th><th>허용오차</th><th>결과</th></tr></thead><tbody>'
+    +M.map(m=>'<tr><td>'+esc(m.it.nm)+'</td><td>'+f2(m.d)+' m</td><td>'+f2(m.a)+' m</td><td>'+(m.x>0?'+':'')+f2(m.x)+' m</td><td>'+f3(m.t)+' m</td><td class="'+(m.ok?'':'f')+'">'+(m.ok?'안':'⚠ 넘음')+'</td></tr>').join('')
+    +'</tbody></table>건축법 제26조 · 시행규칙 제20조 · 별표 5. 건축선 후퇴거리 · 인접대지 경계선 거리는 「⚡ 선판정」 때 해당 행에 「일치 · 불일치」 후보로 넣습니다(🟨 확인 필요).</div>';
+  if(MH.length) h+='<div class="k24-diff k24-ms">ℹ 도면 · 실측을 둘 다 넣어야 대조합니다: '+esc(MH.join(' · '))+'</div>';
+  box.innerHTML=h;}
 function f24(id){return F24.find(R=>R.id===id);}
 function opts24(R){return R.k==='fit'?['적합','부적합','해당 없음']:R.k==='pct'?['해당 없음']:R.k==='le'?[]:['일치','불일치','해당 없음'];}
 function auto24(R){   /* 건폐율 · 용적률 행 — 조례 % 는 51곳 조례 값(용도지역 하나일 때) → 없으면 법정 칸, 완공 % 는 개요 면적 계산 */
   if(R.k!=='le') return {lv:null,lvs:'',v:null};
-  const d=ordFind(), r=ratios(), b=R.id==='r1', dv=b?d.b:d.f, fv=numOf(b?'bcrLegal':'farLegal'), ar=abRatios(), av=b?ar.bcr:ar.far;   /* v6.1.27 준공 개요 면적이 있으면 그 값 */
-  return {lv:dv!=null?dv:fv, lvs:dv!=null?d.o.n:(fv!=null?'개요의 법정 칸':''), v:av!=null?av:(b?r.bcr:r.far), vs:av!=null?'준공 개요':'개요', pv:b?r.bcr:r.far};
+  const za=hasAB()&&AB.zoning?AB.zoning:null, d=ordFind(za), r=ratios(), b=R.id==='r1', dv=b?d.b:d.f, fv=numOf(b?'bcrLegal':'farLegal'), ar=abRatios(), av=b?ar.bcr:ar.far;   /* v6.1.27 준공 개요 면적이 있으면 그 값 */
+  return {lv:dv!=null?dv:fv, lvs:dv!=null?d.o.n+(za&&nsp(za)!==nsp(valOf('zoning'))?' (준공 개요 지역 「'+za+'」 기준)':''):(fv!=null?'개요의 법정 칸':''), v:av!=null?av:(b?r.bcr:r.far), vs:av!=null?'준공 개요':'개요', pv:b?r.bcr:r.far};
 }
 function eff24(R){const a=ANS24[R.id]||{}, au=auto24(R);
   return {lv:a.lv?a.lv:(au.lv!=null?String(+au.lv):''), v:a.v?a.v:(au.v!=null?au.v.toFixed(2):''), au:au};}
@@ -2019,6 +2119,9 @@ function pick24(id,o){const a=ANS24[id]||(ANS24[id]={}); if(o==null) delete a.o;
 function unpick24(id){delete ANS24[id]; render24();}
 function ok24(id){const a=ANS24[id]; if(a){delete a.c; delete a.w;} render24();}
 function clear24(){if(!confirm('사용승인 현장조사 답 '+counts24().done+'행을 모두 지웁니다. 계속할까요?')) return; ANS24={}; render24();}
+/* v6.1.28 B2 — 선판정 때 개요 서명을 답에 남겨, 개요가 바뀐 뒤 다시 돌리지 않은 후보를 인쇄 전 물음에서 알린다 */
+function sig24(){const s=AB_KEYS.map(k=>valOf(k)).join('|')+'#'+valOf('siteLoc')+'#'+JSON.stringify(AB); let h=0; for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0; return (h>>>0).toString(16);}
+function stale24(){const g=sig24(); return F24.map(R=>R.id).filter(id=>{const a=ANS24[id]; return a&&a.c&&a.s&&a.s!==g;});}
 function judge24(){
   if(typeof window.judgeRules!=='function'){mmToast('선판정 규칙을 불러오지 못했습니다');return;}
   const AM=hasAB(), J=window.judgeRules(AM?abOver():null), u=J.u, by={}; J.R.forEach(x=>{by[x.k]=x;});   /* v6.1.27 준공 개요가 있으면 그 값으로 규칙을 돌린다 */
@@ -2042,25 +2145,42 @@ function judge24(){
       pr.h1=[ok?'일치':'불일치','준공 개요 · 높이 허가 '+f2(ph)+' m → 준공 '+f2(ah)+' m(차이 '+f2(dd)+' m, 별표 5 허용오차 2 % · 1 m 이내 = '+f2(t)+' m '+(ok?'안':'넘음')+') — 높이제한 기준은 현장 · 도면으로 확인'];}
     const pu=valOf('mainUse'), au=AB.mainUse, pz=valOf('zoning'), az=AB.zoning;
     if(pu&&au&&!(az&&!pz)){const same=nsp(pu)===nsp(au)&&(!az||nsp(az)===nsp(pz));   /* 교차검증 반영 — 준공 지역만 있고 허가 지역이 비면 후보 없음(준공 지역 빈칸은 허가 값) */
-      pr.u1=[same?'일치':'불일치','준공 개요 · 주용도 허가 「'+pu+'」 → 준공 「'+au+'」'+(az&&pz?' · 용도지역 「'+pz+'」 → 「'+az+'」':'')+(same?'':' — 용도변경 · 설계변경 여부 확인')];}
+      pr.u1=[same?'일치':'불일치','준공 개요 · 주용도 허가 「'+pu+'」 → 준공 「'+au+'」'+(az&&pz?' · 용도지역 「'+pz+'」 → 「'+az+'」':'')+(same?'':' — 용도변경 · 설계변경 여부 확인(변경하려는 용도의 건축기준 — 건축법 제19조제1항)')];}
   }
-  const free=id=>!(ANS24[id]&&(ANS24[id].o!=null||ANS24[id].v));
-  const ids=F24.map(R=>R.id).filter(id=>cand[id]&&free(id)), pids=F24.map(R=>R.id).filter(id=>pr[id]&&!cand[id]&&free(id));
-  if(!ids.length&&!pids.length){mmToast(AM?'새로 채울 후보가 없습니다':'새로 채울 「해당 없음」 후보가 없습니다');return;}
-  if(!confirm((AM?'준공 설계개요로 후보 ':'「해당 없음」 후보 ')+(ids.length+pids.length)+'행을 채웁니다 — 모두 🟨 확인 필요로 표시합니다(완공 현장에서 확인한 뒤 「확인함」).\n'
-    +(AM?'「일치 · 불일치」 후보는 높이 · 용도만 냅니다. 그 밖의 행은 조사자가 고릅니다.':'「일치 · 불일치」는 도구가 고르지 않습니다(준공 설계개요를 넣으면 높이 · 용도만 후보를 냄).')+'\n\n'
-    +ids.map(id=>'· '+f24(id).t+(AM?' — 해당 없음':'')).concat(pids.map(id=>'· '+f24(id).t+' — '+pr[id][0])).join('\n')+'\n\n계속할까요?')) return;
-  ids.forEach(id=>{const a=ANS24[id]||(ANS24[id]={}); a.o='해당 없음'; a.c=4; a.w=cand[id].slice(0,300);});
-  pids.forEach(id=>{const a=ANS24[id]||(ANS24[id]={}); a.o=pr[id][0]; a.c=4; a.w=pr[id][1].slice(0,300);});
-  render24(); mmToast((ids.length+pids.length)+'행 채움 — 🟨 확인 필요');
+  /* v6.1.28 I4 현장 실측 — 건축선 후퇴거리 → s1 · 인접대지 경계선 거리 → s2 (별표 5 3 %) */
+  msList().forEach(m=>{const id=m.it.row; if(!id||cand[id]) return;
+    pr[id]=[m.ok?'일치':'불일치','준공 실측 · '+m.it.nm+' 도면 '+f2(m.d)+' m → 실측 '+f2(m.a)+' m(차이 '+(m.x>0?'+':'')+f2(m.x)+' m, 별표 5 허용오차 '+m.it.t+' % = '+f3(m.t)+' m '+(m.ok?'안':'넘음')+')'+(!m.ok&&m.x>0?' — 늘어난 쪽: 법 기준을 채우면 도면 정정 여부 확인':'')];});
+  /* v6.1.28 B2 — 이미 답한 행은 건드리지 않되, 「확인 필요」(선판정이 넣고 아직 확인 안 한) 행은 지금 개요로 다시 판정한다 */
+  const ex=id=>ANS24[id]&&(ANS24[id].o!=null||ANS24[id].v), auto=id=>ex(id)&&!!ANS24[id].c, open=id=>!ex(id)||auto(id);
+  const want={}; F24.forEach(R=>{const id=R.id; if(!open(id)) return; if(cand[id]) want[id]=['해당 없음',cand[id]]; else if(pr[id]) want[id]=pr[id];});
+  const add=[], chg=[], keep=[], drop=[];
+  F24.forEach(R=>{const id=R.id, w=want[id];
+    if(w){ if(!ex(id)) add.push(id); else if(ANS24[id].o!==w[0]) chg.push(id); else keep.push(id); }
+    else if(auto(id)) drop.push(id); });
+  if(!add.length&&!chg.length&&!drop.length){ keep.forEach(id=>{ANS24[id].w=want[id][1].slice(0,300); ANS24[id].s=sig24();}); render24(); mmToast(AM?'새로 채울 · 바꿀 후보가 없습니다':'새로 채울 「해당 없음」 후보가 없습니다'); return; }
+  const ln=id=>'· '+f24(id).t+' — '+want[id][0];
+  if(!confirm((AM?'준공 설계개요로 ':'')+'선판정 — 새 후보 '+add.length+'행'+(chg.length?' · 바뀌는 후보 '+chg.length+'행':'')+(drop.length?' · 비우는 후보 '+drop.length+'행':'')+'. 모두 🟨 확인 필요로 표시합니다(완공 현장에서 확인한 뒤 「확인함」).\n'
+    +(AM?'「일치 · 불일치」 후보는 높이 · 용도와, 현장 실측을 넣은 건축선 · 인접대지 경계선 거리만 냅니다. 그 밖의 행은 조사자가 고릅니다.':'「일치 · 불일치」는 도구가 고르지 않습니다(준공 설계개요 · 현장 실측을 넣으면 높이 · 용도 · 거리 후보를 냄).')+'\n「확인함」을 누른 답과 직접 고른 답은 그대로 둡니다.\n\n'
+    +(add.length?'[새 후보]\n'+add.map(ln).join('\n')+'\n\n':'')
+    +(chg.length?'[바뀌는 후보 — 앞서 넣은 확인 안 된 답]\n'+chg.map(id=>'· '+f24(id).t+' — '+ANS24[id].o+' → '+want[id][0]).join('\n')+'\n\n':'')
+    +(drop.length?'[비우는 후보 — 지금 개요로는 후보가 아님, 현장에서 고르십시오]\n'+drop.map(id=>'· '+f24(id).t+' — '+ANS24[id].o).join('\n')+'\n\n':'')
+    +'계속할까요?')) return;
+  const g=sig24();
+  add.concat(chg,keep).forEach(id=>{const a=ANS24[id]||(ANS24[id]={}); a.o=want[id][0]; a.c=4; a.w=want[id][1].slice(0,300); a.s=g;});
+  drop.forEach(id=>{delete ANS24[id];});
+  render24(); mmToast('선판정 — 새 '+add.length+' · 바뀜 '+chg.length+' · 비움 '+drop.length+'행 — 🟨 확인 필요');
 }
 function guard24(){const c=counts24(), L=[];
   if(!c.done)L.push('현장조사 답 0/'+c.all+' — 빈 서식을 인쇄합니다.');
   else if(c.all-c.done)L.push('미답 '+(c.all-c.done)+'행이 빈 [  ]로 인쇄됩니다(답한 행 '+c.done+'/'+c.all+').');
   if(c.auto)L.push('「확인 필요」 답이 '+c.auto+'행 남아 있습니다(선판정으로 고른 「해당 없음」 · 「일치 · 불일치」 후보) — 완공 현장에서 확인하지 않은 답이 그대로 인쇄됩니다.');
+  const st=stale24(); if(st.length)L.push('개요(허가 · 준공 · 실측)가 바뀐 뒤 「⚡ 선판정」을 다시 돌리지 않은 후보 '+st.length+'행: '+st.map(id=>f24(id).t).slice(0,6).join(' · ')+(st.length>6?' 외':'')+' — 다시 돌리면 지금 개요로 고칩니다.');   /* v6.1.28 B2 */
   if(!valOf('permitNo')||!valOf('permitDate'))L.push('허가번호 · 허가일자가 비어 있습니다.');
   if(!hasAB())L.push('준공 설계개요가 없습니다 — 「해당 없음」 후보 · 건폐율 · 용적률 완공 % 는 허가 개요 기준입니다.');   /* v6.1.27 */
-  else {const fl=diffAB().filter(x=>x.f); if(fl.length)L.push('허가 → 준공 차이 ⚠ '+fl.length+'건: '+fl.map(x=>x.nm.replace(/ \(.*\)$/,'')+' '+x.f).join(' · ')+' — 설계변경 허가 · 신고 대상인지 확인하십시오.');}
+  else {const fl=diffAB().filter(x=>x.f); if(fl.length)L.push('허가 → 준공 차이 ⚠ '+fl.length+'건: '+fl.map(x=>x.nm.replace(/ \(.*\)$/,'')+' '+x.f).join(' · ')+' — 설계변경 허가 · 신고 대상인지 확인하십시오.');
+    const C=chgType(); if(C)L.push('변경 유형 후보: '+C.s+' ('+C.lw+') — 도구는 판정하지 않습니다.');   /* v6.1.28 I3 */
+    const G=lawChg(); if(G.length)L.push('적용 법규 변동 '+G.length+'건: '+G.slice(0,5).map(x=>x.nm.split(' — ')[0]+' 「'+x.p+'」 → 「'+x.a+'」').join(' · ')+(G.length>5?' 외':'')+'.');}   /* v6.1.28 I2 */
+  const ms=msList().filter(m=>!m.ok); if(ms.length)L.push('현장 실측 허용오차(별표 5) 넘음 '+ms.length+'건: '+ms.map(m=>m.it.nm).join(' · ')+'.');   /* v6.1.28 I4 */
   return !L.length||confirm(L.join('\n\n')+'\n\n계속할까요?\n\n(현장조사 탭 「보기」에서 미답 · 확인 필요만 골라 볼 수 있습니다)');}
 function slot24(v,w){return '( <span class="p24-v">'+(v!==''&&v!=null?esc(v):'&nbsp;'.repeat(w||8))+'</span> )';}
 function mark24(opts,sel){return opts.map(o=>'<span class="p24-o">['+(sel===o?'√':'&nbsp;&nbsp;')+']'+esc(o)+'</span>').join(' ');}
