@@ -777,6 +777,17 @@ body.k24 .k23-only{display:none!important;}
 .k24-why{grid-column:1/-1;font-size:11.5px;color:#92400e;}
 .k24-hint{color:#64748b;}
 .k24-bad{color:#b91c1c;}
+/* v6.1.27 준공 설계개요 */
+.k24-ab{margin:8px 0;padding:10px 12px;border:1px solid #c7d2fe;border-radius:10px;background:#f5f7ff;}
+.k24-ab-hd{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;font-size:13px;}
+.k24-ab-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px 10px;margin:8px 0 4px;}
+.k24-ab-g label{display:block;font-size:11.5px;color:#475569;margin-bottom:2px;}
+.k24-ab-g input{width:100%;box-sizing:border-box;}
+.k24-diff{margin:8px 0 0;padding:8px 10px;border-radius:8px;background:#fff7ed;border:1px solid #fdba74;font-size:12px;color:#7c2d12;overflow-x:auto;}
+.k24-diff table{border-collapse:collapse;margin:6px 0;font-size:11.5px;min-width:100%;}
+.k24-diff th,.k24-diff td{border:1px solid #fed7aa;padding:3px 6px;text-align:left;vertical-align:top;}
+.k24-diff th{background:#ffedd5;}
+.k24-diff .f{color:#b91c1c;font-weight:600;}
 @media (max-width:640px){.k24-r{grid-template-columns:1fr;}.k24-ops{justify-content:flex-start;}}
 .p24-note{display:flex;justify-content:space-between;font-size:10.5px;margin:0 0 4px;color:#1a1a1a;}
 .p24-sm{font-size:9.5px;color:#475569;line-height:1.45;}
@@ -1060,7 +1071,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
 
     <div class="pic-filebar no-print">
       <button class="pic-btn pic-btn-pdf" onclick="document.getElementById('pic-pdf').click()">📄 설계개요 PDF 불러오기</button>
-      <input type="file" id="pic-pdf" accept="application/pdf,.pdf" hidden onchange="pdfPick(this)"/>
+      <input type="file" id="pic-pdf" accept="application/pdf,.pdf" hidden onchange="window._abMode=false;pdfPick(this)"/>
       <input type="hidden" id="formKind" value="23"/>
       <button class="pic-btn" onclick="saveFile()">💾 파일로 저장</button>
       <button class="pic-btn" onclick="document.getElementById('pic-file').click()">📂 파일 불러오기</button>
@@ -1207,11 +1218,18 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
           <select id="k24-filter" class="fire-select pic-sel" onchange="render24()">
             <option value="all">전체</option><option value="none">미답만</option><option value="auto">확인 필요만</option>
           </select>
-          <button class="pic-btn pic-btn-pdf" onclick="judge24()">⚡ 「해당 없음」 후보 선판정</button>
+          <button class="pic-btn pic-btn-pdf" onclick="judge24()">⚡ 선판정(해당 없음 · 준공 대조)</button>
           <button class="pic-btn pic-btn-warn" onclick="clear24()">답 모두 지우기</button>
         </div>
       </div>
-      <div class="k24-lead no-print">별지 제24호서식 현장조사 49행 — 완공 현장에서 조사자가 「일치 · 불일치」(피난용승강기는 「적합 · 부적합」)를 고릅니다. 도구는 개요 · 23호 선판정 규칙으로 「해당 없음」 후보만 채우며 모두 🟨 확인 필요로 표시합니다. 건폐율 · 용적률은 조례 값과 개요 면적으로 미리 넣어 두며 고칠 수 있습니다.</div>
+      <div class="k24-ab no-print" id="k24-ab">
+        <div class="k24-ab-hd"><b>🏁 준공 설계개요</b><span class="pic-tools"><button type="button" class="pic-btn" onclick="document.getElementById('ab-pdf').click()">📄 준공 설계개요 PDF 불러오기</button><button type="button" class="pic-btn pic-btn-warn" onclick="clearAB()">준공 개요 지우기</button></span></div>
+        <input type="file" id="ab-pdf" accept="application/pdf,.pdf" hidden onchange="window._abMode=true;pdfPick(this)"/>
+        <div class="k24-ab-g" id="k24-ab-g"></div>
+        <div class="k24-why k24-hint">허가 개요 칸은 그대로 두고 준공 값을 따로 넣습니다(빈 칸은 허가 값으로 봄). 넣으면 「⚡ 선판정」이 준공 개요로 「해당 없음」 후보와 높이 · 용도의 「일치 · 불일치」 후보를 내고, 건폐율 · 용적률 완공 % 를 준공 면적으로 계산합니다 — 모두 🟨 확인 필요.</div>
+        <div id="k24-diff"></div>
+      </div>
+      <div class="k24-lead no-print">별지 제24호서식 현장조사 49행 — 완공 현장에서 조사자가 「일치 · 불일치」(피난용승강기는 「적합 · 부적합」)를 고릅니다. 도구는 「해당 없음」 후보와, 준공 설계개요가 있으면 높이 · 용도의 「일치 · 불일치」 후보만 채우며 모두 🟨 확인 필요로 표시합니다. 대지 · 피난시설 · 마감재료 · 설비 등 현장을 봐야 하는 행은 채우지 않습니다. 건폐율 · 용적률은 조례 값과 개요(준공 개요가 있으면 준공) 면적으로 미리 넣어 두며 고칠 수 있습니다.</div>
       <div id="k24-list"></div>
     </div>
   </div><!-- /tab-check -->
@@ -1355,6 +1373,7 @@ a.jd-law-a{color:inherit;text-decoration:underline;text-decoration-color:#cbd5e1
    v6.1.9 (2026-11-13) — 지역 확대: 전남광주통합특별시(종전 전라남도) 22개 · 충청남도 15개 시 · 군의 건폐율 · 용적률과 건축 조례(조경 · 공개공지 · 분할) — 기준일 2026-11-13 · 천안시 건폐율 · 용적률은 시행 예정본만 조회되어 값을 싣지 않음 · 근거 탭 조례 목록을 도별로 묶음
    v6.1.10 (2026-11-13) — 주차장 조례 · 대지 안의 공지 안내를 전남 22 · 충남 15 시 · 군으로 넓힘(51곳 · 기준일 2026-11-13) — 계획 · 보전관리지역만 대상인 조례 · 주거지역 공장 거리 · 별표를 읽지 못한 곳 처리
    v6.1.11 (2026-11-13) — html2canvas 1.4.1 머리 태그 SRI(integrity sha384 · crossorigin) · 인쇄 공통 원본 MM-PRINT v1.0 → v1.1(지연 로더도 SRI)(정밀검토 B8 · 작업지시서 §25-6-87 제외분) — 화면 · 계산 · 인쇄 불변
+   v6.1.27 (2026-11-27) — 별지 제24호 준공 설계개요 선판정(기획검토_24호_준공개요_선판정 · MIN 「계획 승인」): 24호 현장조사 탭에 준공 설계개요 칸(대지 · 건축 · 연 · 용적률 산정용 면적 · 층수 · 높이 · 주용도 · 지역 · 구조, 허가 개요는 그대로) · 「준공 설계개요 PDF 불러오기」 · 「⚡ 선판정」이 준공 개요로 「해당 없음」 후보와 높이(별표 5 허용오차 2 % · 1 m) · 용도 「일치 · 불일치」 후보(모두 ④ 확인 필요) · 건폐율 · 용적률 완공 % 준공 면적 · 허가 → 준공 차이 표(층수 · 용도 · 구조 · 면적 · 높이 ⚠ — 건축법 제16조 · 시행령 제12조제3항 확인 안내, 판정 안 함) · 저장 파일 asBuilt(없는 옛 파일은 빈 값) · 인쇄 전 물음에 준공 개요 없음 · 차이 ⚠ — 23호 화면 · 선판정 · A4 불변
    v6.1.26 (2026-11-27) — 필수 4건(허가 출력 검증 · 교차검증_2026-11-27): P1 인쇄 · JPG 단추 앞 확인창에 미답 칸 · 답 0/159 · 주차 법정값 경고를 함께 묻는다 / P3 주차 법정 칸을 주차장법 시행령 별표 1 국가 기준(조례 없는 곳 포함 · 0대 포함)과 대조 — 작으면 주황 경고, 크면 회색 안내(값은 바꾸지 않음) · 국가 기준 용도는 별표 1 세부(데이터센터 · 학생용 기숙사 400 · 방송국 · 장례식장 150 · 정신 · 요양 · 격리병원 300 · 비고 1 시설 대조 안 함) / P4 PDF 원문의 「분할」 글자를 숨은 칸 pdfNote 에 보관(저장 · 불러오기) — 선판정 건축 15 대지분할제한 「적합」 + ④ 확인 필요(시행령 제80조 · 법 제57조제2항) / P5 녹지지역과 그 밖의 지역에 걸친 대지는 조경설치 대상 「대상」 + ④ 확인 필요(녹지만이면 지금처럼 예외대상)
    v6.1.26 (2026-11-27) — 별지 제24호서식 사용승인조사 및 검사조서 겸용: 요약 띠 「📑 조서: 허가(제23호) / 사용승인(제24호)」 · 저장 파일 formKind(없는 옛 파일은 23) · 허가번호 · 허가일자 칸(24호, PDF 에서도 읽음) · 24호에서 면허번호 → 자격번호, 등록번호 → 신고번호(이름만) · 현장조사 49행(서식 원문, 앞쪽 19 · 뒤쪽 30) · 「해당 없음」 후보만 개요 · 23호 선판정 규칙으로 채움(🟨 확인 필요) · 「일치 · 불일치」는 고르지 않음 · 건폐율 · 용적률은 조례 값 · 개요 계산으로 미리 채움 · 조경 · 공개공지 조례 % 는 손입력 · A4 2쪽 · 23호 화면 · 인쇄 불변
    v6.1.23 (2026-11-24) — 법령 개정 반영 점검(A-09 A 등급 첫 회차 · 교차검증_2026-11-24_3): 건축법 제61조제1항 2026. 11. 12. 시행 개정 — 근거 탭 「📝 개정 메모」 · 정북일조 선판정 근거에 1 ~ 3호 거리 범위 · 체크리스트 데이터(CL) 변경 없음
@@ -1800,7 +1819,7 @@ function renderResult(){
 }
 
 /* ── 파일 저장 · 불러오기 · 초기화 ── */
-function snapshot(){const info={};FIELDS.forEach(id=>{info[id]=valOf(id);});return {tool:'MANMIN-건축허가조사및검사조서',ver:'6.1.0',data:'세움터견본-102법령-159항목',saved:new Date().toISOString(),info:info,ans:ANS,ans24:ANS24};}
+function snapshot(){const info={};FIELDS.forEach(id=>{info[id]=valOf(id);});return {tool:'MANMIN-건축허가조사및검사조서',ver:'6.1.0',data:'세움터견본-102법령-159항목',saved:new Date().toISOString(),info:info,ans:ANS,ans24:ANS24,asBuilt:AB};}
 function saveFile(){
   const nm='허가검사조서_'+(valOf('projectName')||'무제').replace(/[\\/:*?"<>|]/g,'_')+'_'+getTodayISO()+'.json';
   const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(snapshot(),null,1)],{type:'application/json'})); a.download=nm;
@@ -1823,6 +1842,8 @@ function loadFile(inp){
         if(n.o!=null||n.lv||n.v) B[id]=n; else d24++;
       });
       ANS24=B;
+      AB={}; if(o.asBuilt&&typeof o.asBuilt==='object')AB_KEYS.forEach(k=>{const v=o.asBuilt[k]; if(typeof v!=='string'||!v.trim()) return; const t=v.trim();   /* v6.1.27 준공 개요 — 없는 옛 파일은 빈 값 */
+        if(AB_NUM.indexOf(k)>=0){ if(/^\d+(\.\d+)?$/.test(t)) AB[k]=t; } else AB[k]=t.slice(0,120); });
       const A={}; let drop=0; window._ppDoc=null;
       Object.keys(o.ans||{}).forEach(k=>{
         let I=null; try{I=findItem(k);}catch(e){} const a=o.ans[k];
@@ -1842,7 +1863,7 @@ function resetAll(){
   if(!confirm('입력한 개요와 체크리스트 답을 모두 지웁니다. 계속할까요?')) return;
   const kd=kindOf();
   FIELDS.forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
-  document.getElementById('formKind').value=kd; ANS24={};   /* v6.1.26 조서 종류는 그대로 */
+  document.getElementById('formKind').value=kd; ANS24={}; AB={};   /* v6.1.26 조서 종류는 그대로 · v6.1.27 준공 개요도 지움 */
   document.getElementById('author').value='김만민'; document.getElementById('firm').value='(주)대성건축사사무소'; document.getElementById('reportDate').value=getTodayISO();
   ANS={}; window._ppDoc=null; recalc(); syncAll(); applyKind(); mmToast('초기화했습니다');
 }
@@ -1853,7 +1874,7 @@ function switchTab(id){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+id));
   if(id==='result') renderResult();
   if(id==='check') applyFilter();
-  if(id==='check'&&kindOf()==='24') render24();
+  if(id==='check'&&kindOf()==='24'){renderAB(); render24();}
 }
 /* ══ v6.1.26 별지 제24호서식 사용승인조사 및 검사조서 겸용 ══
    서식 원문: 「건축법 시행규칙」 별지 제24호서식 <개정 2024. 7. 1.> (lawmcp 서식 · 받은 서식 PDF 2쪽 대조, 2026-11-27). 제출 근거 건축법 제27조 · 시행규칙 제21조제1항.
@@ -1913,12 +1934,49 @@ const F24=[
 const F24_FRONT=19;
 let ANS24={};   // ANS24[id]={o:'일치'|'불일치'|'적합'|'부적합'|'해당 없음', c:4(확인 필요), w:근거, lv:조례 %, v:완공 %}
 function kindOf(){return valOf('formKind')==='24'?'24':'23';}
+/* v6.1.27 준공 설계개요 — 허가 개요 칸은 그대로 두고 준공 값을 따로 둔다(빈 칸은 허가 값으로 봄). 허용오차는 건축법 제26조 · 시행규칙 제20조 · 별표 5 */
+const AB_KEYS=['siteArea','bldArea','totalArea','farArea','floorsAbove','floorsBelow','bldHeight','mainUse','zoning','structure'];
+const AB_NUM=['siteArea','bldArea','totalArea','farArea','floorsAbove','floorsBelow','bldHeight'];
+const AB_NM={siteArea:'대지면적 (㎡)',bldArea:'건축면적 (㎡)',totalArea:'연면적 (㎡)',farArea:'용적률 산정용 연면적 (㎡)',floorsAbove:'지상 층수',floorsBelow:'지하 층수',bldHeight:'최고높이 (m)',mainUse:'주용도',zoning:'지역 / 지구 / 구역',structure:'구조'};
+const AB_U={siteArea:'site',bldArea:'bld',totalArea:'tot',farArea:'far',floorsAbove:'fa',floorsBelow:'fb',bldHeight:'h',mainUse:'use',zoning:'zon',structure:'str'};
+let AB={};
+function hasAB(){return AB_KEYS.some(k=>AB[k]!=null&&AB[k]!=='');}
+function abNum(k){const v=AB[k]; if(v==null||v==='') return null; const n=parseFloat(String(v).replace(/,/g,'')); return isFinite(n)?n:null;}
+function abOver(){const o={}; AB_KEYS.forEach(k=>{if(AB[k]==null||AB[k]==='') return; o[AB_U[k]]=AB_NUM.indexOf(k)>=0?abNum(k):AB[k];}); return o;}
+function nsp(t){return String(t||'').replace(/\s+/g,'');}
+function tolH(p){return Math.min(p*0.02,1);}   /* 별표 5 건축물 높이 2 % 이내(1 m 초과 불가) */
+function abRatios(){const s=abNum('siteArea')!=null?abNum('siteArea'):numOf('siteArea'), b=abNum('bldArea'), f=abNum('farArea')!=null?abNum('farArea'):abNum('totalArea');
+  return {bcr:(s&&b!=null)?b/s*100:null, far:(s&&f!=null)?f/s*100:null};}
+function setAB(k,v){v=String(v).trim().replace(/,/g,AB_NUM.indexOf(k)>=0?'':','); if(v==='') delete AB[k]; else if(AB_NUM.indexOf(k)>=0){ if(!/^\d+(\.\d+)?$/.test(v)) return; AB[k]=v; } else AB[k]=v.slice(0,120); render24();}
+function clearAB(){if(!hasAB()) return; if(!confirm('준공 설계개요 값을 모두 지웁니다(허가 개요 · 현장조사 답은 그대로). 계속할까요?')) return; AB={}; renderAB(); render24();}
+function renderAB(){const g=document.getElementById('k24-ab-g'); if(!g) return;
+  g.innerHTML=AB_KEYS.map(k=>'<div><label for="ab-'+k+'">'+esc(AB_NM[k])+'</label><input class="fire-input" type="text" id="ab-'+k+'"'+(AB_NUM.indexOf(k)>=0?' inputmode="decimal"':'')+' value="'+esc(AB[k]||'')+'" placeholder="허가: '+esc(valOf(k)||'—')+'" oninput="setAB(\''+k+'\',this.value)"></div>').join('');
+  renderDiff();}
+function diffAB(){if(!hasAB()) return []; const L=[];
+  AB_KEYS.forEach(k=>{const a=AB[k]; if(a==null||a==='') return; const p=valOf(k); let d='', f='';
+    if(AB_NUM.indexOf(k)>=0){const pn=numOf(k), an=abNum(k); if(pn==null){d='허가 값 없음';} else {const x=an-pn; d=(x>0?'+':'')+f2(x);
+      if((k==='floorsAbove'||k==='floorsBelow')&&Math.abs(x)>1e-9) f='층수 변경';
+      else if(k==='bldHeight'&&Math.abs(x)>tolH(pn)+1e-9) f='높이 허용오차 '+f2(tolH(pn))+' m(2 % · 1 m) 넘음';
+      else if(k==='bldArea'&&Math.abs(x)>5+1e-9) f='건축면적 5 ㎡ 넘게 다름';
+      else if((k==='farArea'||k==='totalArea')&&Math.abs(x)>30+1e-9) f='30 ㎡ 넘게 다름';
+      else if(k==='siteArea'&&Math.abs(x)>1e-9) f='대지면적 다름 — 지적 확인';}}
+    else { if(!p) d='허가 값 없음'; else if(nsp(a)!==nsp(p)){d='다름'; f=k==='mainUse'?'용도 변경':k==='zoning'?'지역 · 지구 다름':'구조 변경';} else d='같음'; }
+    L.push({k:k,nm:AB_NM[k],p:p,a:a,d:d,f:f}); });
+  const P=ratios(), A=abRatios();
+  if(A.bcr!=null&&P.bcr!=null) L.push({k:'bcr',nm:'건폐율 (%)',p:P.bcr.toFixed(2),a:A.bcr.toFixed(2),d:(A.bcr-P.bcr>0?'+':'')+(A.bcr-P.bcr).toFixed(2)+' %p · 비율 '+((A.bcr/P.bcr-1)*100).toFixed(2)+' %',f:''});
+  if(A.far!=null&&P.far!=null) L.push({k:'far',nm:'용적률 (%)',p:P.far.toFixed(2),a:A.far.toFixed(2),d:(A.far-P.far>0?'+':'')+(A.far-P.far).toFixed(2)+' %p · 비율 '+((A.far/P.far-1)*100).toFixed(2)+' %',f:''});
+  return L;}
+function renderDiff(){const box=document.getElementById('k24-diff'); if(!box) return; const L=diffAB(); if(!L.length){box.innerHTML=''; return;}
+  const fl=L.filter(x=>x.f).length;
+  box.innerHTML='<div class="k24-diff"><b>허가 → 준공 차이'+(fl?' — ⚠ '+fl+'건 확인':' — 표시할 큰 차이 없음')+'</b><table><thead><tr><th>항목</th><th>허가</th><th>준공</th><th>차이</th><th>확인</th></tr></thead><tbody>'
+    +L.map(x=>'<tr><td>'+esc(x.nm)+'</td><td>'+esc(x.p||'—')+'</td><td>'+esc(x.a)+'</td><td>'+esc(x.d)+'</td><td class="'+(x.f?'f':'')+'">'+(x.f?'⚠ '+esc(x.f):'')+'</td></tr>').join('')
+    +'</tbody></table>⚠ 표시는 설계변경 허가 · 신고(건축법 제16조제1항) 또는 사용승인 신청 때 일괄 신고(제16조제2항 · 시행령 제12조제3항) 대상인지 확인할 거리입니다. 허용오차는 건축법 제26조 · 시행규칙 별표 5(건폐율 0.5 % 이내 · 건축면적 5 ㎡, 용적률 1 % 이내 · 연면적 30 ㎡, 높이 2 % 이내 · 1 m) — 건폐율 · 용적률 「%」 의 뜻(%p · 비율)은 확인 필요라 두 값을 함께 보입니다. 도구는 판정하지 않으며 이 표는 인쇄되지 않습니다.</div>';}
 function f24(id){return F24.find(R=>R.id===id);}
 function opts24(R){return R.k==='fit'?['적합','부적합','해당 없음']:R.k==='pct'?['해당 없음']:R.k==='le'?[]:['일치','불일치','해당 없음'];}
 function auto24(R){   /* 건폐율 · 용적률 행 — 조례 % 는 51곳 조례 값(용도지역 하나일 때) → 없으면 법정 칸, 완공 % 는 개요 면적 계산 */
   if(R.k!=='le') return {lv:null,lvs:'',v:null};
-  const d=ordFind(), r=ratios(), b=R.id==='r1', dv=b?d.b:d.f, fv=numOf(b?'bcrLegal':'farLegal');
-  return {lv:dv!=null?dv:fv, lvs:dv!=null?d.o.n:(fv!=null?'개요의 법정 칸':''), v:b?r.bcr:r.far};
+  const d=ordFind(), r=ratios(), b=R.id==='r1', dv=b?d.b:d.f, fv=numOf(b?'bcrLegal':'farLegal'), ar=abRatios(), av=b?ar.bcr:ar.far;   /* v6.1.27 준공 개요 면적이 있으면 그 값 */
+  return {lv:dv!=null?dv:fv, lvs:dv!=null?d.o.n:(fv!=null?'개요의 법정 칸':''), v:av!=null?av:(b?r.bcr:r.far), vs:av!=null?'준공 개요':'개요', pv:b?r.bcr:r.far};
 }
 function eff24(R){const a=ANS24[R.id]||{}, au=auto24(R);
   return {lv:a.lv?a.lv:(au.lv!=null?String(+au.lv):''), v:a.v?a.v:(au.v!=null?au.v.toFixed(2):''), au:au};}
@@ -1947,12 +2005,12 @@ function render24(){
     h+='</div>';
     if(a.c) h+='<div class="k24-why">🟨 확인 필요 — '+esc(a.w||'선판정')+' <button type="button" class="pic-btn k24-ok" onclick="ok24(\''+R.id+'\')">확인함</button></div>';
     else if(R.k==='le'){ const e=eff24(R), over=e.lv!==''&&e.v!==''&&+e.v>+e.lv+1e-9;
-      h+='<div class="k24-why k24-hint">조례 % — '+(e.au.lvs?esc(e.au.lvs)+' '+f2(+e.au.lv)+' %':'들어 있는 값 없음(직접 넣기)')+' · 완공 % — '+(e.au.v!=null?'개요 면적 계산 '+e.au.v.toFixed(2)+' %':'개요 면적 없음')+'(완공 면적과 다르면 고치십시오)'+(over?' <b class="k24-bad">⚠ 완공 % 가 조례 % 보다 큽니다</b>':'')+'</div>'; }
+      h+='<div class="k24-why k24-hint">조례 % — '+(e.au.lvs?esc(e.au.lvs)+' '+f2(+e.au.lv)+' %':'들어 있는 값 없음(직접 넣기)')+' · 완공 % — '+(e.au.v!=null?e.au.vs+' 면적 계산 '+e.au.v.toFixed(2)+' %':'개요 면적 없음')+(e.au.vs==='준공 개요'&&e.au.pv!=null?'(허가 '+e.au.pv.toFixed(2)+' % · 차이 '+(e.au.v-e.au.pv).toFixed(2)+' %p — 별표 5 허용오차는 차이 표 참고)':'(완공 면적과 다르면 고치십시오)')+(over?' <b class="k24-bad">⚠ 완공 % 가 조례 % 보다 큽니다</b>':'')+'</div>'; }
     else if(R.k==='pct') h+='<div class="k24-why k24-hint">조례 '+(R.id==='d3'?'조경':'공개공지')+' 비율은 도구에 들어 있지 않습니다 — 건축 조례 원문으로 넣으십시오(확인 필요).</div>';
     h+='</div>';
   });
   if(open) h+='</div>';
-  box.innerHTML=h||'<p class="pic-empty">보여 줄 행이 없습니다.</p>'; progress24();
+  box.innerHTML=h||'<p class="pic-empty">보여 줄 행이 없습니다.</p>'; progress24(); renderDiff();
 }
 function clean24(id){const a=ANS24[id]; if(a&&a.o==null&&!a.lv&&!a.v) delete ANS24[id];}
 function set24(id,f,v){v=String(v).trim(); const a=ANS24[id]||(ANS24[id]={}); if(/^\d+(\.\d+)?$/.test(v)) a[f]=v; else delete a[f]; delete a.c; clean24(id); progress24();}
@@ -1963,7 +2021,7 @@ function ok24(id){const a=ANS24[id]; if(a){delete a.c; delete a.w;} render24();}
 function clear24(){if(!confirm('사용승인 현장조사 답 '+counts24().done+'행을 모두 지웁니다. 계속할까요?')) return; ANS24={}; render24();}
 function judge24(){
   if(typeof window.judgeRules!=='function'){mmToast('선판정 규칙을 불러오지 못했습니다');return;}
-  const J=window.judgeRules(), u=J.u, by={}; J.R.forEach(x=>{by[x.k]=x;});
+  const AM=hasAB(), J=window.judgeRules(AM?abOver():null), u=J.u, by={}; J.R.forEach(x=>{by[x.k]=x;});   /* v6.1.27 준공 개요가 있으면 그 값으로 규칙을 돌린다 */
   if(!u.use&&u.tot==null&&u.site==null){mmToast('개요(주용도 · 면적)를 먼저 넣으십시오');return;}
   const nat=t=>t===NA||t==='비대상', cand={};
   [['1.2.0',['d3'],1],['1.10.0',['p12']],['1.9.0',['f1']],['1.9.1',['f2']],['1.11.0',['m2']],['1.12.0',['i1']],['1.65.0',['c1']],['1.15.0',['s1','s2']],['1.17.0',['h1']],
@@ -1975,17 +2033,34 @@ function judge24(){
   const tx=(u.zon+' '+u.use+' '+u.ln).replace(/\s+/g,'');
   if(u.zon&&!/지구단위/.test(tx)) cand.t1='개요 「지역 / 지구 / 구역」에 지구단위계획구역 글자 없음 — 토지이용계획확인원으로 확인';
   if(u.use&&!/공동주택|아파트|연립|다세대|오피스텔|집합|구분소유/.test(tx)){cand.g1=cand.g2='개요에 공동주택 · 집합건축물 글자 없음 — 구분소유(집합건축물대장)이면 해당';}
-  const ids=F24.map(R=>R.id).filter(id=>cand[id]&&!(ANS24[id]&&(ANS24[id].o!=null||ANS24[id].v)));
-  if(!ids.length){mmToast('새로 채울 「해당 없음」 후보가 없습니다');return;}
-  if(!confirm('「해당 없음」 후보 '+ids.length+'행을 채웁니다 — 모두 🟨 확인 필요로 표시합니다(완공 현장에서 확인한 뒤 「확인함」).\n「일치 · 불일치」는 도구가 고르지 않습니다.\n\n'+ids.map(id=>'· '+f24(id).t).join('\n')+'\n\n계속할까요?')) return;
+  if(AM) Object.keys(cand).forEach(id=>{cand[id]='준공 개요 · '+cand[id];});
+  /* v6.1.27 준공 개요 대조 — 높이(별표 5 허용오차) · 용도만 「일치 · 불일치」 후보. 현장을 봐야 하는 행은 채우지 않는다 */
+  const pr={};
+  if(AM){
+    const ph=numOf('bldHeight'), ah=abNum('bldHeight');
+    if(!cand.h1&&ph!=null&&ah!=null){const dd=Math.abs(ah-ph), t=tolH(ph), ok=dd<=t+1e-9;
+      pr.h1=[ok?'일치':'불일치','준공 개요 · 높이 허가 '+f2(ph)+' m → 준공 '+f2(ah)+' m(차이 '+f2(dd)+' m, 별표 5 허용오차 2 % · 1 m 이내 = '+f2(t)+' m '+(ok?'안':'넘음')+') — 높이제한 기준은 현장 · 도면으로 확인'];}
+    const pu=valOf('mainUse'), au=AB.mainUse, pz=valOf('zoning'), az=AB.zoning;
+    if(pu&&au){const same=nsp(pu)===nsp(au)&&(!az||!pz||nsp(az)===nsp(pz));
+      pr.u1=[same?'일치':'불일치','준공 개요 · 주용도 허가 「'+pu+'」 → 준공 「'+au+'」'+(az&&pz?' · 용도지역 「'+pz+'」 → 「'+az+'」':'')+(same?'':' — 용도변경 · 설계변경 여부 확인')];}
+  }
+  const free=id=>!(ANS24[id]&&(ANS24[id].o!=null||ANS24[id].v));
+  const ids=F24.map(R=>R.id).filter(id=>cand[id]&&free(id)), pids=F24.map(R=>R.id).filter(id=>pr[id]&&!cand[id]&&free(id));
+  if(!ids.length&&!pids.length){mmToast(AM?'새로 채울 후보가 없습니다':'새로 채울 「해당 없음」 후보가 없습니다');return;}
+  if(!confirm((AM?'준공 설계개요로 후보 ':'「해당 없음」 후보 ')+(ids.length+pids.length)+'행을 채웁니다 — 모두 🟨 확인 필요로 표시합니다(완공 현장에서 확인한 뒤 「확인함」).\n'
+    +(AM?'「일치 · 불일치」 후보는 높이 · 용도만 냅니다. 그 밖의 행은 조사자가 고릅니다.':'「일치 · 불일치」는 도구가 고르지 않습니다(준공 설계개요를 넣으면 높이 · 용도만 후보를 냄).')+'\n\n'
+    +ids.map(id=>'· '+f24(id).t+(AM?' — 해당 없음':'')).concat(pids.map(id=>'· '+f24(id).t+' — '+pr[id][0])).join('\n')+'\n\n계속할까요?')) return;
   ids.forEach(id=>{const a=ANS24[id]||(ANS24[id]={}); a.o='해당 없음'; a.c=4; a.w=cand[id].slice(0,300);});
-  render24(); mmToast(ids.length+'행 채움 — 🟨 확인 필요');
+  pids.forEach(id=>{const a=ANS24[id]||(ANS24[id]={}); a.o=pr[id][0]; a.c=4; a.w=pr[id][1].slice(0,300);});
+  render24(); mmToast((ids.length+pids.length)+'행 채움 — 🟨 확인 필요');
 }
 function guard24(){const c=counts24(), L=[];
   if(!c.done)L.push('현장조사 답 0/'+c.all+' — 빈 서식을 인쇄합니다.');
   else if(c.all-c.done)L.push('미답 '+(c.all-c.done)+'행이 빈 [  ]로 인쇄됩니다(답한 행 '+c.done+'/'+c.all+').');
-  if(c.auto)L.push('「확인 필요」 답이 '+c.auto+'행 남아 있습니다(개요 · 23호 규칙으로 고른 「해당 없음」 후보) — 완공 현장에서 확인하지 않은 답이 그대로 인쇄됩니다.');
+  if(c.auto)L.push('「확인 필요」 답이 '+c.auto+'행 남아 있습니다(선판정으로 고른 「해당 없음」 · 「일치 · 불일치」 후보) — 완공 현장에서 확인하지 않은 답이 그대로 인쇄됩니다.');
   if(!valOf('permitNo')||!valOf('permitDate'))L.push('허가번호 · 허가일자가 비어 있습니다.');
+  if(!hasAB())L.push('준공 설계개요가 없습니다 — 「해당 없음」 후보 · 건폐율 · 용적률 완공 % 는 허가 개요 기준입니다.');   /* v6.1.27 */
+  else {const fl=diffAB().filter(x=>x.f); if(fl.length)L.push('허가 → 준공 차이 ⚠ '+fl.length+'건: '+fl.map(x=>x.nm.replace(/ \(.*\)$/,'')+' '+x.f).join(' · ')+' — 설계변경 허가 · 신고 대상인지 확인하십시오.');}
   return !L.length||confirm(L.join('\n\n')+'\n\n계속할까요?\n\n(현장조사 탭 「보기」에서 미답 · 확인 필요만 골라 볼 수 있습니다)');}
 function slot24(v,w){return '( <span class="p24-v">'+(v!==''&&v!=null?esc(v):'&nbsp;'.repeat(w||8))+'</span> )';}
 function mark24(opts,sel){return opts.map(o=>'<span class="p24-o">['+(sel===o?'√':'&nbsp;&nbsp;')+']'+esc(o)+'</span>').join(' ');}
@@ -2025,7 +2100,7 @@ function applyKind(){
   t('.tab-btn[data-tab="check"]',k==='24'?'☑ 현장조사(제24호)':'☑ 체크리스트');
   t('.tab-btn[data-tab="result"]',k==='24'?'📄 사용승인조서':'📄 조서 · 체크리스트');
   t('#cover-title',k==='24'?'조서 표지 — 별지 제24호서식':'조서 표지 — 별지 제23호서식');
-  if(k==='24'){render24();} else progress();
+  if(k==='24'){renderAB(); render24();} else progress();
   if(document.getElementById('tab-result')&&document.getElementById('tab-result').classList.contains('active')) renderResult();
 }
 function setKind(k){const e=document.getElementById('formKind'); if(!e||kindOf()===k) return; e.value=k; applyKind(); mmToast(k==='24'?'사용승인조사 및 검사조서(별지 제24호서식)로 바꿨습니다 — 개요 · 조사자 값은 그대로':'건축허가조사 및 검사조서(별지 제23호서식)로 바꿨습니다');}
@@ -2398,34 +2473,38 @@ setTimeout(scaleA4,100);
   function esc2(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
   function showPreview(res,fileName){
     (function(){var t=document.getElementById('mm-toast'); if(t){clearTimeout(t._tm); t.classList.remove('show');}})();
-    var ex=extract(res.best.pg), V=ex.val, rows='', n=0;
+    var ex=extract(res.best.pg), V=ex.val, rows='', n=0, AM=!!window._abMode, cur0=function(id){return AM?(AB[id]||''):valOf(id);};   /* v6.1.27 준공 설계개요 모드 — 허가 개요 칸은 건드리지 않는다 */
     if(V._bcrLegal!=null&&V.bcrLegal==null){V.bcrLegal=String(V._bcrLegal);ex.src.bcrLegal=ex.src._bcrLegal;} if(V._farLegal!=null&&V.farLegal==null){V.farLegal=String(V._farLegal);ex.src.farLegal=ex.src._farLegal;}
     ORDER.forEach(function(id){
-      if(V[id]==null) return; n++;
-      var cur=valOf(id), same=cur===V[id], on=!cur||same;
+      if(V[id]==null) return; if(AM&&AB_KEYS.indexOf(id)<0) return; n++;
+      var cur=cur0(id), same=cur===V[id], on=!cur||same;
       rows+='<tr><td><input type="checkbox" id="pp-c-'+id+'" '+(on?'checked':'')+' aria-label="'+esc2(NAMES[id])+' 채우기"></td><td class="pp-nm"><label for="pp-v-'+id+'">'+esc2(NAMES[id])+'</label></td>'
         +'<td><input class="pp-in" type="text" id="pp-v-'+id+'" value="'+esc2(V[id])+'"></td><td class="pp-cur">'+(cur?(same?'같음':'지금 값: '+esc2(cur)):'빈 칸')+'</td></tr>';
     });
-    var ref=[]; if(V._bcr)ref.push('도면의 건폐율 '+V._bcr+' %'+(V._bcrLegal?' (법정 '+V._bcrLegal+' %)':'')); if(V._far)ref.push('도면의 용적률 '+V._far+' %'+(V._farLegal?' (법정 '+V._farLegal+' %)':'')); if(V._relLot)ref.push('관련 지번 '+V._relLot+'(지번 칸에는 넣지 않음)'); if(V._parkQ&&V.parkLegal!=null)ref.push('주차 산출식 '+V._parkQ+'(주차장법 시행령 별표 1 비고 6 — 0.5 이상 1대)'); if(res.notes&&res.notes.length)ref.push('「분할」 글자: '+res.notes.join(' / ')+'(채우면 보관 — 선판정 건축 15 대지분할제한)');
-    var miss=ORDER.filter(function(id){return V[id]==null;}).map(function(id){return NAMES[id];});
+    var ref=[]; if(V._bcr)ref.push('도면의 건폐율 '+V._bcr+' %'+(V._bcrLegal?' (법정 '+V._bcrLegal+' %)':'')); if(V._far)ref.push('도면의 용적률 '+V._far+' %'+(V._farLegal?' (법정 '+V._farLegal+' %)':'')); if(V._relLot)ref.push('관련 지번 '+V._relLot+'(지번 칸에는 넣지 않음)'); if(V._parkQ&&V.parkLegal!=null)ref.push('주차 산출식 '+V._parkQ+'(주차장법 시행령 별표 1 비고 6 — 0.5 이상 1대)'); if(!AM&&res.notes&&res.notes.length)ref.push('「분할」 글자: '+res.notes.join(' / ')+'(채우면 보관 — 선판정 건축 15 대지분할제한)');
+    var miss=ORDER.filter(function(id){return V[id]==null&&(!AM||AB_KEYS.indexOf(id)>=0);}).map(function(id){return NAMES[id];});
     /* v6.1.20 도면에 적힌 건폐율 · 용적률과 읽은 면적으로 계산한 값이 1 %p 넘게 다르면 경고 */
     var chk=[];(function(){var s=+V.siteArea||0,b=+V.bldArea||0,t=+V.totalArea||0,fa=V.farArea!=null?+V.farArea:0,db=V._bcr!=null?+V._bcr:null,df=V._far!=null?+V._far:null;
       if(s&&b&&db!=null){var cb=b/s*100;if(Math.abs(cb-db)>1)chk.push('건폐율: 도면 '+db+' % · 읽은 면적으로 계산 '+cb.toFixed(2)+' %');}
       if(s&&(fa||t)&&df!=null){var cf=(fa||t)/s*100;if(Math.abs(cf-df)>1)chk.push('용적률: 도면 '+df+' % · 읽은 '+(fa?'용적률 산정용 연면적':'연면적')+'으로 계산 '+cf.toFixed(2)+' %'+(fa?'':'(용적률 산정용 연면적을 못 읽음 — 도면 비율로 거꾸로 셈하면 약 '+(s*df/100).toFixed(2)+' ㎡)'));}
       if(b&&t&&t+0.01<b)chk.push('연면적 '+t+' ㎡ 가 건축면적 '+b+' ㎡ 보다 작음');})();
     var ov=document.getElementById('pp-ov'); if(!ov){ov=document.createElement('div');ov.id='pp-ov';ov.className='pp-ov no-print';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-labelledby','pp-ttl');document.body.appendChild(ov);}
-    ov.innerHTML='<div class="pp-box"><div class="pp-hd"><div id="pp-ttl" class="pp-ttl">📄 설계개요 PDF 에서 읽은 값</div><button type="button" class="pp-x" aria-label="닫기" onclick="ppClose()">✕</button></div>'
-      +'<div class="pp-bd"><div class="pp-info">'+esc2(fileName)+' · 전체 '+res.pages+'쪽 중 <b>'+res.best.page+'쪽</b>을 개요 쪽으로 보고 읽었습니다. 값을 확인 · 수정한 뒤 「채우기」를 누르십시오. 이미 값이 있는 칸은 체크를 꺼 두었습니다.</div>'
-      +(n?'<table class="pp-tbl"><thead><tr><th>채움</th><th>칸</th><th>읽은 값</th><th>지금 화면</th></tr></thead><tbody>'+rows+'</tbody></table>':'<div class="pp-warn">읽을 수 있는 개요 값을 찾지 못했습니다. 직접 입력해 주십시오.</div>')
+    ov.innerHTML='<div class="pp-box"><div class="pp-hd"><div id="pp-ttl" class="pp-ttl">'+(AM?'🏁 준공 설계개요 PDF 에서 읽은 값':'📄 설계개요 PDF 에서 읽은 값')+'</div><button type="button" class="pp-x" aria-label="닫기" onclick="ppClose()">✕</button></div>'
+      +'<div class="pp-bd"><div class="pp-info">'+esc2(fileName)+' · 전체 '+res.pages+'쪽 중 <b>'+res.best.page+'쪽</b>을 개요 쪽으로 보고 읽었습니다. 값을 확인 · 수정한 뒤 「채우기」를 누르십시오. 이미 값이 있는 칸은 체크를 꺼 두었습니다.'+(AM?' <b>준공 개요 칸에만 채우며 허가 개요는 바뀌지 않습니다.</b>':'')+'</div>'
+      +(n?'<table class="pp-tbl"><thead><tr><th>채움</th><th>칸</th><th>읽은 값</th><th>'+(AM?'지금 준공 값':'지금 화면')+'</th></tr></thead><tbody>'+rows+'</tbody></table>':'<div class="pp-warn">읽을 수 있는 개요 값을 찾지 못했습니다. 직접 입력해 주십시오.</div>')
       +(chk.length?'<div class="pp-warn">⚠ 도면 값과 맞지 않습니다 — 면적을 PDF 와 다시 맞춰 보십시오: '+esc2(chk.join(' · '))+'</div>':'')
-      +(ref.length?'<div class="pp-ref">참고 — '+esc2(ref.join(' · '))+' (채운 뒤 체크리스트 탭 「⚡ 개요로 자동 선판정」으로 대조)</div>':'')
+      +(ref.length?'<div class="pp-ref">참고 — '+esc2(ref.join(' · '))+(AM?'':' (채운 뒤 체크리스트 탭 「⚡ 개요로 자동 선판정」으로 대조)')+'</div>':'')
       +(miss.length?'<div class="pp-miss">못 읽은 칸: '+esc2(miss.join(', '))+'</div>':'')
       +'</div><div class="pp-ft"><button type="button" class="pic-btn" onclick="ppClose()">닫기</button>'+(n?'<button type="button" class="pic-btn pp-go" onclick="ppFill()">채우기</button>':'')+'</div></div>';
     ov.hidden=false; document.body.style.overflow='hidden'; window._ppLast={val:V,src:ex.src,page:res.best.page,score:res.best.score,pages:res.pages,chars:res.chars,notes:res.notes||[]};
     var f=ov.querySelector('.pp-go')||ov.querySelector('.pp-x'); if(f)f.focus();
   }
-  window.ppClose=function(){var ov=document.getElementById('pp-ov');if(ov)ov.hidden=true;document.body.style.overflow='';};
+  window.ppClose=function(){var ov=document.getElementById('pp-ov');if(ov)ov.hidden=true;document.body.style.overflow='';window._abMode=false;};
   window.ppFill=function(){
+    if(window._abMode){ var m=0; ORDER.forEach(function(id){   /* v6.1.27 준공 설계개요 — AB 에만 넣는다 */
+        if(AB_KEYS.indexOf(id)<0) return; var c=document.getElementById('pp-c-'+id), v=document.getElementById('pp-v-'+id); if(!c||!v||!c.checked) return;
+        var val=v.value.trim().replace(/,/g,AB_NUM.indexOf(id)>=0?'':','); if(!val||SSN.test(val)) return; if(AB_NUM.indexOf(id)>=0&&!/^\d+(\.\d+)?$/.test(val)) return; AB[id]=AB_NUM.indexOf(id)>=0?val:val.slice(0,120); m++; });
+      window.ppClose(); renderAB(); render24(); mmToast(m+'칸 채움(준공 설계개요) — 다음: ⚡ 선판정'); return; }
     var n=0; ORDER.forEach(function(id){
       var c=document.getElementById('pp-c-'+id), v=document.getElementById('pp-v-'+id), e=document.getElementById(id); if(!c||!v||!e||!c.checked) return;
       var val=v.value.trim(); if(SSN.test(val)) return;
@@ -2805,7 +2884,7 @@ setTimeout(scaleA4,100);
     return {rows:rows,done:done,bad:bad,need:need,warn:warn,off4:off4};
   }
   /* v6.1.26 24호 「해당 없음」 선판정이 같은 규칙을 쓴다(③ 은 용도지역 글자가 있을 때만 — plan() 과 같음) */
-  window.judgeRules=function(){var u=U(),r=rules(u),zOK=(znNorm(u.zon).match(ZONE_RE)||[]).length>0;return {u:u,R:r.R.filter(function(x){return !(x.tier===3&&!zOK);})};};
+  window.judgeRules=function(ov){var u=U(); if(ov)Object.keys(ov).forEach(function(k){if(ov[k]!=null)u[k]=ov[k];}); var r=rules(u),zOK=(znNorm(u.zon).match(ZONE_RE)||[]).length>0;return {u:u,R:r.R.filter(function(x){return !(x.tier===3&&!zOK);})};};
   window.judgeOpen=function(){
     var P=plan(); window._jdLast=P;
     var ov=document.getElementById('jd-ov'); if(!ov){ov=document.createElement('div');ov.id='jd-ov';ov.className='pp-ov no-print';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-labelledby','jd-ttl');document.body.appendChild(ov);}
